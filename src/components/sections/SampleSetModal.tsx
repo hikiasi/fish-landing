@@ -1,0 +1,116 @@
+"use client"
+
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Package, ShieldCheck, Truck } from "lucide-react"
+
+const sampleSetSchema = z.object({
+  name: z.string().min(2, "Введите имя"),
+  phone: z.string().min(10, "Введите корректный номер телефона"),
+  address: z.string().min(5, "Введите адрес доставки"),
+  addShrimp: z.boolean().default(false),
+})
+
+type SampleSetValues = z.infer<typeof sampleSetSchema>
+
+interface SampleSetModalProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export function SampleSetModal({ isOpen, onClose }: SampleSetModalProps) {
+  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm<SampleSetValues>({
+    resolver: zodResolver(sampleSetSchema),
+    defaultValues: {
+      addShrimp: false
+    }
+  })
+
+  const addShrimp = watch("addShrimp")
+
+  const onSubmit = (data: SampleSetValues) => {
+    console.log("Sample Set Order:", data)
+    alert("Заказ на тестовый набор принят! Мы свяжемся с вами в ближайшее время.")
+    reset()
+    onClose()
+  }
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-3xl border-none">
+        <div className="bg-sky-600 p-8 text-white relative">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold flex items-center gap-3 text-white">
+              <Package className="w-6 h-6" />
+              Тестовый набор
+            </DialogTitle>
+            <DialogDescription className="text-sky-100">
+              Попробуйте наше качество: 2 кг микса рыбы всего за 990₽
+            </DialogDescription>
+          </DialogHeader>
+        </div>
+        
+        <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-6 bg-white">
+          <div className="space-y-4">
+            <div>
+              <Input placeholder="Как к вам обращаться?" {...register("name")} className="h-12 rounded-xl" />
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
+            </div>
+            <div>
+              <Input placeholder="+7 (___) ___-__-__" {...register("phone")} className="h-12 rounded-xl" />
+              {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
+            </div>
+            <div>
+              <Input placeholder="Адрес доставки" {...register("address")} className="h-12 rounded-xl" />
+              {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address.message}</p>}
+            </div>
+
+            <div className="flex items-center space-x-3 p-4 bg-orange-50 rounded-2xl border border-orange-100">
+              <Checkbox 
+                id="shrimp" 
+                checked={addShrimp}
+                onCheckedChange={(checked) => setValue("addShrimp", checked as boolean)}
+              />
+              <label htmlFor="shrimp" className="text-sm font-medium text-orange-900 cursor-pointer">
+                Добавить креветки 0.5 кг (+390₽)
+              </label>
+            </div>
+          </div>
+
+          <div className="pt-4 border-t border-slate-100">
+            <div className="flex justify-between items-center mb-6">
+              <span className="text-slate-500 font-medium">Итого к оплате:</span>
+              <span className="text-2xl font-bold text-sky-600">{addShrimp ? 1380 : 990} ₽</span>
+            </div>
+            
+            <Button type="submit" className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-xl shadow-xl shadow-sky-100">
+              Заказать тестовый набор
+            </Button>
+            
+            <div className="flex items-center justify-center gap-6 py-2 mt-4">
+              <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                <ShieldCheck className="w-4 h-4 text-green-500" />
+                Гарантия качества
+              </div>
+              <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                <Truck className="w-4 h-4 text-sky-500" />
+                Бесплатная доставка
+              </div>
+            </div>
+          </div>
+        </form>
+      </DialogContent>
+    </Dialog>
+  )
+}
