@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Product } from "@/context/CartContext"
 import { ShoppingCart, ShieldCheck, Clock } from "lucide-react"
 
@@ -20,6 +21,7 @@ const fastOrderSchema = z.object({
   phone: z.string().min(10, "Введите корректный номер телефона"),
   address: z.string().min(5, "Введите адрес доставки"),
   comment: z.string().optional(),
+  agree: z.boolean().refine(val => val === true, "Необходимо согласие")
 })
 
 type FastOrderValues = z.infer<typeof fastOrderSchema>
@@ -31,22 +33,40 @@ interface FastOrderModalProps {
 }
 
 export function FastOrderModal({ product, isOpen, onClose }: FastOrderModalProps) {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FastOrderValues>({
+  const { register, handleSubmit, formState: { errors, isSubmitting }, reset, setValue, watch } = useForm<FastOrderValues>({
     resolver: zodResolver(fastOrderSchema),
+    defaultValues: { agree: true }
   })
 
-  const onSubmit = (data: FastOrderValues) => {
-    console.log("Fast Order:", { product, ...data })
-    alert("Заказ принят! Мы перезвоним вам в течение 15 минут.")
-    reset()
-    onClose()
+  const agree = watch("agree")
+
+  const onSubmit = async (data: FastOrderValues) => {
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...data,
+          type: "RETAIL",
+          cart: product ? [{ name: product.name, quantity: 1 }] : [],
+          total: product?.price
+        })
+      })
+      if (res.ok) {
+        alert("Заказ принят! Мы перезвоним вам в течение 15 минут.")
+        reset()
+        onClose()
+      }
+    } catch (err) {
+      alert("Ошибка при отправке заказа")
+    }
   }
 
   if (!product) return null
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-3xl border-none">
+      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-[40px] border-none">
         <div className="bg-sky-600 p-8 text-white relative">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold flex items-center gap-3 text-white">
@@ -87,8 +107,25 @@ export function FastOrderModal({ product, isOpen, onClose }: FastOrderModalProps
           </div>
 
           <div className="space-y-4">
-            <Button type="submit" className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-xl shadow-xl shadow-sky-100">
-              Заказать
+            <div className="flex items-start gap-2 px-1">
+              <Checkbox
+                id="agree"
+                checked={agree}
+                onCheckedChange={(checked) => setValue("agree", !!checked)}
+                className="mt-1"
+              />
+              <label htmlFor="agree" className="text-[10px] text-slate-400 leading-tight">
+                Согласен с <a href="#" className="underline">политикой конфиденциальности</a> и даю согласие на <a href="#" className="underline">обработку персональных данных</a>
+              </label>
+            </div>
+            {errors.agree && <p className="text-red-500 text-[10px]">{errors.agree.message}</p>}
+
+            <Button
+              type="submit"
+              className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Отправка..." : "Заказать"}
             </Button>
             
             <div className="flex items-center justify-center gap-6 py-2 border-t border-slate-100 mt-4">

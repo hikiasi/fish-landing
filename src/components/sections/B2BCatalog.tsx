@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { ChevronRight, Package, Truck, Clock, CreditCard } from "lucide-react"
+import { ChevronRight, Package, Truck, Clock, CreditCard, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Accordion,
@@ -12,38 +12,28 @@ import {
 } from "@/components/ui/accordion"
 import { B2BSamplesModal } from "./B2BSamplesModal"
 
-const B2B_PRODUCTS = [
-  {
-    category: "Филе и стейки рыб",
-    items: [
-      { name: "Стейк сёмги с/м 2-3 см", pack: "10 кг коробка", price1: "690₽", price2: "650₽" },
-      { name: "Филе трески б/к с/м", pack: "5 кг блок", price1: "480₽", price2: "440₽" },
-      { name: "Стейк палтуса с/м", pack: "10 кг", price1: "920₽", price2: "870₽" },
-      { name: "Филе хека с/м", pack: "5 кг", price1: "310₽", price2: "290₽" },
-      { name: "Стейк тунца с/м", pack: "5 кг", price1: "1150₽", price2: "1090₽" },
-    ]
-  },
-  {
-    category: "Креветки и раки",
-    items: [
-      { name: "Креветка королевская в/м 16/20", pack: "2 кг блок", price1: "1190₽", price2: "1140₽" },
-      { name: "Креветка тигровая в/м 13/15", pack: "2 кг", price1: "1450₽", price2: "1390₽" },
-      { name: "Креветка северная в/м 90/120", pack: "1 кг", price1: "680₽", price2: "640₽" },
-      { name: "Лангустины L1", pack: "2 кг", price1: "2100₽", price2: "1990₽" },
-    ]
-  },
-  {
-    category: "Мидии, гребешки, кальмары",
-    items: [
-      { name: "Кальмар тушка очищенная", pack: "10 кг", price1: "420₽", price2: "390₽" },
-      { name: "Мидии в створках", pack: "5 кг", price1: "550₽", price2: "520₽" },
-      { name: "Гребешок морской", pack: "1 кг", price1: "1850₽", price2: "1790₽" },
-    ]
-  }
-]
-
 export function B2BCatalog() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [products, setProducts] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch("/api/products?type=b2b")
+      const data = await res.json()
+      setProducts(data || [])
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchProducts()
+  }, [])
+
+  const categories = Array.from(new Set(products.map(p => p.category)))
 
   return (
     <section id="b2b-catalog" className="py-24 bg-slate-50">
@@ -63,11 +53,11 @@ export function B2BCatalog() {
         </motion.div>
 
         <div className="max-w-5xl mx-auto mb-16">
-          <Accordion type="multiple" defaultValue={["item-0"]} className="space-y-4">
-            {B2B_PRODUCTS.map((cat, i) => (
-              <AccordionItem key={i} value={`item-${i}`} className="bg-white border border-slate-100 rounded-2xl px-6 shadow-sm overflow-hidden">
+          <Accordion type="multiple" defaultValue={categories.slice(0, 1)} className="space-y-4">
+            {categories.map((cat, i) => (
+              <AccordionItem key={i} value={cat} className="bg-white border border-slate-100 rounded-2xl px-6 shadow-sm overflow-hidden">
                 <AccordionTrigger className="hover:no-underline py-6">
-                  <span className="text-xl font-bold text-slate-900">{cat.category}</span>
+                  <span className="text-xl font-bold text-slate-900">{cat}</span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="overflow-x-auto">
@@ -81,25 +71,29 @@ export function B2BCatalog() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-50">
-                        {cat.items.map((item, j) => (
+                        {products.filter(p => p.category === cat).map((item, j) => (
                           <tr key={j} className="text-sm">
                             <td className="py-4 font-bold text-slate-800">{item.name}</td>
-                            <td className="py-4 text-slate-500">{item.pack}</td>
-                            <td className="py-4 text-slate-900 font-medium">{item.price1}/кг</td>
-                            <td className="py-4 text-sky-600 font-bold">{item.price2}/кг</td>
+                            <td className="py-4 text-slate-500">{item.weight}</td>
+                            <td className="py-4 text-slate-900 font-medium">{item.price}₽/кг</td>
+                            <td className="py-4 text-sky-600 font-bold">{item.price200 || item.price}₽/кг</td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
                   <Button variant="ghost" className="mt-4 text-sky-600 font-bold hover:bg-sky-50">
-                    Ещё 23 позиции в категории
+                    Ещё позиции в категории
                     <ChevronRight className="w-4 h-4 ml-1" />
                   </Button>
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
+
+          {loading && (
+            <div className="text-center py-10 text-slate-400 animate-pulse">Загрузка ассортимента...</div>
+          )}
         </div>
 
         {/* Special Conditions */}
@@ -124,7 +118,7 @@ export function B2BCatalog() {
           <Button 
             onClick={() => setIsModalOpen(true)}
             size="lg" 
-            className="bg-sky-600 hover:bg-sky-700 h-14 px-10 text-lg shadow-xl shadow-sky-100"
+            className="bg-sky-600 hover:bg-sky-700 h-14 px-10 text-lg shadow-xl shadow-sky-100 rounded-2xl"
           >
             Запросить полный прайс + образцы
           </Button>

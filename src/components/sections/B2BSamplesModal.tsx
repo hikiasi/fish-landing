@@ -13,17 +13,17 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
-import { FileText, Award, ShieldCheck } from "lucide-react"
+import { Package, ShieldCheck, Truck } from "lucide-react"
 
-const b2bSamplesSchema = z.object({
+const samplesSchema = z.object({
   company: z.string().min(2, "Введите название компании"),
-  name: z.string().min(2, "Введите ваше имя"),
+  name: z.string().min(2, "Введите имя"),
   phone: z.string().min(10, "Введите корректный номер телефона"),
   email: z.string().email("Введите корректный email"),
-  requestSamples: z.boolean().default(false),
+  agree: z.boolean().refine(val => val === true, "Необходимо согласие")
 })
 
-type B2BSamplesValues = z.infer<typeof b2bSamplesSchema>
+type SamplesValues = z.infer<typeof samplesSchema>
 
 interface B2BSamplesModalProps {
   isOpen: boolean
@@ -31,89 +31,86 @@ interface B2BSamplesModalProps {
 }
 
 export function B2BSamplesModal({ isOpen, onClose }: B2BSamplesModalProps) {
-  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm<B2BSamplesValues>({
-    resolver: zodResolver(b2bSamplesSchema),
-    defaultValues: {
-      requestSamples: true
-    }
+  const { register, handleSubmit, setValue, watch, formState: { errors, isSubmitting }, reset } = useForm<SamplesValues>({
+    resolver: zodResolver(samplesSchema),
+    defaultValues: { agree: true }
   })
 
-  const requestSamples = watch("requestSamples")
+  const agree = watch("agree")
 
-  const onSubmit = (data: B2BSamplesValues) => {
-    console.log("B2B Samples Request:", data)
-    alert("Запрос отправлен! Мы свяжемся с вами для уточнения состава образцов.")
-    reset()
-    onClose()
+  const onSubmit = async (data: SamplesValues) => {
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, type: "B2B", comment: "Запрос бесплатных образцов 5 кг" })
+      })
+      if (res.ok) {
+        alert("Заявка принята! Менеджер свяжется с вами для уточнения состава тестового набора.")
+        reset()
+        onClose()
+      }
+    } catch (err) {
+      alert("Ошибка при отправке")
+    }
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-3xl border-none">
-        <div className="bg-slate-900 p-8 text-white relative">
+      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-[40px] border-none">
+        <div className="bg-sky-600 p-8 text-white relative">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold flex items-center gap-3 text-white">
-              <FileText className="w-6 h-6 text-sky-400" />
-              Оптовый прайс и образцы
+              <Package className="w-6 h-6" />
+              Бесплатные образцы
             </DialogTitle>
-            <DialogDescription className="text-slate-400">
-              Отправим полный каталог (127 позиций) и обсудим доставку тестовой партии.
+            <DialogDescription className="text-sky-100">
+              Привезем 5 кг рыбы на пробу. Оплачивается только доставка 400₽.
             </DialogDescription>
           </DialogHeader>
         </div>
         
         <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-6 bg-white">
           <div className="space-y-4">
-            <div>
-              <Input placeholder="Название компании / ресторана" {...register("company")} className="h-12 rounded-xl" />
-              {errors.company && <p className="text-red-500 text-xs mt-1">{errors.company.message}</p>}
-            </div>
-            <div>
-              <Input placeholder="Ваше имя" {...register("name")} className="h-12 rounded-xl" />
-              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Input placeholder="Телефон" {...register("phone")} className="h-12 rounded-xl" />
-                {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
-              </div>
-              <div>
-                <Input placeholder="Email" {...register("email")} className="h-12 rounded-xl" />
-                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
-              </div>
-            </div>
+            <Input placeholder="Название компании / ресторана" {...register("company")} className="h-12 rounded-xl" />
+            {errors.company && <p className="text-red-500 text-xs mt-1">{errors.company.message}</p>}
 
-            <div className="flex items-start space-x-3 p-4 bg-sky-50 rounded-2xl border border-sky-100">
-              <Checkbox 
-                id="samples" 
-                checked={requestSamples}
-                onCheckedChange={(checked) => setValue("requestSamples", checked as boolean)}
-                className="mt-1"
-              />
-              <div className="grid gap-1.5 leading-none">
-                <label htmlFor="samples" className="text-sm font-bold text-sky-900 cursor-pointer">
-                  Хочу получить тестовые образцы 5 кг
-                </label>
-                <p className="text-[10px] text-sky-700">
-                  Бесплатно, оплачивается только доставка курьером (400₽)
-                </p>
-              </div>
-            </div>
+            <Input placeholder="Ваше имя" {...register("name")} className="h-12 rounded-xl" />
+            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
+
+            <Input placeholder="+7 (___) ___-__-__" {...register("phone")} className="h-12 rounded-xl" />
+            {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
+
+            <Input placeholder="Email для прайса" {...register("email")} className="h-12 rounded-xl" />
+            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
           </div>
 
-          <div className="pt-4 border-t border-slate-100">
-            <Button type="submit" className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-xl shadow-xl shadow-sky-100">
-              Получить прайс-лист
+          <div className="space-y-4">
+            <div className="flex items-start gap-2 px-1">
+              <Checkbox 
+                id="samples-agree"
+                checked={agree}
+                onCheckedChange={(checked) => setValue("agree", !!checked)}
+                className="mt-1"
+              />
+              <label htmlFor="samples-agree" className="text-[10px] text-slate-400 leading-tight">
+                Согласен с <a href="#" className="underline">политикой конфиденциальности</a> и даю согласие на <a href="#" className="underline">обработку персональных данных</a>
+              </label>
+            </div>
+            {errors.agree && <p className="text-red-500 text-[10px]">{errors.agree.message}</p>}
+
+            <Button type="submit" className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all" disabled={isSubmitting}>
+              {isSubmitting ? "Отправка..." : "Получить образцы"}
             </Button>
             
-            <div className="grid grid-cols-2 gap-4 mt-6">
-              <div className="flex items-center gap-1.5 text-[9px] text-slate-400 font-bold uppercase tracking-wider">
-                <ShieldCheck className="w-3 h-3 text-green-500" />
-                Все сертификаты
+            <div className="flex items-center justify-center gap-6 py-2 border-t border-slate-100 mt-4">
+              <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                <Truck className="w-4 h-4 text-sky-500" />
+                Доставка 400₽
               </div>
-              <div className="flex items-center gap-1.5 text-[9px] text-slate-400 font-bold uppercase tracking-wider">
-                <Award className="w-3 h-3 text-sky-500" />
-                Прямой контракт
+              <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                <ShieldCheck className="w-4 h-4 text-green-500" />
+                Без обязательств
               </div>
             </div>
           </div>

@@ -1,137 +1,151 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { TrendingDown, CalendarCheck, FileText, Send } from "lucide-react"
+import { TrendingDown, CalendarCheck, FileText, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Card } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 
 const b2bHeroSchema = z.object({
   company: z.string().min(2, "Введите название компании"),
-  name: z.string().min(2, "Введите ваше имя"),
+  name: z.string().min(2, "Введите имя"),
   phone: z.string().min(10, "Введите корректный номер телефона"),
   email: z.string().email("Введите корректный email"),
-  volume: z.string().min(1, "Выберите объем закупки"),
+  agree: z.boolean().refine(val => val === true, "Необходимо согласие")
 })
 
 type B2BHeroValues = z.infer<typeof b2bHeroSchema>
 
 export function B2BHero() {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<B2BHeroValues>({
+  const { register, handleSubmit, setValue, watch, formState: { errors, isSubmitting }, reset } = useForm<B2BHeroValues>({
     resolver: zodResolver(b2bHeroSchema),
+    defaultValues: { agree: true }
   })
 
-  const onSubmit = (data: B2BHeroValues) => {
-    console.log("B2B Lead:", data)
-    alert("Заявка отправлена! Мы свяжемся с вами в течение 15 минут.")
-    reset()
+  const agree = watch("agree")
+
+  const onSubmit = async (data: B2BHeroValues) => {
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, type: "B2B", comment: "Запрос прайса с главного B2B экрана" })
+      })
+      if (res.ok) {
+        alert("Запрос отправлен! Прайс будет отправлен на вашу почту в ближайшее время.")
+        reset()
+      }
+    } catch (err) {
+      alert("Ошибка при отправке")
+    }
   }
 
   return (
-    <section id="b2b-hero" className="py-24 bg-slate-900 text-white relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-sky-500/10 blur-[120px] rounded-full -mr-64 -mt-64" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-500/10 blur-[120px] rounded-full -ml-64 -mb-64" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section id="b2b-hero" className="py-24 bg-white overflow-hidden">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col lg:flex-row gap-16 items-center">
           {/* Left: Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="inline-block px-4 py-1.5 rounded-full bg-sky-500/20 border border-sky-500/30 text-sky-400 text-xs font-bold uppercase tracking-widest mb-6">
-              B2B / HoReCa Поставки
-            </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-              Стабильные поставки рыбы <br />
-              <span className="text-sky-400">для вашего бизнеса</span>
-            </h1>
-            <p className="text-xl text-slate-400 mb-10 leading-relaxed max-w-xl">
-              Прямой контракт с заводом в Калининграде • Цены от производителя • Отсрочка платежа до 14 дней
-            </p>
+          <div className="lg:w-1/2">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
+                Стабильные поставки рыбы и морепродуктов для вашего бизнеса
+              </h2>
+              <p className="text-xl text-slate-500 mb-12 leading-relaxed">
+                Прямой контракт с заводом в Калининграде • Цены от производителя • Отсрочка до 14 дней
+              </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-              {[
-                { icon: TrendingDown, title: "Цена на 25-40% ниже", sub: "Минус посредники" },
-                { icon: CalendarCheck, title: "3 раза в неделю", sub: "Доставка по графику" },
-                { icon: FileText, title: "Полный пакет док-тов", sub: "ВЕТСД, декларации" },
-              ].map((usp, i) => (
-                <div key={i} className="flex flex-col gap-3">
-                  <div className="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center text-sky-400">
-                    <usp.icon className="w-5 h-5" />
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
+                {[
+                  { icon: TrendingDown, title: "Цена на 25-40% ниже", desc: "Минус посредники" },
+                  { icon: CalendarCheck, title: "Поставки 3 раза в неделю", desc: "Свежесть по графику" },
+                  { icon: FileText, title: "Полный пакет документов", desc: "ВЕТСД, Меркурий" },
+                ].map((item, i) => (
+                  <div key={i} className="flex flex-col gap-3">
+                    <div className="w-12 h-12 bg-sky-50 rounded-2xl flex items-center justify-center text-sky-600">
+                      <item.icon className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-900 text-sm">{item.title}</div>
+                      <div className="text-xs text-slate-400">{item.desc}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-bold text-sm">{usp.title}</div>
-                    <div className="text-xs text-slate-500">{usp.sub}</div>
-                  </div>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-6 pt-6 border-t border-slate-100">
+                <div className="text-sm font-medium text-slate-400 uppercase tracking-widest">Нам доверяют:</div>
+                <div className="flex gap-8 grayscale opacity-40">
+                  <div className="font-black text-xl italic">HORECA</div>
+                  <div className="font-black text-xl italic">RETAIL</div>
+                  <div className="font-black text-xl italic">NETWORKS</div>
                 </div>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-4 text-slate-500 text-sm italic">
-              Нам доверяют: 
-              <span className="font-bold text-slate-400 not-italic">Ресторан «Маяк», Отель «Балтика», Сеть «СемьЯ»</span>
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
+          </div>
 
           {/* Right: Form */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <Card className="bg-white/5 border-white/10 backdrop-blur-md p-8 md:p-10">
-              <h2 className="text-2xl font-bold mb-2 text-center">Запросить оптовый прайс</h2>
-              <p className="text-slate-400 text-center mb-8 text-sm">Получите актуальные цены и расчёт выгоды за 15 минут</p>
-              
+          <div className="lg:w-1/2 w-full">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-slate-50 rounded-[40px] p-8 md:p-12 border border-slate-100 shadow-2xl shadow-slate-200"
+            >
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">Получите актуальный прайс</h3>
+              <p className="text-slate-500 mb-8">Отправим прайс и расчёт выгоды за 15 минут</p>
+
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Input placeholder="Название компании" {...register("company")} className="bg-white/5 border-white/10 h-12 text-white placeholder:text-slate-500 focus:bg-white/10" />
-                    {errors.company && <p className="text-red-500 text-[10px] mt-1">{errors.company.message}</p>}
+                    <Input placeholder="Название компании" {...register("company")} className="h-14 rounded-2xl border-white bg-white shadow-sm" />
+                    {errors.company && <p className="text-red-500 text-xs mt-1">{errors.company.message}</p>}
                   </div>
                   <div>
-                    <Input placeholder="Ваше имя" {...register("name")} className="bg-white/5 border-white/10 h-12 text-white placeholder:text-slate-500 focus:bg-white/10" />
-                    {errors.name && <p className="text-red-500 text-[10px] mt-1">{errors.name.message}</p>}
+                    <Input placeholder="Как к вам обращаться?" {...register("name")} className="h-14 rounded-2xl border-white bg-white shadow-sm" />
+                    {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
                   </div>
                 </div>
-                <div>
-                  <Input placeholder="Ваш телефон" {...register("phone")} className="bg-white/5 border-white/10 h-12 text-white placeholder:text-slate-500 focus:bg-white/10" />
-                  {errors.phone && <p className="text-red-500 text-[10px] mt-1">{errors.phone.message}</p>}
-                </div>
-                <div>
-                  <Input placeholder="Email для отправки прайса" {...register("email")} className="bg-white/5 border-white/10 h-12 text-white placeholder:text-slate-500 focus:bg-white/10" />
-                  {errors.email && <p className="text-red-500 text-[10px] mt-1">{errors.email.message}</p>}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Input placeholder="+7 (___) ___-__-__" {...register("phone")} className="h-14 rounded-2xl border-white bg-white shadow-sm" />
+                    {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
+                  </div>
+                  <div>
+                    <Input placeholder="Email" {...register("email")} className="h-14 rounded-2xl border-white bg-white shadow-sm" />
+                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+                  </div>
                 </div>
                 
-                <div>
-                  <select {...register("volume")} className="w-full bg-white/5 border-white/10 h-12 rounded-md px-3 text-sm text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-all">
-                    <option value="" className="bg-slate-900">Средний объём закупки в месяц</option>
-                    <option value="50-100" className="bg-slate-900">50-100 кг</option>
-                    <option value="100-300" className="bg-slate-900">100-300 кг</option>
-                    <option value="300-500" className="bg-slate-900">300-500 кг</option>
-                    <option value="500+" className="bg-slate-900">500+ кг</option>
-                  </select>
-                  {errors.volume && <p className="text-red-500 text-[10px] mt-1">{errors.volume.message}</p>}
+                <div className="flex items-start gap-2 py-2">
+                  <Checkbox
+                    id="b2b-hero-agree"
+                    checked={agree}
+                    onCheckedChange={(checked) => setValue("agree", !!checked)}
+                    className="mt-1"
+                  />
+                  <label htmlFor="b2b-hero-agree" className="text-[10px] text-slate-400 leading-tight">
+                    Согласен с <a href="#" className="underline">политикой конфиденциальности</a> и даю согласие на <a href="#" className="underline">обработку персональных данных</a>
+                  </label>
                 </div>
+                {errors.agree && <p className="text-red-500 text-[10px]">{errors.agree.message}</p>}
 
-                <Button type="submit" className="w-full bg-sky-500 hover:bg-sky-600 h-14 text-lg font-bold shadow-lg shadow-sky-500/20">
-                  <Send className="w-4 h-4 mr-2" />
-                  Получить КП и прайс-лист
+                <Button type="submit" className="w-full h-16 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all" disabled={isSubmitting}>
+                  {isSubmitting ? "Отправка..." : "Получить прайс и КП"}
                 </Button>
-                <p className="text-[10px] text-slate-500 text-center uppercase tracking-widest mt-4">
-                  Гарантируем отсутствие спама
+
+                <p className="text-center text-xs text-slate-400 flex items-center justify-center gap-2">
+                  <Check className="w-4 h-4 text-green-500" /> Никакого спама. Только деловое предложение.
                 </p>
               </form>
-            </Card>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

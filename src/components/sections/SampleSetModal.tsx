@@ -20,6 +20,7 @@ const sampleSetSchema = z.object({
   phone: z.string().min(10, "Введите корректный номер телефона"),
   address: z.string().min(5, "Введите адрес доставки"),
   addShrimp: z.boolean().default(false),
+  agree: z.boolean().refine(val => val === true, "Необходимо согласие")
 })
 
 type SampleSetValues = z.infer<typeof sampleSetSchema>
@@ -30,25 +31,42 @@ interface SampleSetModalProps {
 }
 
 export function SampleSetModal({ isOpen, onClose }: SampleSetModalProps) {
-  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm<SampleSetValues>({
+  const { register, handleSubmit, formState: { errors, isSubmitting }, reset, setValue, watch } = useForm<SampleSetValues>({
     resolver: zodResolver(sampleSetSchema),
     defaultValues: {
-      addShrimp: false
+      addShrimp: false,
+      agree: true
     }
   })
 
   const addShrimp = watch("addShrimp")
+  const agree = watch("agree")
 
-  const onSubmit = (data: SampleSetValues) => {
-    console.log("Sample Set Order:", data)
-    alert("Заказ на тестовый набор принят! Мы свяжемся с вами в ближайшее время.")
-    reset()
-    onClose()
+  const onSubmit = async (data: SampleSetValues) => {
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...data,
+          type: "RETAIL",
+          comment: `Тестовый набор (Креветки: ${data.addShrimp ? "Да" : "Нет"})`,
+          total: data.addShrimp ? 1380 : 990
+        })
+      })
+      if (res.ok) {
+        alert("Заказ на тестовый набор принят! Мы свяжемся с вами в ближайшее время.")
+        reset()
+        onClose()
+      }
+    } catch (err) {
+      alert("Ошибка при отправке заказа")
+    }
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-3xl border-none">
+      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-[40px] border-none">
         <div className="bg-sky-600 p-8 text-white relative">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold flex items-center gap-3 text-white">
@@ -93,9 +111,22 @@ export function SampleSetModal({ isOpen, onClose }: SampleSetModalProps) {
               <span className="text-slate-500 font-medium">Итого к оплате:</span>
               <span className="text-2xl font-bold text-sky-600">{addShrimp ? 1380 : 990} ₽</span>
             </div>
+
+            <div className="flex items-start gap-2 px-1 mb-6">
+              <Checkbox
+                id="sample-set-agree"
+                checked={agree}
+                onCheckedChange={(checked) => setValue("agree", !!checked)}
+                className="mt-1"
+              />
+              <label htmlFor="sample-set-agree" className="text-[10px] text-slate-400 leading-tight">
+                Согласен с <a href="#" className="underline">политикой конфиденциальности</a> и даю согласие на <a href="#" className="underline">обработку персональных данных</a>
+              </label>
+            </div>
+            {errors.agree && <p className="text-red-500 text-[10px] mb-4">{errors.agree.message}</p>}
             
-            <Button type="submit" className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-xl shadow-xl shadow-sky-100">
-              Заказать тестовый набор
+            <Button type="submit" className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all" disabled={isSubmitting}>
+              {isSubmitting ? "Отправка..." : "Заказать тестовый набор"}
             </Button>
             
             <div className="flex items-center justify-center gap-6 py-2 mt-4">

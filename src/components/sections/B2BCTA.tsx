@@ -1,124 +1,135 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Check, Send } from "lucide-react"
+import { Check, Phone, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 
-const b2bCTASchema = z.object({
+const b2bCtaSchema = z.object({
   company: z.string().min(2, "Введите название компании"),
-  name: z.string().min(2, "Введите ваше имя"),
+  name: z.string().min(2, "Введите имя"),
   phone: z.string().min(10, "Введите корректный номер телефона"),
-  category: z.string().min(1, "Выберите категорию"),
+  email: z.string().email("Введите корректный email"),
+  interest: z.string().min(1, "Выберите интерес"),
+  agree: z.boolean().refine(val => val === true, "Необходимо согласие")
 })
 
-type B2BCTAValues = z.infer<typeof b2bCTASchema>
+type B2BCtaValues = z.infer<typeof b2bCtaSchema>
 
 export function B2BCTA() {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<B2BCTAValues>({
-    resolver: zodResolver(b2bCTASchema),
+  const { register, handleSubmit, setValue, watch, formState: { errors, isSubmitting }, reset } = useForm<B2BCtaValues>({
+    resolver: zodResolver(b2bCtaSchema),
+    defaultValues: { agree: true, interest: "Поставками для ресторана/кафе" }
   })
 
-  const onSubmit = (data: B2BCTAValues) => {
-    console.log("B2B Secondary Lead:", data)
-    alert("Заявка принята! Мы свяжемся с вами в ближайшее время.")
-    reset()
+  const agree = watch("agree")
+
+  const onSubmit = async (data: B2BCtaValues) => {
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, type: "B2B", comment: `Финальный CTA: Интерес - ${data.interest}` })
+      })
+      if (res.ok) {
+        alert("Заявка отправлена! Менеджер свяжется с вами в ближайшее время.")
+        reset()
+      }
+    } catch (err) {
+      alert("Ошибка при отправке")
+    }
   }
 
   return (
-    <section className="py-24 px-4 bg-slate-50">
+    <section className="py-24 bg-white px-4">
       <div className="container mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-[40px] shadow-2xl shadow-slate-200 overflow-hidden border border-slate-100"
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-5">
-            {/* Left: Info */}
-            <div className="lg:col-span-3 p-8 md:p-16 lg:p-20 bg-slate-900 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 blur-3xl -mr-32 -mt-32 rounded-full" />
-              
-              <div className="relative z-10">
-                <h2 className="text-3xl md:text-5xl font-extrabold mb-8 leading-tight">
-                  Начните экономить <br />
-                  <span className="text-sky-400">уже со следующей поставки</span>
-                </h2>
-                
-                <ul className="space-y-6 mb-12">
-                  {[
-                    "Цены на 25-40% ниже дистрибьюторов",
-                    "Бесплатные образцы 5 кг для тестирования",
-                    "Отсрочка 7-14 дней с первого заказа",
-                    "Замена брака за 2 часа, без вопросов",
-                    "Персональный менеджер и прямой номер",
-                  ].map((text, i) => (
-                    <li key={i} className="flex items-center gap-4">
-                      <div className="w-6 h-6 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-400 shrink-0">
-                        <Check className="w-4 h-4" />
-                      </div>
-                      <span className="text-lg text-slate-300">{text}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <p className="text-slate-500 text-sm">
-                  Оставьте заявку — перезвоним за 10 минут и рассчитаем вашу выгоду
-                </p>
-              </div>
+        <div className="bg-slate-900 rounded-[40px] overflow-hidden flex flex-col lg:flex-row shadow-2xl">
+          {/* Left Side */}
+          <div className="lg:w-3/5 p-8 md:p-16 text-white bg-gradient-to-br from-slate-900 to-slate-800">
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-8 leading-tight">
+              Начните экономить уже со следующей поставки
+            </h2>
+            <div className="space-y-6 mb-12">
+              {[
+                "Цены на 25-40% ниже дистрибьюторов",
+                "Бесплатные образцы 5 кг для тестирования",
+                "Отсрочка 7-14 дней с первого заказа",
+                "Замена брака за 2 часа, без вопросов",
+                "Персональный менеджер и прямой номер",
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-4">
+                  <div className="w-6 h-6 bg-sky-500 rounded-full flex items-center justify-center shrink-0">
+                    <Check className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-lg text-slate-300 font-medium">{item}</span>
+                </div>
+              ))}
             </div>
-
-            {/* Right: Form */}
-            <div className="lg:col-span-2 p-8 md:p-16 lg:p-12 flex flex-col justify-center">
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">О компании</label>
-                  <Input placeholder="Название компании / ресторана" {...register("company")} className="h-14 rounded-xl bg-slate-50 border-slate-100" />
-                  {errors.company && <p className="text-red-500 text-[10px] ml-1">{errors.company.message}</p>}
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Контактное лицо</label>
-                  <Input placeholder="Как к вам обращаться?" {...register("name")} className="h-14 rounded-xl bg-slate-50 border-slate-100" />
-                  {errors.name && <p className="text-red-500 text-[10px] ml-1">{errors.name.message}</p>}
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Телефон</label>
-                  <Input placeholder="+7 (___) ___-__-__" {...register("phone")} className="h-14 rounded-xl bg-slate-50 border-slate-100" />
-                  {errors.phone && <p className="text-red-500 text-[10px] ml-1">{errors.phone.message}</p>}
-                </div>
-                
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Интересует</label>
-                  <select {...register("category")} className="w-full h-14 rounded-xl bg-slate-50 border border-slate-100 px-4 text-sm text-slate-600 focus:outline-none focus:ring-1 focus:ring-sky-500">
-                    <option value="">Выберите категорию</option>
-                    <option value="horeca">Для ресторана / кафе</option>
-                    <option value="retail">Для магазина / сети</option>
-                    <option value="event">Разовая закупка для мероприятия</option>
-                  </select>
-                  {errors.category && <p className="text-red-500 text-[10px] ml-1">{errors.category.message}</p>}
-                </div>
-
-                <Button type="submit" className="w-full h-16 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-xl mt-4 shadow-xl shadow-sky-100">
-                  <Send className="w-4 h-4 mr-2" />
-                  Отправить заявку
-                </Button>
-
-                <div className="text-center mt-6">
-                  <p className="text-slate-400 text-xs mb-4 uppercase tracking-widest">Или звоните:</p>
-                  <a href="tel:+74012000000" className="text-2xl font-bold text-slate-900 hover:text-sky-600 transition-colors">
-                    +7 (4012) XX-XX-XX
-                  </a>
-                  <p className="text-[10px] text-slate-400 mt-4 leading-relaxed">
-                    Никакого спама. Позвоним один раз, обсудим детали. Не подошли условия — больше не побеспокоим.
-                  </p>
-                </div>
-              </form>
-            </div>
+            <p className="text-sky-400 font-bold text-xl">
+              Оставьте заявку — перезвоним за 10 минут и рассчитаем вашу выгоду
+            </p>
           </div>
-        </motion.div>
+
+          {/* Right Side: Form */}
+          <div className="lg:w-2/5 p-8 md:p-12 bg-slate-50">
+            <h3 className="text-2xl font-bold text-slate-900 mb-8">Заявка на сотрудничество</h3>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <Input placeholder="Компания / ресторан" {...register("company")} className="h-14 rounded-2xl border-slate-200 bg-white" />
+              {errors.company && <p className="text-red-500 text-xs mt-1">{errors.company.message}</p>}
+
+              <Input placeholder="Контактное лицо" {...register("name")} className="h-14 rounded-2xl border-slate-200 bg-white" />
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
+
+              <Input placeholder="+7 (___) ___-__-__" {...register("phone")} className="h-14 rounded-2xl border-slate-200 bg-white" />
+              {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
+
+              <Input placeholder="Email" {...register("email")} className="h-14 rounded-2xl border-slate-200 bg-white" />
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+
+              <select
+                {...register("interest")}
+                className="w-full h-14 rounded-2xl border border-slate-200 bg-white px-4 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+              >
+                <option>Поставками для ресторана/кафе</option>
+                <option>Поставками для магазина/сети</option>
+                <option>Разовой закупкой для мероприятия</option>
+                <option>Консультацией по ассортименту</option>
+              </select>
+
+              <div className="flex items-start gap-2 py-2">
+                <Checkbox
+                  id="b2b-cta-agree"
+                  checked={agree}
+                  onCheckedChange={(checked) => setValue("agree", !!checked)}
+                  className="mt-1"
+                />
+                <label htmlFor="b2b-cta-agree" className="text-[10px] text-slate-400 leading-tight">
+                  Согласен с <a href="#" className="underline">политикой конфиденциальности</a> и даю согласие на <a href="#" className="underline">обработку персональных данных</a>
+                </label>
+              </div>
+              {errors.agree && <p className="text-red-500 text-[10px]">{errors.agree.message}</p>}
+
+              <Button type="submit" className="w-full h-16 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all" disabled={isSubmitting}>
+                {isSubmitting ? "Отправка..." : "Отправить заявку"}
+              </Button>
+
+              <div className="mt-8 pt-8 border-t border-slate-200 space-y-4">
+                <a href="tel:+74012000000" className="flex items-center gap-3 text-slate-600 font-bold hover:text-sky-600 transition-colors">
+                  <Phone className="w-5 h-5 text-sky-500" />
+                  +7 (4012) XX-XX-XX
+                </a>
+                <a href="mailto:opt@fishkaliningrad.ru" className="flex items-center gap-3 text-slate-600 font-bold hover:text-sky-600 transition-colors">
+                  <Mail className="w-5 h-5 text-sky-500" />
+                  opt@fishkaliningrad.ru
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </section>
   )

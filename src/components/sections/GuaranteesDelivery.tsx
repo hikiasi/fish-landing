@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ShieldCheck, Award, Truck, Clock, Snowflake, MapPin, Store, CreditCard, Banknote } from "lucide-react"
+import { ShieldCheck, Award, Truck, Clock, Snowflake, MapPin, Store, CreditCard, Banknote, Smartphone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function GuaranteesDelivery() {
@@ -63,16 +63,20 @@ export function GuaranteesDelivery() {
 
             <div className="pt-8">
               <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6 text-center lg:text-left">Способы оплаты</h4>
-              <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+              <div className="flex flex-col gap-4">
                 {[
-                  { icon: CreditCard, label: "Картой курьеру" },
-                  { icon: Banknote, label: "Наличными" },
-                  { icon: CreditCard, label: "СБП перевод" },
-                  { icon: CreditCard, label: "На сайте" },
+                  { icon: CreditCard, label: "Картой курьеру", desc: "Все терминалы оплаты" },
+                  { icon: Banknote, label: "Наличными", desc: "Сдача с любой купюры" },
+                  { icon: Smartphone, label: "СБП перевод", desc: "По QR-коду или номеру" },
                 ].map((method, i) => (
-                  <div key={i} className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-full border border-slate-100 text-slate-600 text-xs font-medium">
-                    <method.icon className="w-4 h-4 text-sky-500" />
-                    {method.label}
+                  <div key={i} className="flex items-center gap-6 p-6 bg-slate-50 rounded-2xl border border-slate-100 group hover:bg-sky-50 transition-colors">
+                    <div className="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center text-sky-500 shrink-0 group-hover:scale-110 transition-transform">
+                      <method.icon className="w-8 h-8" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-900 text-lg mb-0.5">{method.label}</div>
+                      <div className="text-xs text-slate-400 uppercase tracking-wider">{method.desc}</div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -112,7 +116,7 @@ export function GuaranteesDelivery() {
               </div>
             </div>
 
-            <Button size="lg" className="w-full bg-sky-600 hover:bg-sky-700 py-7 text-lg shadow-xl shadow-sky-100">
+            <Button size="lg" className="w-full bg-sky-600 hover:bg-sky-700 py-7 text-lg shadow-xl shadow-sky-100 rounded-2xl">
               Оформить заказ с доставкой
             </Button>
           </div>

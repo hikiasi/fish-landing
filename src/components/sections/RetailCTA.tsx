@@ -1,119 +1,122 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Check, Phone } from "lucide-react"
+import { ShieldCheck, Truck, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 
-const retailCTASchema = z.object({
+const ctaSchema = z.object({
   name: z.string().min(2, "Введите имя"),
   phone: z.string().min(10, "Введите корректный номер телефона"),
+  agree: z.boolean().refine(val => val === true, "Необходимо согласие")
 })
 
-type RetailCTAValues = z.infer<typeof retailCTASchema>
+type CTAValues = z.infer<typeof ctaSchema>
 
 export function RetailCTA() {
-  const [timeLeft, setTimeLeft] = useState(85512) // seconds
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<RetailCTAValues>({
-    resolver: zodResolver(retailCTASchema),
+  const { register, handleSubmit, setValue, watch, formState: { errors, isSubmitting }, reset } = useForm<CTAValues>({
+    resolver: zodResolver(ctaSchema),
+    defaultValues: { agree: true }
   })
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 86400))
-    }, 1000)
-    return () => clearInterval(timer)
-  }, [])
+  const agree = watch("agree")
 
-  const formatTime = (seconds: number) => {
-    const h = Math.floor(seconds / 3600)
-    const m = Math.floor((seconds % 3600) / 60)
-    const s = seconds % 60
-    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
-  }
-
-  const onSubmit = (data: RetailCTAValues) => {
-    console.log("Retail Lead:", data)
-    alert("Промокод отправлен! Мы перезвоним вам в течение 3 минут.")
-    reset()
+  const onSubmit = async (data: CTAValues) => {
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, type: "RETAIL", comment: "Заявка на скидку 15% на первый заказ" })
+      })
+      if (res.ok) {
+        alert("Заявка отправлена! Ваша скидка забронирована.")
+        reset()
+      }
+    } catch (err) {
+      alert("Ошибка при отправке")
+    }
   }
 
   return (
-    <section className="py-20 px-4">
-      <div className="container mx-auto max-w-5xl">
+    <section className="py-24 bg-white px-4">
+      <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden bg-gradient-to-br from-sky-600 to-sky-400 rounded-3xl p-8 md:p-16 text-white text-center shadow-2xl shadow-sky-200"
+          className="relative bg-gradient-to-br from-sky-600 to-sky-400 rounded-[40px] p-8 md:p-16 overflow-hidden text-center text-white shadow-2xl shadow-sky-200"
         >
-          {/* Abstract background ice elements */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-3xl -mr-32 -mt-32 rounded-full" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-sky-300/20 blur-3xl -ml-32 -mb-32 rounded-full" />
+          {/* Abstract background shapes */}
+          <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full translate-x-1/2 translate-y-1/2 blur-3xl" />
 
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
-              Закажите сейчас — получите <br className="hidden md:block" />
-              скидку <span className="text-orange-300">15%</span> на первый заказ
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-6">
+              Закажите сейчас — получите <span className="text-orange-400">скидку 15%</span> на первый заказ
             </h2>
-            <p className="text-lg md:text-xl text-sky-50 mb-8 font-medium">
-              Только для новых клиентов • Промокод: <span className="bg-white/20 px-3 py-1 rounded-lg border border-white/30 ml-1">ПЕРВЫЙ15</span>
+            <p className="text-sky-50 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-medium opacity-90">
+              Только для новых клиентов • Промокод: <span className="bg-white/20 px-3 py-1 rounded-lg">ПЕРВЫЙ15</span>
             </p>
 
-            <div className="flex flex-col items-center mb-12">
-              <div className="text-sm uppercase tracking-widest text-sky-100 mb-3 opacity-80">Акция действует ещё:</div>
-              <div className="text-4xl md:text-5xl font-mono font-bold tracking-tighter tabular-nums bg-sky-700/30 px-6 py-3 rounded-2xl border border-white/10 backdrop-blur-sm">
-                {formatTime(timeLeft)}
-              </div>
-            </div>
-
-            <div className="max-w-3xl mx-auto">
-              <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div className="text-left">
+            <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl mx-auto">
+              <div className="flex flex-col md:flex-row gap-4 mb-6">
+                <div className="flex-grow">
                   <Input 
-                    placeholder="Как к вам обращаться?" 
+                    placeholder="Ваше имя"
                     {...register("name")}
-                    className="h-14 bg-white/10 border-white/20 text-white placeholder:text-sky-100/50 rounded-xl px-6 focus:bg-white/20 transition-all"
+                    className="h-16 rounded-2xl bg-white/20 border-white/30 text-white placeholder:text-sky-100 focus:bg-white focus:text-slate-900 transition-all text-lg px-6"
                   />
-                  {errors.name && <p className="text-orange-200 text-[10px] mt-1 ml-2">{errors.name.message}</p>}
+                  {errors.name && <p className="text-orange-300 text-xs mt-2 text-left px-2">{errors.name.message}</p>}
                 </div>
-                <div className="text-left">
+                <div className="flex-grow">
                   <Input 
                     placeholder="+7 (___) ___-__-__" 
                     {...register("phone")}
-                    className="h-14 bg-white/10 border-white/20 text-white placeholder:text-sky-100/50 rounded-xl px-6 focus:bg-white/20 transition-all"
+                    className="h-16 rounded-2xl bg-white/20 border-white/30 text-white placeholder:text-sky-100 focus:bg-white focus:text-slate-900 transition-all text-lg px-6"
                   />
-                  {errors.phone && <p className="text-orange-200 text-[10px] mt-1 ml-2">{errors.phone.message}</p>}
+                  {errors.phone && <p className="text-orange-300 text-xs mt-2 text-left px-2">{errors.phone.message}</p>}
                 </div>
-                <Button type="submit" className="h-14 bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg rounded-xl shadow-lg shadow-orange-900/20">
-                  Получить скидку 15%
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="h-16 px-10 bg-orange-500 hover:bg-orange-600 text-white rounded-2xl text-lg font-bold shadow-xl shadow-orange-900/20 whitespace-nowrap"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Отправка..." : "Получить скидку 15%"}
                 </Button>
-              </form>
+              </div>
 
-              <div className="flex flex-wrap justify-center gap-6 md:gap-8 opacity-80">
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
-                  <Check className="w-4 h-4" /> Доставим сегодня
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex items-start justify-center gap-2 max-w-md">
+                  <Checkbox
+                    id="cta-agree"
+                    checked={agree}
+                    onCheckedChange={(checked) => setValue("agree", !!checked)}
+                    className="mt-1 border-white/50 data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500"
+                  />
+                  <label htmlFor="cta-agree" className="text-[10px] text-sky-100 leading-tight text-left">
+                    Согласен с <a href="#" className="underline">политикой конфиденциальности</a> и даю согласие на <a href="#" className="underline">обработку персональных данных</a>
+                  </label>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
-                  <Check className="w-4 h-4" /> Вернём деньги за 5 минут
-                </div>
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
-                  <Check className="w-4 h-4" /> Без предоплаты
+                {errors.agree && <p className="text-orange-300 text-[10px]">{errors.agree.message}</p>}
+
+                <div className="flex flex-wrap justify-center gap-8 mt-4 text-[10px] font-bold uppercase tracking-widest text-sky-100">
+                  <div className="flex items-center gap-2">
+                    <Truck className="w-4 h-4" /> Доставим сегодня
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4" /> Вернём деньги за 5 минут
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <RefreshCw className="w-4 h-4" /> Без предоплаты
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="mt-12 pt-8 border-t border-white/10">
-              <p className="text-sky-100 mb-4 italic">Или просто позвоните нам:</p>
-              <a href="tel:+74012000000" className="flex items-center justify-center gap-3 text-2xl md:text-3xl font-bold hover:text-orange-300 transition-colors">
-                <Phone className="w-6 h-6 md:w-8 h-8" />
-                +7 (4012) XX-XX-XX
-              </a>
-            </div>
+            </form>
           </div>
         </motion.div>
       </div>

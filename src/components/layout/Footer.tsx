@@ -1,6 +1,6 @@
 "use client"
 
-import { Ship, Send, ExternalLink, MapPin, Mail, Phone } from "lucide-react"
+import { Ship, Send, ExternalLink, MapPin, Mail, Phone, Instagram } from "lucide-react"
 
 export function Footer() {
   return (
@@ -10,7 +10,7 @@ export function Footer() {
           {/* Col 1: Brand */}
           <div className="space-y-6">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-sky-600 rounded-full flex items-center justify-center text-white">
+              <div className="w-10 h-10 bg-sky-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-sky-100">
                 <Ship className="w-6 h-6" />
               </div>
               <span className="font-bold text-xl text-slate-900">Калининградская рыба</span>
@@ -19,11 +19,14 @@ export function Footer() {
               Калининградский рыбоперерабатывающий завод. Прямые поставки свежемороженой продукции с 2018 года.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:bg-sky-600 hover:text-white transition-all">
+              <a href="https://vk.com/fishkaliningrad" target="_blank" className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-sky-600 hover:text-white transition-all">
                 <ExternalLink className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:bg-sky-600 hover:text-white transition-all">
+              <a href="https://t.me/fishkaliningrad" target="_blank" className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-sky-600 hover:text-white transition-all">
                 <Send className="w-4 h-4" />
+              </a>
+              <a href="https://instagram.com/fishkaliningrad" target="_blank" className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-sky-600 hover:text-white transition-all">
+                <Instagram className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -47,7 +50,7 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-sky-500 mt-1" />
                 <div>
-                  <a href="tel:+74012000000" className="text-sm font-bold text-slate-900">+7 (4012) XX-XX-XX</a>
+                  <a href="tel:+74012000000" className="text-sm font-bold text-slate-900 hover:text-sky-600">+7 (4012) XX-XX-XX</a>
                   <div className="text-[10px] text-slate-400 uppercase">Ежедневно 8:00 - 20:00</div>
                 </div>
               </li>
@@ -84,12 +87,8 @@ export function Footer() {
           <div className="text-xs text-slate-400">
             © 2018-{new Date().getFullYear()} Калининградская рыба. Все права защищены.
           </div>
-          <div className="flex items-center gap-4 opacity-30 grayscale">
-            {/* Payment Icons Placeholder */}
-            <div className="w-8 h-5 bg-slate-400 rounded-sm" />
-            <div className="w-8 h-5 bg-slate-400 rounded-sm" />
-            <div className="w-8 h-5 bg-slate-400 rounded-sm" />
-            <div className="w-8 h-5 bg-slate-400 rounded-sm" />
+          <div className="flex items-center gap-4 text-[10px] text-slate-300 font-bold uppercase tracking-widest">
+            Нам доверяют более 5000 клиентов
           </div>
         </div>
       </div>

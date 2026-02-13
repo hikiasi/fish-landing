@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Sheet,
   SheetContent,
@@ -18,6 +19,7 @@ import {
 
 const exitFormSchema = z.object({
   phone: z.string().min(10, "Введите корректный номер телефона"),
+  agree: z.boolean().refine(val => val === true, "Необходимо согласие")
 })
 
 type ExitFormValues = z.infer<typeof exitFormSchema>
@@ -27,9 +29,12 @@ export function StickyFeatures() {
   const [showExitPopup, setShowExitPopup] = useState(false)
   const [hasShownExitPopup, setHasShownExitPopup] = useState(false)
 
-  const { register, handleSubmit, formState: { errors } } = useForm<ExitFormValues>({
+  const { register, handleSubmit, setValue, watch, formState: { errors, isSubmitting } } = useForm<ExitFormValues>({
     resolver: zodResolver(exitFormSchema),
+    defaultValues: { agree: true }
   })
+
+  const agree = watch("agree")
 
   useEffect(() => {
     const handleMouseLeave = (e: MouseEvent) => {
@@ -42,10 +47,20 @@ export function StickyFeatures() {
     return () => document.removeEventListener("mouseleave", handleMouseLeave)
   }, [hasShownExitPopup])
 
-  const onExitSubmit = (data: ExitFormValues) => {
-    console.log("Exit Intent Lead:", data)
-    alert("Промокод отправлен!")
-    setShowExitPopup(false)
+  const onExitSubmit = async (data: ExitFormValues) => {
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: data.phone, type: "RETAIL", comment: "Заявка на купон 10% из Exit Popup" })
+      })
+      if (res.ok) {
+        alert("Промокод отправлен!")
+        setShowExitPopup(false)
+      }
+    } catch (err) {
+      alert("Ошибка при отправке")
+    }
   }
 
   return (
@@ -70,25 +85,25 @@ export function StickyFeatures() {
               )}
             </motion.button>
           </SheetTrigger>
-          <SheetContent className="w-full sm:max-w-md">
-            <SheetHeader className="mb-8">
+          <SheetContent className="w-full sm:max-w-md p-0 overflow-hidden flex flex-col">
+            <SheetHeader className="p-8 border-b border-slate-100 bg-white">
               <SheetTitle className="text-2xl font-bold flex items-center gap-3">
                 <ShoppingCart className="w-6 h-6 text-sky-600" />
                 Ваша корзина
               </SheetTitle>
             </SheetHeader>
 
-            {cart.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-[60vh] text-center">
-                <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-slate-200 mb-6">
-                  <ShoppingCart className="w-10 h-10" />
+            <div className="flex-grow overflow-y-auto p-8">
+              {cart.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-full text-center">
+                  <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-slate-200 mb-6">
+                    <ShoppingCart className="w-10 h-10" />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Корзина пуста</h3>
+                  <p className="text-slate-400 text-sm">Добавьте что-нибудь из каталога, чтобы начать заказ</p>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">Корзина пуста</h3>
-                <p className="text-slate-400 text-sm mb-8">Добавьте что-нибудь из каталога, чтобы начать заказ</p>
-              </div>
-            ) : (
-              <div className="flex flex-col h-full">
-                <div className="flex-grow overflow-y-auto space-y-6 pr-2">
+              ) : (
+                <div className="space-y-6">
                   {cart.map((item) => (
                     <div key={item.id} className="flex gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 relative group">
                       <div className="w-20 h-20 rounded-lg overflow-hidden shrink-0">
@@ -119,23 +134,25 @@ export function StickyFeatures() {
                     </div>
                   ))}
                 </div>
+              )}
+            </div>
 
-                <div className="pt-8 border-t border-slate-100 mt-6 pb-20">
-                  <div className="flex justify-between items-end mb-8">
-                    <div>
-                      <div className="text-slate-400 text-xs uppercase tracking-widest mb-1">Итого к оплате:</div>
-                      <div className="text-3xl font-extrabold text-slate-900">{totalPrice.toLocaleString()} ₽</div>
-                    </div>
-                    {totalPrice < 2000 && (
-                      <div className="text-[10px] text-orange-500 font-bold uppercase text-right">
-                        До бесплатной доставки <br /> ещё {(2000 - totalPrice)} ₽
-                      </div>
-                    )}
+            {cart.length > 0 && (
+              <div className="p-8 border-t border-slate-100 bg-white">
+                <div className="flex justify-between items-end mb-8">
+                  <div>
+                    <div className="text-slate-400 text-xs uppercase tracking-widest mb-1">Итого к оплате:</div>
+                    <div className="text-3xl font-extrabold text-slate-900">{totalPrice.toLocaleString()} ₽</div>
                   </div>
-                  <Button className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-xl shadow-xl shadow-sky-100">
-                    Оформить заказ
-                  </Button>
+                  {totalPrice < 2000 && (
+                    <div className="text-[10px] text-orange-500 font-bold uppercase text-right">
+                      До бесплатной доставки <br /> ещё {(2000 - totalPrice)} ₽
+                    </div>
+                  )}
                 </div>
+                <Button className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all">
+                  Оформить заказ
+                </Button>
               </div>
             )}
           </SheetContent>
@@ -183,7 +200,7 @@ export function StickyFeatures() {
                 </div>
                 <h2 className="text-3xl font-extrabold text-slate-900 mb-4">Подождите!</h2>
                 <p className="text-slate-500 mb-8">
-                  Заберите скидку <span className="text-sky-600 font-bold text-lg">10%</span> на ваш первый заказ. Оставьте телефон, и мы пришлем вам промокод в Telegram или СМС.
+                  Заберите скидку <span className="text-sky-600 font-bold text-lg">10%</span> на ваш первый заказ. Оставьте телефон, и мы пришлем вам промокод.
                 </p>
                 
                 <form onSubmit={handleSubmit(onExitSubmit)} className="space-y-4">
@@ -196,8 +213,22 @@ export function StickyFeatures() {
                     />
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
                   </div>
-                  <Button type="submit" className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl">
-                    Получить скидку
+
+                  <div className="flex items-start gap-2 px-1 py-2">
+                    <Checkbox
+                      id="exit-agree"
+                      checked={agree}
+                      onCheckedChange={(checked) => setValue("agree", !!checked)}
+                      className="mt-1"
+                    />
+                    <label htmlFor="exit-agree" className="text-[10px] text-slate-400 leading-tight text-left">
+                      Согласен с <a href="#" className="underline">политикой конфиденциальности</a> и даю согласие на <a href="#" className="underline">обработку персональных данных</a>
+                    </label>
+                  </div>
+                  {errors.agree && <p className="text-red-500 text-[10px]">{errors.agree.message}</p>}
+
+                  <Button type="submit" className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all" disabled={isSubmitting}>
+                    {isSubmitting ? "Отправка..." : "Получить скидку"}
                   </Button>
                 </form>
 

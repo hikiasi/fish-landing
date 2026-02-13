@@ -6,7 +6,7 @@ export interface Product {
   id: string
   name: string
   price: number
-  oldPrice?: number
+  oldPrice?: number | null
   image: string
   weight: string
   category: string
@@ -30,6 +30,7 @@ interface CartContextType {
   totalPrice: number
   isCartOpen: boolean
   setIsCartOpen: (isOpen: boolean) => void
+  showFastOrderOnce: () => boolean
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
@@ -37,6 +38,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([])
   const [isCartOpen, setIsCartOpen] = useState(false)
+  const [hasShownFastOrder, setHasShownFastOrder] = useState(false)
 
   const addToCart = (product: Product) => {
     setCart((prev) => {
@@ -48,6 +50,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
       return [...prev, { ...product, quantity: 1 }]
     })
+  }
+
+  const showFastOrderOnce = () => {
+    if (!hasShownFastOrder) {
+      setHasShownFastOrder(true)
+      return true
+    }
+    return false
   }
 
   const decrementQuantity = (productId: string) => {
@@ -82,7 +92,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         totalItems, 
         totalPrice, 
         isCartOpen, 
-        setIsCartOpen 
+        setIsCartOpen,
+        showFastOrderOnce
       }}
     >
       {children}

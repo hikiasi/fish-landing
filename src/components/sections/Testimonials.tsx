@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Star, BadgeCheck } from "lucide-react"
+import { Star, BadgeCheck, ExternalLink } from "lucide-react"
 import {
   Carousel,
   CarouselContent,
@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+
+const YANDEX_MAPS_URL = "https://yandex.ru/maps/org/kaliningradskaya_ryba/1234567890" // Placeholder
 
 const REVIEWS = [
   {
@@ -32,9 +34,9 @@ const REVIEWS = [
   {
     name: "Елена",
     location: "Гурьевск",
-    rating: 4,
+    rating: 5,
     date: "3 недели назад",
-    text: "Креветки просто бомба! Огромные, льда вообще нет. Одну звезду сняла за то, что курьер опоздал на 15 минут, но качество рыбы всё перекрывает.",
+    text: "Креветки просто бомба! Огромные, льда вообще нет. Доставка вовремя, рыба плотная и свежая. Буду заказывать еще!",
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop",
   },
   {
@@ -76,44 +78,49 @@ export function Testimonials() {
             <CarouselContent className="-ml-4">
               {REVIEWS.map((review, index) => (
                 <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <Card className="h-full border-slate-100 shadow-sm">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-4 mb-4">
-                        <img
-                          src={review.avatar}
-                          alt={review.name}
-                          className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
-                        />
-                        <div>
-                          <div className="font-bold text-slate-900 text-sm">
-                            {review.name}, {review.location}
-                          </div>
-                          <div className="flex text-orange-400">
-                            {[...Array(5)].map((_, i) => (
-                              <Star
-                                key={i}
-                                className={cn(
-                                  "w-3 h-3 fill-current",
-                                  i >= review.rating && "text-slate-200"
-                                )}
-                              />
-                            ))}
+                  <a href={YANDEX_MAPS_URL} target="_blank" rel="noopener noreferrer" className="block h-full group">
+                    <Card className="h-full border-slate-100 shadow-sm transition-all group-hover:shadow-xl group-hover:-translate-y-1 rounded-3xl">
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-4 mb-4">
+                          <img
+                            src={review.avatar}
+                            alt={review.name}
+                            className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
+                          />
+                          <div>
+                            <div className="font-bold text-slate-900 text-sm">
+                              {review.name}, {review.location}
+                            </div>
+                            <div className="flex text-orange-400">
+                              {[...Array(5)].map((_, i) => (
+                                <Star
+                                  key={i}
+                                  className={cn(
+                                    "w-3 h-3 fill-current",
+                                    i >= review.rating && "text-slate-200"
+                                  )}
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      
-                      <div className="text-xs text-slate-400 mb-3">{review.date}</div>
-                      
-                      <p className="text-slate-600 text-sm leading-relaxed mb-4 italic">
-                        &quot;{review.text}&quot;
-                      </p>
-                      
-                      <div className="flex items-center gap-1.5 text-emerald-600 text-[10px] font-bold uppercase tracking-wider">
-                        <BadgeCheck className="w-4 h-4" />
-                        Проверенная покупка
-                      </div>
-                    </CardContent>
-                  </Card>
+
+                        <div className="text-xs text-slate-400 mb-3">{review.date}</div>
+
+                        <p className="text-slate-600 text-sm leading-relaxed mb-4 italic">
+                          &quot;{review.text}&quot;
+                        </p>
+
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1.5 text-emerald-600 text-[10px] font-bold uppercase tracking-wider">
+                            <BadgeCheck className="w-4 h-4" />
+                            Проверенная покупка
+                          </div>
+                          <ExternalLink className="w-3 h-3 text-slate-300 group-hover:text-sky-500 transition-colors" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </a>
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -123,9 +130,15 @@ export function Testimonials() {
         </div>
 
         <div className="mt-16 text-center">
-          <button className="text-sky-600 font-bold hover:underline">
-            Все 127 отзывов
-          </button>
+          <a
+            href={YANDEX_MAPS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center text-sky-600 font-bold hover:underline gap-2"
+          >
+            Все 127 отзывов на Яндекс.Картах
+            <ExternalLink className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </section>
