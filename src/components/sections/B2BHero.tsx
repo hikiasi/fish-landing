@@ -52,7 +52,7 @@ export function B2BHero() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           {/* Left: Content */}
-          <div className="lg:w-1/2">
+          <div className="lg:w-1/2 w-full">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -71,21 +71,21 @@ export function B2BHero() {
                   { icon: CalendarCheck, title: "Поставки 3 раза в неделю", desc: "Свежесть по графику" },
                   { icon: FileText, title: "Полный пакет документов", desc: "ВЕТСД, Меркурий" },
                 ].map((item, i) => (
-                  <div key={i} className="flex flex-col gap-3">
-                    <div className="w-12 h-12 bg-sky-50 rounded-2xl flex items-center justify-center text-sky-600">
-                      <item.icon className="w-6 h-6" />
+                  <div key={i} className="flex flex-col items-center text-center gap-3">
+                    <div className="w-16 h-16 bg-sky-50 rounded-2xl flex items-center justify-center text-sky-600">
+                      <item.icon className="w-8 h-8" />
                     </div>
                     <div>
-                      <div className="font-bold text-slate-900 text-sm">{item.title}</div>
-                      <div className="text-xs text-slate-400">{item.desc}</div>
+                      <div className="font-bold text-slate-900 text-base">{item.title}</div>
+                      <div className="text-sm text-slate-400">{item.desc}</div>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="flex items-center gap-6 pt-6 border-t border-slate-100">
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 pt-6 border-t border-slate-100">
                 <div className="text-sm font-medium text-slate-400 uppercase tracking-widest">Нам доверяют:</div>
-                <div className="flex gap-8 grayscale opacity-40">
+                <div className="flex flex-wrap justify-center gap-4 sm:gap-8 grayscale opacity-40">
                   <div className="font-black text-xl italic">HORECA</div>
                   <div className="font-black text-xl italic">RETAIL</div>
                   <div className="font-black text-xl italic">NETWORKS</div>
