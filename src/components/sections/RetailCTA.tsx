@@ -81,12 +81,14 @@ export function RetailCTA() {
                     mask="+7 (999) 999-99-99"
                     {...register("phone")}
                   >
-                    {/* @ts-ignore */}
-                    <Input
-                      type="tel"
-                      placeholder="+7 (___) ___-__-__"
-                      className="h-16 rounded-2xl bg-white/20 border-white/30 text-white placeholder:text-sky-100 focus:bg-white focus:text-slate-900 transition-all text-lg px-6"
-                    />
+                    {(inputProps: any) => (
+                      <Input
+                        {...inputProps}
+                        type="tel"
+                        placeholder="+7 (___) ___-__-__"
+                        className="h-16 rounded-2xl bg-white/20 border-white/30 text-white placeholder:text-sky-100 focus:bg-white focus:text-slate-900 transition-all text-lg px-6"
+                      />
+                    )}
                   </InputMask>
                   {errors.phone && <p className="text-orange-300 text-xs mt-2 text-left px-2">{errors.phone.message}</p>}
                 </div>

@@ -229,12 +229,14 @@ export function StickyFeatures() {
                       mask="+7 (999) 999-99-99"
                       {...register("phone")}
                     >
-                      {/* @ts-ignore */}
-                      <input
-                        type="tel"
-                        placeholder="+7 (___) ___-__-__"
-                        className="w-full h-14 rounded-2xl bg-slate-50 border border-slate-100 px-6 text-center text-lg focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-all"
-                      />
+                      {(inputProps: any) => (
+                        <input
+                          {...inputProps}
+                          type="tel"
+                          placeholder="+7 (___) ___-__-__"
+                          className="w-full h-14 rounded-2xl bg-slate-50 border border-slate-100 px-6 text-center text-lg focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-all"
+                        />
+                      )}
                     </InputMask>
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
                   </div>

@@ -94,12 +94,14 @@ export function SampleSetModal({ isOpen, onClose }: SampleSetModalProps) {
                   mask="+7 (999) 999-99-99"
                   {...register("phone")}
                 >
-                  {/* @ts-ignore */}
-                  <Input
-                    type="tel"
-                    placeholder="+7 (___) ___-__-__"
-                    className="h-12 rounded-xl"
-                  />
+                  {(inputProps: any) => (
+                    <Input
+                      {...inputProps}
+                      type="tel"
+                      placeholder="+7 (___) ___-__-__"
+                      className="h-12 rounded-xl"
+                    />
+                  )}
                 </InputMask>
               {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
             </div>

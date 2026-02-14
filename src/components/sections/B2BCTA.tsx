@@ -92,12 +92,14 @@ export function B2BCTA() {
                 mask="+7 (999) 999-99-99"
                 {...register("phone")}
               >
-                {/* @ts-ignore */}
-                <Input
-                  type="tel"
-                  placeholder="+7 (___) ___-__-__"
-                  className="h-14 rounded-2xl border-slate-200 bg-white"
-                />
+                {(inputProps: any) => (
+                  <Input
+                    {...inputProps}
+                    type="tel"
+                    placeholder="+7 (___) ___-__-__"
+                    className="h-14 rounded-2xl border-slate-200 bg-white"
+                  />
+                )}
               </InputMask>
               {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
 
