@@ -16,9 +16,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { CheckoutModal } from "@/components/sections/CheckoutModal"
+import InputMask from "react-input-mask"
 
 const exitFormSchema = z.object({
-  phone: z.string().min(10, "Введите корректный номер телефона"),
+  phone: z.string().refine((val) => {
+    const digits = val.replace(/\D/g, "");
+    return digits.length === 11;
+  }, "Введите полный номер телефона"),
   agree: z.boolean().refine(val => val === true, "Необходимо согласие")
 })
 
@@ -28,6 +33,7 @@ export function StickyFeatures() {
   const { cart, totalItems, totalPrice, addToCart, decrementQuantity, removeFromCart, isCartOpen, setIsCartOpen } = useCart()
   const [showExitPopup, setShowExitPopup] = useState(false)
   const [hasShownExitPopup, setHasShownExitPopup] = useState(false)
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
 
   const { register, handleSubmit, setValue, watch, formState: { errors, isSubmitting } } = useForm<ExitFormValues>({
     resolver: zodResolver(exitFormSchema),
@@ -52,7 +58,12 @@ export function StickyFeatures() {
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: data.phone, type: "RETAIL", comment: "Заявка на купон 10% из Exit Popup" })
+        body: JSON.stringify({
+          name: "Посетитель сайта (купон)",
+          phone: data.phone,
+          type: "RETAIL",
+          comment: "Заявка на купон 10% из Exit Popup"
+        })
       })
       if (res.ok) {
         alert("Промокод отправлен!")
@@ -150,13 +161,22 @@ export function StickyFeatures() {
                     </div>
                   )}
                 </div>
-                <Button className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all">
+                <Button
+                  className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all"
+                  onClick={() => setIsCheckoutOpen(true)}
+                >
                   Оформить заказ
                 </Button>
               </div>
             )}
           </SheetContent>
         </Sheet>
+
+        <CheckoutModal
+          isOpen={isCheckoutOpen}
+          onClose={() => setIsCheckoutOpen(false)}
+          type="CART"
+        />
 
         {/* Telegram Button */}
         <motion.a
@@ -205,12 +225,17 @@ export function StickyFeatures() {
                 
                 <form onSubmit={handleSubmit(onExitSubmit)} className="space-y-4">
                   <div>
-                    <input 
-                      type="text" 
-                      placeholder="+7 (___) ___-__-__" 
+                    <InputMask
+                      mask="+7 (999) 999-99-99"
                       {...register("phone")}
-                      className="w-full h-14 rounded-2xl bg-slate-50 border border-slate-100 px-6 text-center text-lg focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-all"
-                    />
+                    >
+                      {/* @ts-ignore */}
+                      <input
+                        type="tel"
+                        placeholder="+7 (___) ___-__-__"
+                        className="w-full h-14 rounded-2xl bg-slate-50 border border-slate-100 px-6 text-center text-lg focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-all"
+                      />
+                    </InputMask>
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
                   </div>
 

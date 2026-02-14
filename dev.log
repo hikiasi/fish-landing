@@ -197,3 +197,41 @@ Import trace for requested module:
  GET /uploads/cod-fillet.jpg 404 in 57ms
  GET /uploads/salmon-steak.jpg 404 in 51ms
  ✓ Compiled in 1874ms (1979 modules)
+ ✓ Compiled in 9.9s (1063 modules)
+ ✓ Compiled in 781ms (1063 modules)
+ ✓ Compiled in 378ms (1063 modules)
+ ✓ Compiled in 1433ms (1064 modules)
+ ✓ Compiled in 466ms (1064 modules)
+ ✓ Compiled in 290ms (1064 modules)
+ ✓ Compiled in 1311ms (2078 modules)
+ ✓ Compiled in 520ms (1064 modules)
+ ✓ Compiled in 356ms (1064 modules)
+ ✓ Compiled in 4.6s (1984 modules)
+ ✓ Compiled in 564ms (1984 modules)
+ ✓ Compiled in 505ms (1984 modules)
+ ✓ Compiled in 1989ms (1992 modules)
+ ✓ Compiled in 2.2s (1992 modules)
+ ✓ Compiled in 3s (1992 modules)
+ ✓ Compiled in 1441ms (1992 modules)
+ ✓ Compiled in 456ms (1992 modules)
+ ✓ Compiled in 524ms (1992 modules)
+ ✓ Compiled in 717ms (1992 modules)
+ ✓ Compiled in 2.2s (1992 modules)
+ ✓ Compiled in 595ms (1992 modules)
+ ✓ Compiled in 399ms (1992 modules)
+ ✓ Compiled in 639ms (1992 modules)
+ ✓ Compiled in 552ms (1992 modules)
+ ✓ Compiled in 1483ms (1992 modules)
+ ✓ Compiled in 761ms (1070 modules)
+ ✓ Compiled in 573ms (1070 modules)
+ ✓ Compiled in 384ms (1070 modules)
+ ✓ Compiled in 213ms (1070 modules)
+ ✓ Compiled in 205ms (1070 modules)
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+   ▲ Next.js 15.1.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 3.6s

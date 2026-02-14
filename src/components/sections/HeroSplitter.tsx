@@ -12,9 +12,35 @@ interface HeroSplitterProps {
 export function HeroSplitter({ onSelectRetail, onSelectB2B }: HeroSplitterProps) {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center bg-slate-50 overflow-hidden px-4 py-12">
-      {/* Background patterns could go here */}
-      <div className="absolute inset-0 z-0 opacity-10">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-sky-400 to-transparent blur-3xl" />
+      {/* Background Animation */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-sky-100 rounded-full blur-[120px] opacity-40"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            x: [0, -40, 0],
+            y: [0, -60, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute -bottom-[20%] -right-[10%] w-[70%] h-[70%] bg-blue-50 rounded-full blur-[120px] opacity-40"
+        />
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] grayscale" />
       </div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center">

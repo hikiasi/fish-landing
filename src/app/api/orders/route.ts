@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
     if (cart && cart.length > 0) {
       message += `\n<b>Товары:</b>\n`
-      cart.forEach((item: any) => {
+      cart.forEach((item: {name: string, quantity: number}) => {
         message += `- ${item.name} (${item.quantity} шт.)\n`
       })
     }
@@ -49,14 +49,14 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   // Only for admin
   try {
     const orders = await prisma.order.findMany({
       orderBy: { createdAt: "desc" }
     })
     return NextResponse.json(orders)
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to fetch orders" }, { status: 500 })
   }
 }

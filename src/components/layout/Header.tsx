@@ -6,6 +6,7 @@ import { Ship, ShoppingCart, Phone, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/context/CartContext"
 import { cn } from "@/lib/utils"
+import { CheckoutModal } from "@/components/sections/CheckoutModal"
 
 interface HeaderProps {
   onRetailClick: () => void
@@ -15,6 +16,7 @@ interface HeaderProps {
 export function Header({ onRetailClick, onB2BClick }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isCallbackOpen, setIsCallbackOpen] = useState(false)
   const { totalItems, setIsCartOpen } = useCart()
 
   useEffect(() => {
@@ -119,11 +121,20 @@ export function Header({ onRetailClick, onB2BClick }: HeaderProps) {
             {isMobileMenuOpen ? <X /> : <Menu />}
           </Button>
 
-          <Button className="hidden lg:flex bg-sky-600 hover:bg-sky-700 rounded-full px-6">
+          <Button
+            className="hidden lg:flex bg-sky-600 hover:bg-sky-700 rounded-full px-6"
+            onClick={() => setIsCallbackOpen(true)}
+          >
             Заказать звонок
           </Button>
         </div>
       </div>
+
+      <CheckoutModal
+        isOpen={isCallbackOpen}
+        onClose={() => setIsCallbackOpen(false)}
+        type="CALLBACK"
+      />
 
       {/* Mobile Menu */}
       <AnimatePresence>

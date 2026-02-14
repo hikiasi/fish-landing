@@ -8,10 +8,14 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
+import InputMask from "react-input-mask"
 
 const ctaSchema = z.object({
   name: z.string().min(2, "Введите имя"),
-  phone: z.string().min(10, "Введите корректный номер телефона"),
+  phone: z.string().refine((val) => {
+    const digits = val.replace(/\D/g, "");
+    return digits.length === 11;
+  }, "Введите полный номер телефона"),
   agree: z.boolean().refine(val => val === true, "Необходимо согласие")
 })
 
@@ -73,11 +77,17 @@ export function RetailCTA() {
                   {errors.name && <p className="text-orange-300 text-xs mt-2 text-left px-2">{errors.name.message}</p>}
                 </div>
                 <div className="flex-grow">
-                  <Input 
-                    placeholder="+7 (___) ___-__-__" 
+                  <InputMask
+                    mask="+7 (999) 999-99-99"
                     {...register("phone")}
-                    className="h-16 rounded-2xl bg-white/20 border-white/30 text-white placeholder:text-sky-100 focus:bg-white focus:text-slate-900 transition-all text-lg px-6"
-                  />
+                  >
+                    {/* @ts-ignore */}
+                    <Input
+                      type="tel"
+                      placeholder="+7 (___) ___-__-__"
+                      className="h-16 rounded-2xl bg-white/20 border-white/30 text-white placeholder:text-sky-100 focus:bg-white focus:text-slate-900 transition-all text-lg px-6"
+                    />
+                  </InputMask>
                   {errors.phone && <p className="text-orange-300 text-xs mt-2 text-left px-2">{errors.phone.message}</p>}
                 </div>
                 <Button

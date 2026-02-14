@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Trash2, Plus, LogOut, Package, ShoppingCart, Building2, Upload } from "lucide-react"
+import { Trash2, Plus, LogOut, Package, ShoppingCart, Building2, Upload, Pencil } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -15,6 +15,12 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState<any[]>([])
@@ -37,6 +43,8 @@ export default function AdminDashboard() {
     isNew: false,
     type: "retail"
   })
+  const [editingProduct, setEditingProduct] = useState<any>(null)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [uploading, setUploading] = useState(false)
 
   const fetchData = async () => {
@@ -69,7 +77,7 @@ export default function AdminDashboard() {
     router.push("/admin/login")
   }
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, isEdit: boolean = false) => {
     const file = e.target.files?.[0]
     if (!file) return
 
@@ -84,7 +92,11 @@ export default function AdminDashboard() {
       })
       const result = await res.json()
       if (result.url) {
-        setFormData({ ...formData, image: result.url })
+        if (isEdit) {
+          setEditingProduct({ ...editingProduct, image: result.url })
+        } else {
+          setFormData({ ...formData, image: result.url })
+        }
       }
     } catch (err) {
       alert("Ошибка при загрузке")
@@ -122,6 +134,29 @@ export default function AdminDashboard() {
     }
   }
 
+  const handleUpdate = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      const res = await fetch(`/api/products/${editingProduct.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editingProduct)
+      })
+      if (res.ok) {
+        setIsEditModalOpen(false)
+        setEditingProduct(null)
+        fetchData()
+      }
+    } catch (err) {
+      alert("Ошибка при обновлении")
+    }
+  }
+
+  const openEditModal = (product: any, type: string) => {
+    setEditingProduct({ ...product, type })
+    setIsEditModalOpen(true)
+  }
+
   const handleDelete = async (id: string, type: string) => {
     if (!confirm("Удалить этот товар?")) return
     try {
@@ -129,6 +164,29 @@ export default function AdminDashboard() {
       if (res.ok) fetchData()
     } catch (err) {
       alert("Ошибка при удалении")
+    }
+  }
+
+  const updateOrderStatus = async (id: string, status: string) => {
+    try {
+      const res = await fetch(`/api/orders/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status })
+      })
+      if (res.ok) fetchData()
+    } catch (err) {
+      alert("Ошибка при обновлении статуса")
+    }
+  }
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'NEW': return <Badge className="bg-blue-500">Новая</Badge>
+      case 'IN_WORK': return <Badge className="bg-orange-500">В работе</Badge>
+      case 'COMPLETED': return <Badge className="bg-green-500">Выполнена</Badge>
+      case 'CANCELLED': return <Badge variant="outline" className="text-slate-400">Отменена</Badge>
+      default: return <Badge>{status}</Badge>
     }
   }
 
@@ -299,14 +357,24 @@ export default function AdminDashboard() {
                             <h4 className="font-bold text-slate-900">{p.name}</h4>
                             <div className="text-sm text-sky-600 font-bold">{p.price} ₽</div>
                           </div>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="text-slate-300 hover:text-red-500 transition-colors"
-                            onClick={() => handleDelete(p.id, "retail")}
-                          >
-                            <Trash2 className="w-5 h-5" />
-                          </Button>
+                          <div className="flex gap-2">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="text-slate-300 hover:text-sky-500 transition-colors"
+                              onClick={() => openEditModal(p, "retail")}
+                            >
+                              <Pencil className="w-5 h-5" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="text-slate-300 hover:text-red-500 transition-colors"
+                              onClick={() => handleDelete(p.id, "retail")}
+                            >
+                              <Trash2 className="w-5 h-5" />
+                            </Button>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -424,14 +492,24 @@ export default function AdminDashboard() {
                               {p.price200 && <span className="text-slate-400">{p.price200} ₽ (от 200кг)</span>}
                             </div>
                           </div>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="text-slate-300 hover:text-red-500 transition-colors"
-                            onClick={() => handleDelete(p.id, "b2b")}
-                          >
-                            <Trash2 className="w-5 h-5" />
-                          </Button>
+                          <div className="flex gap-2">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="text-slate-300 hover:text-sky-500 transition-colors"
+                              onClick={() => openEditModal(p, "b2b")}
+                            >
+                              <Pencil className="w-5 h-5" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="text-slate-300 hover:text-red-500 transition-colors"
+                              onClick={() => handleDelete(p.id, "b2b")}
+                            >
+                              <Trash2 className="w-5 h-5" />
+                            </Button>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -455,6 +533,7 @@ export default function AdminDashboard() {
                             <Badge className={o.type === "B2B" ? "bg-purple-500" : "bg-sky-500"}>
                               {o.type}
                             </Badge>
+                            {getStatusBadge(o.status)}
                             <span className="text-sm font-bold text-slate-900">{o.name}</span>
                             <span className="text-sm text-slate-500">{o.phone}</span>
                           </div>
@@ -463,12 +542,12 @@ export default function AdminDashboard() {
                           </div>
                         </div>
                         {o.address && <div className="text-sm text-slate-600 mb-2"><b>Адрес:</b> {o.address}</div>}
-                        {o.comment && <div className="text-sm text-slate-600 mb-2 italic">"{o.comment}"</div>}
+                        {o.comment && <div className="text-sm text-slate-600 mb-2 italic">&quot;{o.comment}&quot;</div>}
                         {o.products && (
                           <div className="mt-4 pt-4 border-t border-slate-50">
                             <div className="text-xs font-bold text-slate-400 uppercase mb-2">Заказ:</div>
                             <div className="flex flex-wrap gap-2">
-                              {JSON.parse(o.products).map((p: any, idx: number) => (
+                    {JSON.parse(o.products).map((p: {name: string, quantity: number}, idx: number) => (
                                 <Badge key={idx} variant="outline" className="rounded-md">
                                   {p.name} x {p.quantity}
                                 </Badge>
@@ -476,7 +555,21 @@ export default function AdminDashboard() {
                             </div>
                           </div>
                         )}
-                        {o.total && <div className="mt-4 text-right font-bold text-sky-600">Итого: {o.total} ₽</div>}
+                        <div className="mt-6 pt-4 border-t border-slate-50 flex justify-between items-center">
+                          <div className="flex gap-2">
+                            <select
+                              className="text-xs border rounded px-2 py-1 focus:outline-none"
+                              value={o.status}
+                              onChange={(e) => updateOrderStatus(o.id, e.target.value)}
+                            >
+                              <option value="NEW">Новая</option>
+                              <option value="IN_WORK">В работе</option>
+                              <option value="COMPLETED">Выполнена</option>
+                              <option value="CANCELLED">Отменена</option>
+                            </select>
+                          </div>
+                          {o.total && <div className="font-bold text-sky-600">Итого: {o.total} ₽</div>}
+                        </div>
                       </div>
                     ))}
                     {orders.length === 0 && (
@@ -488,6 +581,162 @@ export default function AdminDashboard() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+        <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Редактирование товара</DialogTitle>
+          </DialogHeader>
+          {editingProduct && (
+            <form onSubmit={handleUpdate} className="space-y-4 pt-4">
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-400 uppercase">Название</label>
+                <Input
+                  value={editingProduct.name}
+                  onChange={e => setEditingProduct({...editingProduct, name: e.target.value})}
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-400 uppercase">
+                    {editingProduct.type === 'retail' ? 'Цена' : 'Цена (50-200кг)'}
+                  </label>
+                  <Input
+                    type="number"
+                    value={editingProduct.price}
+                    onChange={e => setEditingProduct({...editingProduct, price: e.target.value})}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-400 uppercase">
+                    {editingProduct.type === 'retail' ? 'Старая цена' : 'Цена (200кг+)'}
+                  </label>
+                  <Input
+                    type="number"
+                    value={editingProduct.type === 'retail' ? (editingProduct.oldPrice || '') : (editingProduct.price200 || '')}
+                    onChange={e => {
+                      if (editingProduct.type === 'retail') {
+                        setEditingProduct({...editingProduct, oldPrice: e.target.value})
+                      } else {
+                        setEditingProduct({...editingProduct, price200: e.target.value})
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-400 uppercase">
+                  {editingProduct.type === 'retail' ? 'Вес' : 'Упаковка'}
+                </label>
+                <Input
+                  value={editingProduct.weight}
+                  onChange={e => setEditingProduct({...editingProduct, weight: e.target.value})}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-400 uppercase">Категория</label>
+                <select
+                  className="w-full h-10 px-3 rounded-md border border-slate-200 text-sm focus:outline-none"
+                  value={editingProduct.category}
+                  onChange={e => setEditingProduct({...editingProduct, category: e.target.value})}
+                >
+                  {editingProduct.type === 'retail' ? (
+                    <>
+                      <option>Филе и стейки</option>
+                      <option>Целая рыба</option>
+                      <option>Креветки и раки</option>
+                      <option>Кальмары и осьминоги</option>
+                      <option>Икра и деликатесы</option>
+                      <option>Готовые наборы</option>
+                    </>
+                  ) : (
+                    <>
+                      <option>Филе и стейки рыб</option>
+                      <option>Креветки и раки</option>
+                      <option>Мидии, гребешки, кальмары</option>
+                      <option>Красная икра</option>
+                      <option>Крабы</option>
+                    </>
+                  )}
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-400 uppercase">Описание</label>
+                <Textarea
+                  value={editingProduct.description}
+                  onChange={e => setEditingProduct({...editingProduct, description: e.target.value})}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Изображение</label>
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="URL изображения"
+                    value={editingProduct.image}
+                    onChange={e => setEditingProduct({...editingProduct, image: e.target.value})}
+                    required
+                  />
+                  <div className="relative">
+                    <input
+                      type="file"
+                      className="absolute inset-0 opacity-0 cursor-pointer"
+                      onChange={(e) => handleFileUpload(e, true)}
+                      disabled={uploading}
+                    />
+                    <Button type="button" variant="outline" size="icon" disabled={uploading}>
+                      <Upload className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+                {editingProduct.image && (
+                  <div className="mt-2 w-20 h-20 rounded-lg overflow-hidden border border-slate-100">
+                    <img src={editingProduct.image} className="w-full h-full object-cover" />
+                  </div>
+                )}
+              </div>
+
+              {editingProduct.type === 'retail' && (
+                <div className="flex gap-6 py-2">
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id="edit-isHit"
+                      checked={editingProduct.isHit}
+                      onCheckedChange={(checked) => setEditingProduct({...editingProduct, isHit: !!checked})}
+                    />
+                    <label htmlFor="edit-isHit" className="text-sm font-medium">Хит</label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id="edit-isNew"
+                      checked={editingProduct.isNew}
+                      onCheckedChange={(checked) => setEditingProduct({...editingProduct, isNew: !!checked})}
+                    />
+                    <label htmlFor="edit-isNew" className="text-sm font-medium">Новинка</label>
+                  </div>
+                </div>
+              )}
+
+              <div className="flex gap-3 pt-4">
+                <Button type="button" variant="outline" className="flex-1" onClick={() => setIsEditModalOpen(false)}>
+                  Отмена
+                </Button>
+                <Button type="submit" className="flex-1 bg-sky-600 hover:bg-sky-700">
+                  Сохранить
+                </Button>
+              </div>
+            </form>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

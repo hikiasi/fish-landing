@@ -14,10 +14,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Package, ShieldCheck, Truck } from "lucide-react"
+import InputMask from "react-input-mask"
 
 const sampleSetSchema = z.object({
   name: z.string().min(2, "Введите имя"),
-  phone: z.string().min(10, "Введите корректный номер телефона"),
+  phone: z.string().refine((val) => {
+    const digits = val.replace(/\D/g, "");
+    return digits.length === 11;
+  }, "Введите полный номер телефона"),
   address: z.string().min(5, "Введите адрес доставки"),
   addShrimp: z.boolean().default(false),
   agree: z.boolean().refine(val => val === true, "Необходимо согласие")
@@ -86,7 +90,17 @@ export function SampleSetModal({ isOpen, onClose }: SampleSetModalProps) {
               {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
             </div>
             <div>
-              <Input placeholder="+7 (___) ___-__-__" {...register("phone")} className="h-12 rounded-xl" />
+                <InputMask
+                  mask="+7 (999) 999-99-99"
+                  {...register("phone")}
+                >
+                  {/* @ts-ignore */}
+                  <Input
+                    type="tel"
+                    placeholder="+7 (___) ___-__-__"
+                    className="h-12 rounded-xl"
+                  />
+                </InputMask>
               {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
             </div>
             <div>

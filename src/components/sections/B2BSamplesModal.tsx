@@ -14,11 +14,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Package, ShieldCheck, Truck } from "lucide-react"
+import InputMask from "react-input-mask"
 
 const samplesSchema = z.object({
   company: z.string().min(2, "Введите название компании"),
   name: z.string().min(2, "Введите имя"),
-  phone: z.string().min(10, "Введите корректный номер телефона"),
+  phone: z.string().refine((val) => {
+    const digits = val.replace(/\D/g, "");
+    return digits.length === 11;
+  }, "Введите полный номер телефона"),
   email: z.string().email("Введите корректный email"),
   agree: z.boolean().refine(val => val === true, "Необходимо согласие")
 })
@@ -78,7 +82,17 @@ export function B2BSamplesModal({ isOpen, onClose }: B2BSamplesModalProps) {
             <Input placeholder="Ваше имя" {...register("name")} className="h-12 rounded-xl" />
             {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
 
-            <Input placeholder="+7 (___) ___-__-__" {...register("phone")} className="h-12 rounded-xl" />
+            <InputMask
+              mask="+7 (999) 999-99-99"
+              {...register("phone")}
+            >
+              {/* @ts-ignore */}
+              <Input
+                type="tel"
+                placeholder="+7 (___) ___-__-__"
+                className="h-12 rounded-xl"
+              />
+            </InputMask>
             {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
 
             <Input placeholder="Email для прайса" {...register("email")} className="h-12 rounded-xl" />
