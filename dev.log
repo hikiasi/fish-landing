@@ -1,0 +1,245 @@
+
+> landing@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.1.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+   - Environments: .env
+
+ ✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+ ✓ Ready in 2.2s
+ ○ Compiling /api/products ...
+ ✓ Compiled /api/products in 2.6s (332 modules)
+ GET /api/products 200 in 2893ms
+ ✓ Compiled in 250ms (332 modules)
+ ✓ Compiled /api/orders in 143ms (335 modules)
+Telegram notification (simulated): <b>🏠 НОВЫЙ РОЗНИЧНЫЙ ЗАКАЗ</b>
+
+<b>Имя:</b> Тест
+<b>Телефон:</b> +79991234567
+<b>Адрес:</b> ул. Тестовая, 1
+<b>Сумма:</b> 1290 ₽
+
+<b>Товары:</b>
+- Сёмга (1 шт.)
+
+ POST /api/orders 200 in 206ms
+ ✓ Compiled in 164ms (335 modules)
+ ✓ Compiled /api/auth/login in 179ms (338 modules)
+ POST /api/auth/login 200 in 317ms
+ ✓ Compiled in 205ms (336 modules)
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 667ms (98 modules)
+ ✓ Compiled in 182ms (347 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 12.5s (1735 modules)
+ GET / 200 in 13505ms
+ ○ Compiling /api/products ...
+ ✓ Compiled /api/products in 722ms (883 modules)
+ GET /api/products?type=b2b 200 in 989ms
+ GET /api/products?type=retail&category=%D0%92%D1%81%D0%B5&limit=9 200 in 999ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1492ms (1740 modules)
+ GET /uploads/caviar.jpg 404 in 1764ms
+ GET /uploads/dorado.jpg 404 in 1767ms
+ GET /uploads/seabass.jpg 404 in 1769ms
+ GET /uploads/mussels.jpg 404 in 1775ms
+ GET /uploads/halibut.jpg 404 in 1769ms
+ GET /uploads/family-set.jpg 404 in 1772ms
+ GET /uploads/cod-fillet.jpg 404 in 95ms
+ GET /uploads/shrimp.jpg 404 in 99ms
+ GET /uploads/squid.jpg 404 in 106ms
+ GET / 200 in 241ms
+ ○ Compiling /admin/login ...
+ ✓ Compiled /admin/login in 811ms (1737 modules)
+ GET / 200 in 213ms
+ GET /admin/login 200 in 984ms
+ ✓ Compiled in 242ms (860 modules)
+ GET /admin/login 200 in 131ms
+ GET / 200 in 347ms
+ GET /api/products?type=retail&category=%D0%92%D1%81%D0%B5&limit=9 200 in 39ms
+ GET /api/products?type=b2b 200 in 46ms
+ GET /uploads/halibut.jpg 404 in 89ms
+ GET /uploads/family-set.jpg 404 in 90ms
+ GET /uploads/seabass.jpg 404 in 93ms
+ GET /uploads/caviar.jpg 404 in 91ms
+ GET /uploads/dorado.jpg 404 in 93ms
+ GET /uploads/mussels.jpg 404 in 96ms
+ GET /uploads/shrimp.jpg 404 in 51ms
+ GET /uploads/squid.jpg 404 in 54ms
+ GET /uploads/cod-fillet.jpg 404 in 55ms
+ GET /admin/login 200 in 31ms
+ GET / 200 in 100ms
+ GET /api/products?type=b2b 200 in 17ms
+ GET /api/products?type=retail&category=%D0%92%D1%81%D0%B5&limit=9 200 in 21ms
+ GET /uploads/mussels.jpg 404 in 83ms
+ GET /uploads/seabass.jpg 404 in 84ms
+ GET /uploads/dorado.jpg 404 in 82ms
+ GET /uploads/family-set.jpg 404 in 84ms
+ GET /uploads/caviar.jpg 404 in 85ms
+ GET /uploads/halibut.jpg 404 in 82ms
+ GET /uploads/squid.jpg 404 in 55ms
+ GET /uploads/shrimp.jpg 404 in 54ms
+ GET /uploads/cod-fillet.jpg 404 in 55ms
+ GET /admin/login 200 in 23ms
+ ✓ Compiled /api/auth/login in 466ms (894 modules)
+ POST /api/auth/login 200 in 620ms
+ ○ Compiling /admin ...
+ ⨯ ./src/app/admin/page.tsx:7:1
+Module not found: Can't resolve '@/components/ui/textarea'
+   5 | import { Button } from "@/components/ui/button"
+   6 | import { Input } from "@/components/ui/input"
+>  7 | import { Textarea } from "@/components/ui/textarea"
+     | ^
+   8 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   9 | import { Trash2, Plus, LogOut, Package, ShoppingCart, Building2, Upload } from "lucide-react"
+  10 | import { Badge } from "@/components/ui/badge"
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/admin/page.tsx:7:1
+Module not found: Can't resolve '@/components/ui/textarea'
+   5 | import { Button } from "@/components/ui/button"
+   6 | import { Input } from "@/components/ui/input"
+>  7 | import { Textarea } from "@/components/ui/textarea"
+     | ^
+   8 | import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+   9 | import { Trash2, Plus, LogOut, Package, ShoppingCart, Building2, Upload } from "lucide-react"
+  10 | import { Badge } from "@/components/ui/badge"
+
+https://nextjs.org/docs/messages/module-not-found
+ GET /admin 500 in 5169ms
+ GET /admin 500 in 16ms
+ GET /admin 500 in 15ms
+ GET /admin 500 in 15ms
+ ⨯ ./src/app/admin/page.tsx:12:1
+Module not found: Can't resolve '@/components/ui/tabs'
+  10 | import { Badge } from "@/components/ui/badge"
+  11 | import { Checkbox } from "@/components/ui/checkbox"
+> 12 | import {
+     | ^
+  13 |   Tabs,
+  14 |   TabsContent,
+  15 |   TabsList,
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./src/app/admin/page.tsx:12:1
+Module not found: Can't resolve '@/components/ui/tabs'
+  10 | import { Badge } from "@/components/ui/badge"
+  11 | import { Checkbox } from "@/components/ui/checkbox"
+> 12 | import {
+     | ^
+  13 |   Tabs,
+  14 |   TabsContent,
+  15 |   TabsList,
+
+https://nextjs.org/docs/messages/module-not-found
+ GET / 500 in 340ms
+ GET / 500 in 14ms
+ ⨯ ./src/components/ui/tabs.tsx:4:1
+Module not found: Can't resolve '@radix-ui/react-tabs'
+  2 |
+  3 | import * as React from "react"
+> 4 | import * as TabsPrimitive from "@radix-ui/react-tabs"
+    | ^
+  5 |
+  6 | import { cn } from "@/lib/utils"
+  7 |
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./src/app/admin/page.tsx
+ GET / 500 in 15ms
+ GET / 500 in 16ms
+ ✓ Compiled /_error in 1488ms (1979 modules)
+ GET / 200 in 539ms
+ ✓ Compiled /api/products in 226ms (935 modules)
+ GET /api/products?type=b2b 200 in 343ms
+ GET /api/products?type=retail&category=%D0%92%D1%81%D0%B5&limit=9 200 in 349ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1244ms (1988 modules)
+ GET /uploads/seabass.jpg 404 in 1475ms
+ GET /uploads/mussels.jpg 404 in 1477ms
+ GET /uploads/family-set.jpg 404 in 1468ms
+ GET /uploads/halibut.jpg 404 in 1469ms
+ GET /uploads/dorado.jpg 404 in 1478ms
+ GET /uploads/caviar.jpg 404 in 1473ms
+ GET /uploads/cod-fillet.jpg 404 in 44ms
+ GET /uploads/squid.jpg 404 in 57ms
+ GET /uploads/shrimp.jpg 404 in 57ms
+ GET /admin/login 200 in 78ms
+ ✓ Compiled /api/auth/login in 394ms (939 modules)
+ POST /api/auth/login 200 in 522ms
+ ○ Compiling /admin ...
+ ✓ Compiled /admin in 780ms (951 modules)
+ GET /admin 200 in 944ms
+ GET /api/products?type=retail 200 in 29ms
+ ✓ Compiled /api/orders in 269ms (954 modules)
+ GET /api/products?type=b2b 200 in 543ms
+ GET /api/orders 200 in 558ms
+ GET /api/products?type=retail 200 in 528ms
+ GET /api/products?type=b2b 200 in 29ms
+ GET /api/orders 200 in 18ms
+ GET /uploads/seabass.jpg 404 in 129ms
+ GET /uploads/mussels.jpg 404 in 135ms
+ GET /uploads/caviar.jpg 404 in 129ms
+ GET /uploads/family-set.jpg 404 in 129ms
+ GET /uploads/halibut.jpg 404 in 128ms
+ GET /uploads/dorado.jpg 404 in 130ms
+ GET /uploads/squid.jpg 404 in 60ms
+ GET /uploads/shrimp.jpg 404 in 57ms
+ GET /uploads/cod-fillet.jpg 404 in 57ms
+ GET /uploads/salmon-steak.jpg 404 in 51ms
+ ✓ Compiled in 1874ms (1979 modules)
+ ✓ Compiled in 9.9s (1063 modules)
+ ✓ Compiled in 781ms (1063 modules)
+ ✓ Compiled in 378ms (1063 modules)
+ ✓ Compiled in 1433ms (1064 modules)
+ ✓ Compiled in 466ms (1064 modules)
+ ✓ Compiled in 290ms (1064 modules)
+ ✓ Compiled in 1311ms (2078 modules)
+ ✓ Compiled in 520ms (1064 modules)
+ ✓ Compiled in 356ms (1064 modules)
+ ✓ Compiled in 4.6s (1984 modules)
+ ✓ Compiled in 564ms (1984 modules)
+ ✓ Compiled in 505ms (1984 modules)
+ ✓ Compiled in 1989ms (1992 modules)
+ ✓ Compiled in 2.2s (1992 modules)
+ ✓ Compiled in 3s (1992 modules)
+ ✓ Compiled in 1441ms (1992 modules)
+ ✓ Compiled in 456ms (1992 modules)
+ ✓ Compiled in 524ms (1992 modules)
+ ✓ Compiled in 717ms (1992 modules)
+ ✓ Compiled in 2.2s (1992 modules)
+ ✓ Compiled in 595ms (1992 modules)
+ ✓ Compiled in 399ms (1992 modules)
+ ✓ Compiled in 639ms (1992 modules)
+ ✓ Compiled in 552ms (1992 modules)
+ ✓ Compiled in 1483ms (1992 modules)
+ ✓ Compiled in 761ms (1070 modules)
+ ✓ Compiled in 573ms (1070 modules)
+ ✓ Compiled in 384ms (1070 modules)
+ ✓ Compiled in 213ms (1070 modules)
+ ✓ Compiled in 205ms (1070 modules)
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+   ▲ Next.js 15.1.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 3.6s
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+▲ Next.js 16.1.6 (webpack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+- Environments: .env
+
+✓ Starting...
+✓ Ready in 2.3s
