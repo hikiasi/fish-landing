@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Package, ShieldCheck, Truck } from "lucide-react"
-import InputMask from "react-input-mask"
+import { PatternFormat } from "react-number-format"
 
 const sampleSetSchema = z.object({
   name: z.string().min(2, "Введите имя"),
@@ -90,19 +90,15 @@ export function SampleSetModal({ isOpen, onClose }: SampleSetModalProps) {
               {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
             </div>
             <div>
-                <InputMask
-                  mask="+7 (999) 999-99-99"
-                  {...register("phone")}
-                >
-                  {(inputProps: any) => (
-                    <Input
-                      {...inputProps}
-                      type="tel"
-                      placeholder="+7 (___) ___-__-__"
-                      className="h-12 rounded-xl"
-                    />
-                  )}
-                </InputMask>
+              <PatternFormat
+                format="+7 (###) ###-##-##"
+                mask="_"
+                customInput={Input}
+                onValueChange={(values) => setValue("phone", values.formattedValue)}
+                type="tel"
+                placeholder="+7 (___) ___-__-__"
+                className="h-12 rounded-xl"
+              />
               {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
             </div>
             <div>

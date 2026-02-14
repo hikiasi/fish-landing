@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Package, ShieldCheck, Truck } from "lucide-react"
-import InputMask from "react-input-mask"
+import { PatternFormat } from "react-number-format"
 
 const samplesSchema = z.object({
   company: z.string().min(2, "Введите название компании"),
@@ -82,19 +82,15 @@ export function B2BSamplesModal({ isOpen, onClose }: B2BSamplesModalProps) {
             <Input placeholder="Ваше имя" {...register("name")} className="h-12 rounded-xl" />
             {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
 
-            <InputMask
-              mask="+7 (999) 999-99-99"
-              {...register("phone")}
-            >
-              {(inputProps: any) => (
-                <Input
-                  {...inputProps}
-                  type="tel"
-                  placeholder="+7 (___) ___-__-__"
-                  className="h-12 rounded-xl"
-                />
-              )}
-            </InputMask>
+            <PatternFormat
+              format="+7 (###) ###-##-##"
+              mask="_"
+              customInput={Input}
+              onValueChange={(values) => setValue("phone", values.formattedValue)}
+              type="tel"
+              placeholder="+7 (___) ___-__-__"
+              className="h-12 rounded-xl"
+            />
             {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
 
             <Input placeholder="Email для прайса" {...register("email")} className="h-12 rounded-xl" />

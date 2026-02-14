@@ -8,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import InputMask from "react-input-mask"
+import { PatternFormat } from "react-number-format"
 
 const b2bHeroSchema = z.object({
   company: z.string().min(2, "Введите название компании"),
@@ -118,19 +118,15 @@ export function B2BHero() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <InputMask
-                      mask="+7 (999) 999-99-99"
-                      {...register("phone")}
-                    >
-                      {(inputProps: any) => (
-                        <Input
-                          {...inputProps}
+                    <PatternFormat
+                      format="+7 (###) ###-##-##"
+                      mask="_"
+                      customInput={Input}
+                      onValueChange={(values) => setValue("phone", values.formattedValue)}
                           type="tel"
-                          placeholder="+7 (___) ___-__-__"
-                          className="h-12 rounded-xl"
+                      placeholder="+7 (___) ___-__-__"
+                      className="h-14 rounded-2xl border-white bg-white shadow-sm"
                         />
-                      )}
-                    </InputMask>
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
                   </div>
                   <div>

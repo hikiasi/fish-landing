@@ -17,7 +17,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { CheckoutModal } from "@/components/sections/CheckoutModal"
-import InputMask from "react-input-mask"
+import { PatternFormat } from "react-number-format"
 
 const exitFormSchema = z.object({
   phone: z.string().refine((val) => {
@@ -225,19 +225,14 @@ export function StickyFeatures() {
                 
                 <form onSubmit={handleSubmit(onExitSubmit)} className="space-y-4">
                   <div>
-                    <InputMask
-                      mask="+7 (999) 999-99-99"
-                      {...register("phone")}
-                    >
-                      {(inputProps: any) => (
-                        <input
-                          {...inputProps}
-                          type="tel"
-                          placeholder="+7 (___) ___-__-__"
-                          className="w-full h-14 rounded-2xl bg-slate-50 border border-slate-100 px-6 text-center text-lg focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-all"
-                        />
-                      )}
-                    </InputMask>
+                    <PatternFormat
+                      format="+7 (###) ###-##-##"
+                      mask="_"
+                      onValueChange={(values) => setValue("phone", values.formattedValue)}
+                      type="tel"
+                      placeholder="+7 (___) ___-__-__"
+                      className="w-full h-14 rounded-2xl bg-slate-50 border border-slate-100 px-6 text-center text-lg focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-all"
+                    />
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
                   </div>
 
