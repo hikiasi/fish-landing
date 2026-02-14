@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { ChevronRight, Package, Truck, Clock, CreditCard, ChevronDown } from "lucide-react"
+import { ChevronRight, Package, Truck, Clock, CreditCard } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Accordion,
@@ -16,6 +16,7 @@ export function B2BCatalog() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [products, setProducts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+  const [expandedCategories, setExpandedCategories] = useState<string[]>([])
 
   const fetchProducts = async () => {
     try {
@@ -34,6 +35,12 @@ export function B2BCatalog() {
   }, [])
 
   const categories = Array.from(new Set(products.map(p => p.category)))
+
+  const toggleCategory = (cat: string) => {
+    setExpandedCategories(prev =>
+      prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
+    )
+  }
 
   return (
     <section id="b2b-catalog" className="py-24 bg-slate-50">
@@ -71,7 +78,10 @@ export function B2BCatalog() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-50">
-                        {products.filter(p => p.category === cat).map((item, j) => (
+                        {products
+                          .filter(p => p.category === cat)
+                          .slice(0, expandedCategories.includes(cat) ? undefined : 5)
+                          .map((item, j) => (
                           <tr key={j} className="text-sm">
                             <td className="py-4 font-bold text-slate-800">{item.name}</td>
                             <td className="py-4 text-slate-500">{item.weight}</td>
@@ -82,10 +92,16 @@ export function B2BCatalog() {
                       </tbody>
                     </table>
                   </div>
-                  <Button variant="ghost" className="mt-4 text-sky-600 font-bold hover:bg-sky-50">
-                    Ещё позиции в категории
-                    <ChevronRight className="w-4 h-4 ml-1" />
-                  </Button>
+                  {products.filter(p => p.category === cat).length > 5 && !expandedCategories.includes(cat) && (
+                    <Button
+                      variant="ghost"
+                      className="mt-4 text-sky-600 font-bold hover:bg-sky-50"
+                      onClick={() => toggleCategory(cat)}
+                    >
+                      Ещё {products.filter(p => p.category === cat).length - 5} позиции в категории
+                      <ChevronRight className="w-4 h-4 ml-1" />
+                    </Button>
+                  )}
                 </AccordionContent>
               </AccordionItem>
             ))}
