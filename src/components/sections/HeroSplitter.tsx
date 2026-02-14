@@ -11,34 +11,34 @@ interface HeroSplitterProps {
 
 export function HeroSplitter({ onSelectRetail, onSelectB2B }: HeroSplitterProps) {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center bg-white overflow-hidden px-4 pt-32 pb-12 md:pt-40">
+    <section className="relative min-h-screen flex flex-col items-center justify-center bg-slate-50 overflow-hidden px-4 pt-36 pb-12 md:pt-48">
       {/* Background Animation */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <motion.div
           animate={{
-            scale: [1, 1.3, 1],
-            x: [0, 60, 0],
-            y: [0, 40, 0],
+            scale: [1, 1.2, 1],
+            x: [0, 100, 0],
+            y: [0, 50, 0],
           }}
           transition={{
             duration: 15,
             repeat: Infinity,
             ease: "linear"
           }}
-          className="absolute -top-[10%] -left-[10%] w-[70%] h-[70%] bg-sky-200/60 rounded-full blur-[120px]"
+          className="absolute -top-[10%] -left-[10%] w-[80%] h-[80%] bg-sky-400/20 rounded-full blur-[100px]"
         />
         <motion.div
           animate={{
-            scale: [1, 1.2, 1],
-            x: [0, -60, 0],
-            y: [0, -40, 0],
+            scale: [1, 1.1, 1],
+            x: [0, -100, 0],
+            y: [0, -50, 0],
           }}
           transition={{
-            duration: 18,
+            duration: 20,
             repeat: Infinity,
             ease: "linear"
           }}
-          className="absolute -bottom-[10%] -right-[10%] w-[80%] h-[80%] bg-blue-100/60 rounded-full blur-[120px]"
+          className="absolute -bottom-[10%] -right-[10%] w-[90%] h-[90%] bg-blue-400/20 rounded-full blur-[100px]"
         />
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] grayscale" />
       </div>
