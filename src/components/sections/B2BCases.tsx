@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Quote, TrendingUp, CheckCircle2 } from "lucide-react"
+import Image from "next/image"
 
 const B2B_CASES = [
   {
@@ -52,7 +53,13 @@ export function B2BCases() {
               className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden flex flex-col md:flex-row"
             >
               <div className="md:w-1/3 relative h-64 md:h-auto">
-                <img src={item.image} alt={item.name} className="absolute inset-0 w-full h-full object-cover" />
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover"
+                />
                 <div className="absolute inset-0 bg-slate-900/40" />
               </div>
               <div className="md:w-2/3 p-8">

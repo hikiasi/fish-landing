@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/sheet"
 import { CheckoutModal } from "@/components/sections/CheckoutModal"
 import { PatternFormat } from "react-number-format"
+import Image from "next/image"
 
 const exitFormSchema = z.object({
   phone: z.string().refine((val) => {
@@ -87,6 +88,7 @@ export function StickyFeatures() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               className="w-14 h-14 bg-sky-600 text-white rounded-full shadow-2xl shadow-sky-400/50 flex items-center justify-center relative group"
+              aria-label="Открыть корзину"
             >
               <ShoppingCart className="w-6 h-6" />
               {totalItems > 0 && (
@@ -117,8 +119,8 @@ export function StickyFeatures() {
                 <div className="space-y-6">
                   {cart.map((item) => (
                     <div key={item.id} className="flex gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 relative group">
-                      <div className="w-20 h-20 rounded-lg overflow-hidden shrink-0">
-                        <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                      <div className="w-20 h-20 rounded-lg overflow-hidden shrink-0 relative">
+                        <Image src={item.image} alt={item.name} fill className="object-cover" />
                       </div>
                       <div className="flex-grow">
                         <h4 className="font-bold text-slate-900 text-sm mb-1 leading-tight pr-6">{item.name}</h4>
@@ -126,11 +128,11 @@ export function StickyFeatures() {
                         <div className="flex items-center justify-between">
                           <div className="font-bold text-sky-600">{item.price} ₽</div>
                           <div className="flex items-center gap-3 bg-white rounded-lg border border-slate-200 p-1">
-                            <button className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-sky-600" onClick={() => decrementQuantity(item.id)}>
+                            <button className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-sky-600" onClick={() => decrementQuantity(item.id)} aria-label="Уменьшить количество">
                               <Minus className="w-3 h-3" />
                             </button>
                             <span className="text-xs font-bold w-4 text-center">{item.quantity}</span>
-                            <button className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-sky-600" onClick={() => addToCart(item)}>
+                            <button className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-sky-600" onClick={() => addToCart(item)} aria-label="Увеличить количество">
                               <Plus className="w-3 h-3" />
                             </button>
                           </div>
@@ -139,6 +141,7 @@ export function StickyFeatures() {
                       <button 
                         className="absolute top-4 right-4 text-slate-300 hover:text-red-400"
                         onClick={() => removeFromCart(item.id)}
+                        aria-label="Удалить из корзины"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -188,6 +191,7 @@ export function StickyFeatures() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="w-14 h-14 bg-white text-[#229ED9] rounded-full shadow-2xl shadow-slate-200 flex items-center justify-center border border-slate-100"
+          aria-label="Написать в Telegram"
         >
           <Send className="w-6 h-6" />
         </motion.a>
@@ -210,6 +214,7 @@ export function StickyFeatures() {
               <button 
                 className="absolute top-6 right-6 text-slate-300 hover:text-slate-900"
                 onClick={() => setShowExitPopup(false)}
+                aria-label="Закрыть"
               >
                 <X className="w-6 h-6" />
               </button>

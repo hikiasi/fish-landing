@@ -16,6 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Product } from "@/context/CartContext"
 import { ShoppingCart, ShieldCheck, Clock } from "lucide-react"
 import { PatternFormat } from "react-number-format"
+import Image from "next/image"
 
 const fastOrderSchema = z.object({
   name: z.string().min(2, "Введите имя"),
@@ -85,7 +86,9 @@ export function FastOrderModal({ product, isOpen, onClose }: FastOrderModalProps
         
         <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-6 bg-white">
           <div className="flex gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 mb-6">
-            <img src={product.image} alt={product.name} className="w-16 h-16 rounded-lg object-cover" />
+            <div className="relative w-16 h-16 shrink-0">
+              <Image src={product.image} alt={product.name} fill className="rounded-lg object-cover" />
+            </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm leading-tight">{product.name}</h4>
               <div className="text-sky-600 font-bold mt-1">{product.price} ₽</div>

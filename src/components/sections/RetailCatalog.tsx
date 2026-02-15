@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { useCart, Product } from "@/context/CartContext"
 import { cn } from "@/lib/utils"
 import { FastOrderModal } from "./FastOrderModal"
+import Image from "next/image"
 
 const CATEGORIES = [
   "Все",
@@ -83,6 +84,7 @@ export function RetailCatalog() {
                     ? "bg-sky-600 text-white shadow-md"
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 )}
+                aria-label={`Выбрать категорию ${category}`}
               >
                 {category}
               </button>
@@ -108,7 +110,7 @@ export function RetailCatalog() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <AnimatePresence mode="popLayout">
-              {products.map((product) => (
+              {products.map((product, index) => (
                 <motion.div
                   key={product.id}
                   layout
@@ -120,10 +122,13 @@ export function RetailCatalog() {
                 >
                   <Card className="h-full overflow-hidden border-slate-100 shadow-sm hover:shadow-xl transition-shadow flex flex-col rounded-3xl">
                     <div className="relative aspect-[4/3] overflow-hidden">
-                      <img
+                      <Image
                         src={product.image}
                         alt={product.name}
-                        className="object-cover w-full h-full"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-500 hover:scale-110"
+                        priority={index < 3}
                       />
                       <div className="absolute top-3 left-3 flex flex-col gap-2">
                         {product.isHit && (

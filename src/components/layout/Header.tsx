@@ -8,12 +8,7 @@ import { useCart } from "@/context/CartContext"
 import { cn } from "@/lib/utils"
 import { CheckoutModal } from "@/components/sections/CheckoutModal"
 
-interface HeaderProps {
-  onRetailClick: () => void
-  onB2BClick: () => void
-}
-
-export function Header({ onRetailClick, onB2BClick }: HeaderProps) {
+export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isCallbackOpen, setIsCallbackOpen] = useState(false)
@@ -25,11 +20,24 @@ export function Header({ onRetailClick, onB2BClick }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const scrollToRetail = () => {
+    document.getElementById('retail-section')?.scrollIntoView({ behavior: 'smooth' })
+    setIsMobileMenuOpen(false)
+  }
+
+  const scrollToB2B = () => {
+    document.getElementById('b2b-section')?.scrollIntoView({ behavior: 'smooth' })
+    setIsMobileMenuOpen(false)
+  }
+
   const navItems = [
-    { label: "Каталог", onClick: onRetailClick },
-    { label: "Доставка", onClick: onRetailClick },
-    { label: "Оптовикам", onClick: onB2BClick },
-    { label: "Контакты", onClick: () => document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' }) },
+    { label: "Каталог", onClick: scrollToRetail },
+    { label: "Доставка", onClick: scrollToRetail },
+    { label: "Оптовикам", onClick: scrollToB2B },
+    { label: "Контакты", onClick: () => {
+      document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' })
+      setIsMobileMenuOpen(false)
+    }},
   ]
 
   return (
@@ -95,6 +103,7 @@ export function Header({ onRetailClick, onB2BClick }: HeaderProps) {
               variant="ghost" 
               className="rounded-full relative"
               onClick={() => setIsCartOpen(true)}
+              aria-label="Открыть корзину"
             >
               <ShoppingCart className="w-5 h-5" />
               <AnimatePresence>
@@ -117,6 +126,7 @@ export function Header({ onRetailClick, onB2BClick }: HeaderProps) {
             size="icon" 
             className="lg:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
           >
             {isMobileMenuOpen ? <X /> : <Menu />}
           </Button>
@@ -148,10 +158,7 @@ export function Header({ onRetailClick, onB2BClick }: HeaderProps) {
             {navItems.map((item, i) => (
               <button
                 key={i}
-                onClick={() => {
-                  item.onClick();
-                  setIsMobileMenuOpen(false);
-                }}
+                onClick={item.onClick}
                 className="text-left py-3 px-4 rounded-xl hover:bg-slate-50 font-bold text-slate-900"
               >
                 {item.label}
