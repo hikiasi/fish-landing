@@ -59,7 +59,7 @@ export function RetailCatalog() {
   }
 
   return (
-    <section id="retail-catalog" className="py-20 bg-white min-h-[600px]">
+    <section id="retail-catalog" className="py-12 md:py-20 bg-white min-h-[600px]">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -67,7 +67,7 @@ export function RetailCatalog() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4">
             Рыба и морепродукты с доставкой в Калининграде
           </h2>
           <div className="flex flex-wrap justify-center gap-2 mt-8">
@@ -102,7 +102,7 @@ export function RetailCatalog() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center py-20 text-slate-400"
+            className="flex flex-col items-center justify-center py-12 md:py-20 text-slate-400"
           >
             <Frown className="w-16 h-16 mb-4" />
             <p className="text-xl font-medium">К сожалению, товаров в этой категории пока нет</p>
@@ -113,7 +113,6 @@ export function RetailCatalog() {
               {products.map((product, index) => (
                 <motion.div
                   key={product.id}
-                  layout
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}

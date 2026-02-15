@@ -48,7 +48,7 @@ export function B2BHero() {
   }
 
   return (
-    <section id="b2b-hero" className="py-24 bg-white overflow-hidden">
+    <section id="b2b-hero" className="py-12 md:py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           {/* Left: Content */}
@@ -58,7 +58,7 @@ export function B2BHero() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
                 Стабильные поставки рыбы и морепродуктов для вашего бизнеса
               </h2>
               <p className="text-xl text-slate-500 mb-12 leading-relaxed">
@@ -100,7 +100,7 @@ export function B2BHero() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-slate-50 rounded-[40px] p-8 md:p-12 border border-slate-100 shadow-2xl shadow-slate-200"
+              className="bg-slate-50 rounded-3xl md:rounded-[40px] p-6 md:p-12 border border-slate-100 shadow-2xl shadow-slate-200"
             >
               <h3 className="text-2xl font-bold text-slate-900 mb-2">Получите актуальный прайс</h3>
               <p className="text-slate-500 mb-8">Отправим прайс и расчёт выгоды за 15 минут</p>
@@ -108,11 +108,11 @@ export function B2BHero() {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Input placeholder="Название компании" {...register("company")} className="h-14 rounded-2xl border-white bg-white shadow-sm" />
+                    <Input placeholder="Название компании" {...register("company")} className="h-12 md:h-14 rounded-2xl border-white bg-white shadow-sm" />
                     {errors.company && <p className="text-red-500 text-xs mt-1">{errors.company.message}</p>}
                   </div>
                   <div>
-                    <Input placeholder="Как к вам обращаться?" {...register("name")} className="h-14 rounded-2xl border-white bg-white shadow-sm" />
+                    <Input placeholder="Как к вам обращаться?" {...register("name")} className="h-12 md:h-14 rounded-2xl border-white bg-white shadow-sm" />
                     {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
                   </div>
                 </div>
@@ -125,12 +125,12 @@ export function B2BHero() {
                       onValueChange={(values) => setValue("phone", values.formattedValue)}
                           type="tel"
                       placeholder="+7 (___) ___-__-__"
-                      className="h-14 rounded-2xl border-white bg-white shadow-sm"
+                      className="h-12 md:h-14 rounded-2xl border-white bg-white shadow-sm"
                         />
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
                   </div>
                   <div>
-                    <Input placeholder="Email" {...register("email")} className="h-14 rounded-2xl border-white bg-white shadow-sm" />
+                    <Input placeholder="Email" {...register("email")} className="h-12 md:h-14 rounded-2xl border-white bg-white shadow-sm" />
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
                   </div>
                 </div>
@@ -148,7 +148,7 @@ export function B2BHero() {
                 </div>
                 {errors.agree && <p className="text-red-500 text-[10px]">{errors.agree.message}</p>}
 
-                <Button type="submit" className="w-full h-16 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all" disabled={isSubmitting}>
+                <Button type="submit" className="w-full h-14 md:h-16 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all" disabled={isSubmitting}>
                   {isSubmitting ? "Отправка..." : "Получить прайс и КП"}
                 </Button>
 

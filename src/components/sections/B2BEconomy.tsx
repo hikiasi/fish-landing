@@ -12,7 +12,7 @@ export function B2BEconomy() {
   const yearlySavings = monthlySavings * 12
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-12 md:py-24 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -20,7 +20,7 @@ export function B2BEconomy() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4">
             Сколько вы переплачиваете посредникам?
           </h2>
           <p className="text-slate-500 max-w-2xl mx-auto">
@@ -28,10 +28,10 @@ export function B2BEconomy() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-12 md:mb-24">
           {/* Comparison Table */}
-          <div className="overflow-hidden rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/50">
-            <table className="w-full text-left border-collapse">
+          <div className="overflow-x-auto rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/50">
+            <table className="w-full text-left border-collapse min-w-[500px]">
               <thead>
                 <tr className="bg-slate-50">
                   <th className="p-6 text-sm font-bold text-slate-400 uppercase tracking-wider">Условие</th>
@@ -102,7 +102,7 @@ export function B2BEconomy() {
               </div>
             </div>
 
-            <button className="w-full h-14 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
+            <button className="w-full h-12 sm:h-14 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
               Рассчитать для моего меню
               <ArrowRight className="w-4 h-4" />
             </button>

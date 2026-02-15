@@ -38,6 +38,32 @@ export async function GET(req: NextRequest) {
   }
 }
 
+export async function DELETE(req: NextRequest) {
+  const { searchParams } = new URL(req.url)
+  const type = searchParams.get("type")
+  const ids = searchParams.get("ids")?.split(",")
+
+  if (!ids || ids.length === 0) {
+    return NextResponse.json({ error: "No IDs provided" }, { status: 400 })
+  }
+
+  try {
+    if (type === "b2b") {
+      await prisma.b2BProduct.deleteMany({
+        where: { id: { in: ids } }
+      })
+    } else {
+      await prisma.product.deleteMany({
+        where: { id: { in: ids } }
+      })
+    }
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error("Products bulk DELETE error:", error)
+    return NextResponse.json({ error: "Failed to delete products" }, { status: 500 })
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()

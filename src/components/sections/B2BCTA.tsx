@@ -49,12 +49,12 @@ export function B2BCTA() {
   }
 
   return (
-    <section className="py-24 bg-white px-4">
-      <div className="container mx-auto max-w-6xl">
-        <div className="bg-slate-900 rounded-[40px] overflow-hidden flex flex-col lg:flex-row shadow-2xl">
+    <section className="py-12 md:py-24 bg-white">
+      <div className="container mx-auto px-4 max-w-6xl">
+        <div className="bg-slate-900 rounded-3xl md:rounded-[40px] overflow-hidden flex flex-col lg:flex-row shadow-2xl">
           {/* Left Side */}
-          <div className="lg:w-3/5 p-8 md:p-16 text-white bg-gradient-to-br from-slate-900 to-slate-800">
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-8 leading-tight">
+          <div className="lg:w-3/5 p-6 md:p-16 text-white bg-gradient-to-br from-slate-900 to-slate-800">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-8 leading-tight">
               Начните экономить уже со следующей поставки
             </h2>
             <div className="space-y-6 mb-12">
@@ -79,13 +79,13 @@ export function B2BCTA() {
           </div>
 
           {/* Right Side: Form */}
-          <div className="lg:w-2/5 p-8 md:p-12 bg-slate-50">
+          <div className="lg:w-2/5 p-6 md:p-12 bg-slate-50">
             <h3 className="text-2xl font-bold text-slate-900 mb-8">Заявка на сотрудничество</h3>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <Input placeholder="Компания / ресторан" {...register("company")} className="h-14 rounded-2xl border-slate-200 bg-white" />
+              <Input placeholder="Компания / ресторан" {...register("company")} className="h-12 md:h-14 rounded-2xl border-slate-200 bg-white" />
               {errors.company && <p className="text-red-500 text-xs mt-1">{errors.company.message}</p>}
 
-              <Input placeholder="Контактное лицо" {...register("name")} className="h-14 rounded-2xl border-slate-200 bg-white" />
+              <Input placeholder="Контактное лицо" {...register("name")} className="h-12 md:h-14 rounded-2xl border-slate-200 bg-white" />
               {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
 
               <PatternFormat
@@ -95,11 +95,11 @@ export function B2BCTA() {
                 onValueChange={(values) => setValue("phone", values.formattedValue)}
                 type="tel"
                 placeholder="+7 (___) ___-__-__"
-                className="h-14 rounded-2xl border-slate-200 bg-white"
+                className="h-12 md:h-14 rounded-2xl border-slate-200 bg-white"
               />
               {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
 
-              <Input placeholder="Email" {...register("email")} className="h-14 rounded-2xl border-slate-200 bg-white" />
+              <Input placeholder="Email" {...register("email")} className="h-12 md:h-14 rounded-2xl border-slate-200 bg-white" />
               {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
 
               <select

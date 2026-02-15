@@ -52,7 +52,7 @@ const REVIEWS = [
 
 export function Testimonials() {
   return (
-    <section className="py-20 bg-slate-50 overflow-hidden">
+    <section className="py-12 md:py-20 bg-slate-50 overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -60,7 +60,7 @@ export function Testimonials() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4">
             Что говорят калининградцы о нашей рыбе
           </h2>
           <p className="text-slate-500 font-medium">

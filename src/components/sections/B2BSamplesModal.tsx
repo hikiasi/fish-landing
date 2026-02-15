@@ -61,25 +61,25 @@ export function B2BSamplesModal({ isOpen, onClose }: B2BSamplesModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-[40px] border-none">
-        <div className="bg-sky-600 p-8 text-white relative">
+      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-3xl sm:rounded-3xl md:rounded-[40px] border-none [&>button]:text-white">
+        <div className="bg-sky-600 p-6 sm:p-8 text-white relative">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold flex items-center gap-3 text-white">
+            <DialogTitle className="text-xl sm:text-2xl font-bold flex items-center gap-3 text-white">
               <Package className="w-6 h-6" />
               Бесплатные образцы
             </DialogTitle>
-            <DialogDescription className="text-sky-100">
+            <DialogDescription className="text-sky-100 text-sm sm:text-base">
               Привезем 5 кг рыбы на пробу. Оплачивается только доставка 400₽.
             </DialogDescription>
           </DialogHeader>
         </div>
         
-        <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-6 bg-white">
+        <form onSubmit={handleSubmit(onSubmit)} className="p-6 sm:p-8 space-y-4 sm:space-y-6 bg-white">
           <div className="space-y-4">
-            <Input placeholder="Название компании / ресторана" {...register("company")} className="h-12 rounded-xl" />
+            <Input placeholder="Название компании / ресторана" {...register("company")} className="h-11 md:h-12 rounded-xl" />
             {errors.company && <p className="text-red-500 text-xs mt-1">{errors.company.message}</p>}
 
-            <Input placeholder="Ваше имя" {...register("name")} className="h-12 rounded-xl" />
+            <Input placeholder="Ваше имя" {...register("name")} className="h-11 md:h-12 rounded-xl" />
             {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
 
             <PatternFormat
@@ -89,11 +89,11 @@ export function B2BSamplesModal({ isOpen, onClose }: B2BSamplesModalProps) {
               onValueChange={(values) => setValue("phone", values.formattedValue)}
               type="tel"
               placeholder="+7 (___) ___-__-__"
-              className="h-12 rounded-xl"
+              className="h-11 md:h-12 rounded-xl"
             />
             {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
 
-            <Input placeholder="Email для прайса" {...register("email")} className="h-12 rounded-xl" />
+            <Input placeholder="Email для прайса" {...register("email")} className="h-11 md:h-12 rounded-xl" />
             {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
           </div>
 
@@ -111,7 +111,7 @@ export function B2BSamplesModal({ isOpen, onClose }: B2BSamplesModalProps) {
             </div>
             {errors.agree && <p className="text-red-500 text-[10px]">{errors.agree.message}</p>}
 
-            <Button type="submit" className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all" disabled={isSubmitting}>
+            <Button type="submit" className="w-full h-12 sm:h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all" disabled={isSubmitting}>
               {isSubmitting ? "Отправка..." : "Получить образцы"}
             </Button>
             

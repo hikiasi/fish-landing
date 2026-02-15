@@ -16,34 +16,10 @@ export function HeroSplitter() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center bg-slate-50 overflow-hidden px-4 pt-28 pb-12">
       {/* Background Animation */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-sky-300 rounded-full blur-[120px] opacity-30"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.1, 1],
-            x: [0, -40, 0],
-            y: [0, -60, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute -bottom-[20%] -right-[10%] w-[70%] h-[70%] bg-orange-300 rounded-full blur-[120px] opacity-20"
-        />
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[1] grayscale" />
+      <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+        <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-sky-300 rounded-full blur-[120px] opacity-20 animate-pulse" />
+        <div className="absolute -bottom-[20%] -right-[10%] w-[70%] h-[70%] bg-orange-300 rounded-full blur-[120px] opacity-15 animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 grayscale" />
       </div>
 
       <div className="relative z-20 w-full max-w-6xl mx-auto flex flex-col items-center">
@@ -68,7 +44,7 @@ export function HeroSplitter() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-4xl md:text-6xl font-extrabold text-center text-slate-900 mb-4 leading-tight"
+          className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-center text-slate-900 mb-4 leading-tight"
         >
           СВЕЖЕМОРОЖЕНАЯ РЫБА <br />
           <span className="text-sky-600">ИЗ КАЛИНИНГРАДА</span>

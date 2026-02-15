@@ -46,20 +46,20 @@ export function RetailCTA() {
   }
 
   return (
-    <section className="py-24 bg-white px-4">
-      <div className="container mx-auto max-w-6xl">
+    <section className="py-12 md:py-24 bg-white">
+      <div className="container mx-auto px-4 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="relative bg-gradient-to-br from-sky-600 to-sky-400 rounded-[40px] p-8 md:p-16 overflow-hidden text-center text-white shadow-2xl shadow-sky-200"
+          className="relative bg-gradient-to-br from-sky-600 to-sky-400 rounded-3xl md:rounded-[40px] p-6 md:p-16 overflow-hidden text-center text-white shadow-2xl shadow-sky-200"
         >
           {/* Abstract background shapes */}
           <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full translate-x-1/2 translate-y-1/2 blur-3xl" />
 
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-6">
               Закажите сейчас — получите <span className="text-orange-400">скидку 15%</span> на первый заказ
             </h2>
             <p className="text-sky-50 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-medium opacity-90">
@@ -72,7 +72,7 @@ export function RetailCTA() {
                   <Input 
                     placeholder="Ваше имя"
                     {...register("name")}
-                    className="h-16 rounded-2xl bg-white/20 border-white/30 text-white placeholder:text-sky-100 focus:bg-white focus:text-slate-900 transition-all text-lg px-6"
+                    className="h-14 md:h-16 rounded-2xl bg-white/20 border-white/30 text-white placeholder:text-sky-100 focus:bg-white focus:text-slate-900 transition-all text-lg px-6"
                   />
                   {errors.name && <p className="text-orange-300 text-xs mt-2 text-left px-2">{errors.name.message}</p>}
                 </div>
@@ -84,14 +84,14 @@ export function RetailCTA() {
                     onValueChange={(values) => setValue("phone", values.formattedValue)}
                     type="tel"
                     placeholder="+7 (___) ___-__-__"
-                    className="h-16 rounded-2xl bg-white/20 border-white/30 text-white placeholder:text-sky-100 focus:bg-white focus:text-slate-900 transition-all text-lg px-6"
+                    className="h-14 md:h-16 rounded-2xl bg-white/20 border-white/30 text-white placeholder:text-sky-100 focus:bg-white focus:text-slate-900 transition-all text-lg px-6"
                   />
                   {errors.phone && <p className="text-orange-300 text-xs mt-2 text-left px-2">{errors.phone.message}</p>}
                 </div>
                 <Button
                   type="submit"
                   size="lg"
-                  className="h-16 px-10 bg-orange-500 hover:bg-orange-600 text-white rounded-2xl text-lg font-bold shadow-xl shadow-orange-900/20 whitespace-nowrap"
+                  className="h-14 md:h-16 px-10 bg-orange-500 hover:bg-orange-600 text-white rounded-2xl text-lg font-bold shadow-xl shadow-orange-900/20 whitespace-nowrap"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Отправка..." : "Получить скидку 15%"}
