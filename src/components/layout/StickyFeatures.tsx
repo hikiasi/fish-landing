@@ -87,7 +87,7 @@ export function StickyFeatures() {
               animate={{ scale: 1, rotate: 0 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="w-14 h-14 bg-sky-600 text-white rounded-full shadow-2xl shadow-sky-400/50 flex items-center justify-center relative group"
+              className="w-14 h-12 md:h-14 bg-sky-600 text-white rounded-full shadow-2xl shadow-sky-400/50 flex items-center justify-center relative group"
               aria-label="Открыть корзину"
             >
               <ShoppingCart className="w-6 h-6" />
@@ -165,7 +165,7 @@ export function StickyFeatures() {
                   )}
                 </div>
                 <Button
-                  className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all"
+                  className="w-full h-12 md:h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all"
                   onClick={() => setIsCheckoutOpen(true)}
                 >
                   Оформить заказ
@@ -190,7 +190,7 @@ export function StickyFeatures() {
           transition={{ delay: 0.2 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="w-14 h-14 bg-white text-[#229ED9] rounded-full shadow-2xl shadow-slate-200 flex items-center justify-center border border-slate-100"
+          className="w-14 h-12 md:h-14 bg-white text-[#229ED9] rounded-full shadow-2xl shadow-slate-200 flex items-center justify-center border border-slate-100"
           aria-label="Написать в Telegram"
         >
           <Send className="w-6 h-6" />
@@ -209,7 +209,7 @@ export function StickyFeatures() {
             <motion.div
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
-              className="bg-white rounded-[40px] max-w-lg w-full p-10 md:p-16 relative overflow-hidden text-center"
+              className="bg-white rounded-3xl md:rounded-[40px] max-w-lg w-full p-6 md:p-16 relative overflow-hidden text-center"
             >
               <button 
                 className="absolute top-6 right-6 text-slate-300 hover:text-slate-900"
@@ -236,7 +236,7 @@ export function StickyFeatures() {
                       onValueChange={(values) => setValue("phone", values.formattedValue)}
                       type="tel"
                       placeholder="+7 (___) ___-__-__"
-                      className="w-full h-14 rounded-2xl bg-slate-50 border border-slate-100 px-6 text-center text-lg focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-all"
+                      className="w-full h-12 md:h-14 rounded-2xl bg-slate-50 border border-slate-100 px-6 text-center text-lg focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-all"
                     />
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
                   </div>
@@ -254,7 +254,7 @@ export function StickyFeatures() {
                   </div>
                   {errors.agree && <p className="text-red-500 text-[10px]">{errors.agree.message}</p>}
 
-                  <Button type="submit" className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all" disabled={isSubmitting}>
+                  <Button type="submit" className="w-full h-12 md:h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all" disabled={isSubmitting}>
                     {isSubmitting ? "Отправка..." : "Получить скидку"}
                   </Button>
                 </form>

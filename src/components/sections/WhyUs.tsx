@@ -37,7 +37,7 @@ export function WhyUs() {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
-    <section id="retail-why-us" className="py-20 bg-slate-50">
+    <section id="retail-why-us" className="py-12 md:py-20 bg-slate-50">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -45,7 +45,7 @@ export function WhyUs() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4">
             Почему наша рыба свежее магазинной?
           </h2>
         </motion.div>
@@ -85,7 +85,7 @@ export function WhyUs() {
           <Button 
             onClick={() => setIsModalOpen(true)}
             size="lg" 
-            className="bg-sky-600 hover:bg-sky-700 text-white px-10 h-14 rounded-full text-lg shadow-lg shadow-sky-200"
+            className="bg-sky-600 hover:bg-sky-700 text-white px-10 h-12 sm:h-14 rounded-full text-lg shadow-lg shadow-sky-200"
           >
             Попробовать — набор 2 кг за 990₽
           </Button>

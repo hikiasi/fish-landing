@@ -26,6 +26,8 @@ import {
 export default function AdminDashboard() {
   const [products, setProducts] = useState<any[]>([])
   const [b2bProducts, setB2BProducts] = useState<any[]>([])
+  const [selectedRetailIds, setSelectedRetailIds] = useState<string[]>([])
+  const [selectedB2BIds, setSelectedB2BIds] = useState<string[]>([])
   const [orders, setOrders] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const router = useRouter()
@@ -62,6 +64,8 @@ export default function AdminDashboard() {
       setProducts(dataRetail.products || [])
       setB2BProducts(dataB2B || [])
       setOrders(dataOrders || [])
+      setSelectedRetailIds([])
+      setSelectedB2BIds([])
     } catch (err) {
       console.error(err)
     } finally {
@@ -165,6 +169,47 @@ export default function AdminDashboard() {
       if (res.ok) fetchData()
     } catch (err) {
       alert("Ошибка при удалении")
+    }
+  }
+
+  const handleBulkDelete = async (type: string) => {
+    const ids = type === 'retail' ? selectedRetailIds : selectedB2BIds
+    if (!ids.length) return
+    if (!confirm(`Удалить выбранные товары (${ids.length})?`)) return
+
+    try {
+      const res = await fetch(`/api/products?type=${type}&ids=${ids.join(",")}`, { method: "DELETE" })
+      if (res.ok) fetchData()
+    } catch (err) {
+      alert("Ошибка при массовом удалении")
+    }
+  }
+
+  const toggleSelectAll = (type: string) => {
+    if (type === 'retail') {
+      if (selectedRetailIds.length === products.length) {
+        setSelectedRetailIds([])
+      } else {
+        setSelectedRetailIds(products.map(p => p.id))
+      }
+    } else {
+      if (selectedB2BIds.length === b2bProducts.length) {
+        setSelectedB2BIds([])
+      } else {
+        setSelectedB2BIds(b2bProducts.map(p => p.id))
+      }
+    }
+  }
+
+  const toggleSelect = (id: string, type: string) => {
+    if (type === 'retail') {
+      setSelectedRetailIds(prev =>
+        prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+      )
+    } else {
+      setSelectedB2BIds(prev =>
+        prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+      )
     }
   }
 
@@ -345,13 +390,40 @@ export default function AdminDashboard() {
               {/* List */}
               <div className="lg:col-span-7">
                 <Card className="rounded-3xl border-none shadow-sm">
-                  <CardHeader>
+                  <CardHeader className="flex flex-row items-center justify-between pb-2">
                     <CardTitle>Список товаров ({products.length})</CardTitle>
+                    <div className="flex items-center gap-4">
+                      {selectedRetailIds.length > 0 && (
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          className="rounded-xl gap-2"
+                          onClick={() => handleBulkDelete('retail')}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                          Удалить ({selectedRetailIds.length})
+                        </Button>
+                      )}
+                      <div className="flex items-center gap-2">
+                        <Checkbox
+                          id="select-all-retail"
+                          checked={selectedRetailIds.length === products.length && products.length > 0}
+                          onCheckedChange={() => toggleSelectAll('retail')}
+                        />
+                        <label htmlFor="select-all-retail" className="text-sm font-medium text-slate-500 cursor-pointer">
+                          Выбрать все
+                        </label>
+                      </div>
+                    </div>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       {products.map((p) => (
                         <div key={p.id} className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 group">
+                          <Checkbox
+                            checked={selectedRetailIds.includes(p.id)}
+                            onCheckedChange={() => toggleSelect(p.id, 'retail')}
+                          />
                           <div className="w-16 h-16 rounded-lg overflow-hidden relative shrink-0">
                             <Image src={p.image} alt={p.name} fill className="object-cover" />
                           </div>
@@ -479,13 +551,40 @@ export default function AdminDashboard() {
               {/* List B2B */}
               <div className="lg:col-span-7">
                 <Card className="rounded-3xl border-none shadow-sm">
-                  <CardHeader>
+                  <CardHeader className="flex flex-row items-center justify-between pb-2">
                     <CardTitle>Оптовый список ({b2bProducts.length})</CardTitle>
+                    <div className="flex items-center gap-4">
+                      {selectedB2BIds.length > 0 && (
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          className="rounded-xl gap-2"
+                          onClick={() => handleBulkDelete('b2b')}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                          Удалить ({selectedB2BIds.length})
+                        </Button>
+                      )}
+                      <div className="flex items-center gap-2">
+                        <Checkbox
+                          id="select-all-b2b"
+                          checked={selectedB2BIds.length === b2bProducts.length && b2bProducts.length > 0}
+                          onCheckedChange={() => toggleSelectAll('b2b')}
+                        />
+                        <label htmlFor="select-all-b2b" className="text-sm font-medium text-slate-500 cursor-pointer">
+                          Выбрать все
+                        </label>
+                      </div>
+                    </div>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       {b2bProducts.map((p) => (
                         <div key={p.id} className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 group">
+                          <Checkbox
+                            checked={selectedB2BIds.includes(p.id)}
+                            onCheckedChange={() => toggleSelect(p.id, 'b2b')}
+                          />
                           <div className="w-16 h-16 rounded-lg overflow-hidden relative shrink-0">
                             <Image src={p.image} alt={p.name} fill className="object-cover" />
                           </div>

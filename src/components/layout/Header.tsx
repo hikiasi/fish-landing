@@ -49,7 +49,7 @@ export function Header() {
     >
       <div
         className={cn(
-          "container mx-auto max-w-7xl rounded-full transition-all duration-300 px-6 py-2 flex items-center justify-between",
+          "container mx-auto max-w-7xl rounded-full transition-all duration-300 px-4 sm:px-6 py-2 flex items-center justify-between",
           isScrolled 
             ? "bg-white/80 backdrop-blur-lg shadow-lg shadow-slate-200/50 border border-slate-200" 
             : "bg-transparent"

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 
 export function GuaranteesDelivery() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 md:py-20 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -14,7 +14,7 @@ export function GuaranteesDelivery() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4">
             Гарантируем качество и удобство
           </h2>
         </motion.div>

@@ -74,14 +74,14 @@ export function CheckoutModal({ isOpen, onClose, type }: CheckoutModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-[40px] border-none">
-        <div className="bg-sky-600 p-8 text-white relative">
+      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-3xl sm:rounded-3xl md:rounded-[40px] border-none [&>button]:text-white">
+        <div className="bg-sky-600 p-6 sm:p-8 text-white relative">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold flex items-center gap-3 text-white">
+            <DialogTitle className="text-xl sm:text-2xl font-bold flex items-center gap-3 text-white">
               {type === "CALLBACK" ? <Phone className="w-6 h-6" /> : <ShoppingCart className="w-6 h-6" />}
               {type === "CALLBACK" ? "Заказать звонок" : "Оформление заказа"}
             </DialogTitle>
-            <DialogDescription className="text-sky-100">
+            <DialogDescription className="text-sky-100 text-sm sm:text-base">
               {type === "CALLBACK"
                 ? "Оставьте ваши контакты, и наш менеджер перезвонит вам в течение 5 минут."
                 : "Проверьте данные и подтвердите заказ. Мы перезвоним для уточнения деталей."}
@@ -89,7 +89,7 @@ export function CheckoutModal({ isOpen, onClose, type }: CheckoutModalProps) {
           </DialogHeader>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-6 bg-white">
+        <form onSubmit={handleSubmit(onSubmit)} className="p-6 sm:p-8 space-y-4 sm:space-y-6 bg-white">
           {type === "CART" && cart.length > 0 && (
             <div className="max-h-40 overflow-y-auto space-y-2 mb-4 pr-2">
               {cart.map((item, idx) => (
@@ -106,7 +106,7 @@ export function CheckoutModal({ isOpen, onClose, type }: CheckoutModalProps) {
           )}
 
           <div className="space-y-4">
-            <Input placeholder="Как к вам обращаться?" {...register("name")} className="h-12 rounded-xl" />
+            <Input placeholder="Как к вам обращаться?" {...register("name")} className="h-11 md:h-12 rounded-xl" />
             {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
 
             <PatternFormat
@@ -116,15 +116,15 @@ export function CheckoutModal({ isOpen, onClose, type }: CheckoutModalProps) {
               onValueChange={(values) => setValue("phone", values.formattedValue)}
               type="tel"
               placeholder="+7 (___) ___-__-__"
-              className="h-12 rounded-xl"
+              className="h-11 md:h-12 rounded-xl"
             />
             {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
 
             {type === "CART" && (
-              <Input placeholder="Адрес доставки (г. Калининград)" {...register("address")} className="h-12 rounded-xl" />
+              <Input placeholder="Адрес доставки (г. Калининград)" {...register("address")} className="h-11 md:h-12 rounded-xl" />
             )}
 
-            <Input placeholder={type === "CALLBACK" ? "Ваш вопрос (необязательно)" : "Комментарий к заказу"} {...register("comment")} className="h-12 rounded-xl" />
+            <Input placeholder={type === "CALLBACK" ? "Ваш вопрос (необязательно)" : "Комментарий к заказу"} {...register("comment")} className="h-11 md:h-12 rounded-xl" />
           </div>
 
           <div className="space-y-4">
@@ -143,7 +143,7 @@ export function CheckoutModal({ isOpen, onClose, type }: CheckoutModalProps) {
 
             <Button
               type="submit"
-              className="w-full h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all"
+              className="w-full h-12 sm:h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Отправка..." : (type === "CALLBACK" ? "Перезвоните мне" : "Подтвердить заказ")}

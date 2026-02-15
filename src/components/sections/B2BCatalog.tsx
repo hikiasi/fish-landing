@@ -38,7 +38,7 @@ export function B2BCatalog() {
   const categories = Array.from(new Set(products.map(p => p.category)))
 
   return (
-    <section id="b2b-catalog" className="py-24 bg-slate-50">
+    <section id="b2b-catalog" className="py-12 md:py-24 bg-slate-50">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -46,7 +46,7 @@ export function B2BCatalog() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4">
             Оптовый ассортимент • Цены от 50 кг
           </h2>
           <p className="text-slate-500">
@@ -94,7 +94,7 @@ export function B2BCatalog() {
               ))}
             </Accordion>
           ) : !loading && (
-            <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200 text-slate-400">
+            <div className="text-center py-12 md:py-20 bg-white rounded-3xl border border-dashed border-slate-200 text-slate-400">
               <Package className="w-12 h-12 mx-auto mb-4 opacity-20" />
               <p>Ассортимент временно недоступен</p>
             </div>
@@ -127,7 +127,7 @@ export function B2BCatalog() {
           <Button 
             onClick={() => setIsModalOpen(true)}
             size="lg" 
-            className="bg-sky-600 hover:bg-sky-700 h-14 px-10 text-lg shadow-xl shadow-sky-100 rounded-2xl"
+            className="bg-sky-600 hover:bg-sky-700 h-12 sm:h-14 px-10 text-lg shadow-xl shadow-sky-100 rounded-2xl"
           >
             Запросить полный прайс + образцы
           </Button>

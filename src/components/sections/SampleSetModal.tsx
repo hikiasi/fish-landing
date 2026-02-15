@@ -70,7 +70,7 @@ export function SampleSetModal({ isOpen, onClose }: SampleSetModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-[40px] border-none">
+      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-3xl md:rounded-[40px] border-none">
         <div className="bg-sky-600 p-8 text-white relative">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold flex items-center gap-3 text-white">
@@ -86,7 +86,7 @@ export function SampleSetModal({ isOpen, onClose }: SampleSetModalProps) {
         <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-6 bg-white">
           <div className="space-y-4">
             <div>
-              <Input placeholder="Как к вам обращаться?" {...register("name")} className="h-12 rounded-xl" />
+              <Input placeholder="Как к вам обращаться?" {...register("name")} className="h-11 md:h-12 rounded-xl" />
               {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
             </div>
             <div>
@@ -97,12 +97,12 @@ export function SampleSetModal({ isOpen, onClose }: SampleSetModalProps) {
                 onValueChange={(values) => setValue("phone", values.formattedValue)}
                 type="tel"
                 placeholder="+7 (___) ___-__-__"
-                className="h-12 rounded-xl"
+                className="h-11 md:h-12 rounded-xl"
               />
               {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
             </div>
             <div>
-              <Input placeholder="Адрес доставки" {...register("address")} className="h-12 rounded-xl" />
+              <Input placeholder="Адрес доставки" {...register("address")} className="h-11 md:h-12 rounded-xl" />
               {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address.message}</p>}
             </div>
 
