@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { ChevronRight, Package, Truck, Clock, CreditCard, ChevronDown } from "lucide-react"
+import { ChevronRight, Package, Truck, Clock, CreditCard } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Accordion,
@@ -20,10 +20,12 @@ export function B2BCatalog() {
   const fetchProducts = async () => {
     try {
       const res = await fetch("/api/products?type=b2b")
+      if (!res.ok) throw new Error("Failed to fetch")
       const data = await res.json()
-      setProducts(data || [])
+      setProducts(Array.isArray(data) ? data : [])
     } catch (err) {
       console.error(err)
+      setProducts([])
     } finally {
       setLoading(false)
     }
@@ -53,43 +55,50 @@ export function B2BCatalog() {
         </motion.div>
 
         <div className="max-w-5xl mx-auto mb-16">
-          <Accordion type="multiple" defaultValue={categories.slice(0, 1)} className="space-y-4">
-            {categories.map((cat, i) => (
-              <AccordionItem key={i} value={cat} className="bg-white border border-slate-100 rounded-2xl px-6 shadow-sm overflow-hidden">
-                <AccordionTrigger className="hover:no-underline py-6">
-                  <span className="text-xl font-bold text-slate-900">{cat}</span>
-                </AccordionTrigger>
-                <AccordionContent className="pb-6">
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left min-w-[600px]">
-                      <thead>
-                        <tr className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-50">
-                          <th className="pb-4">Наименование</th>
-                          <th className="pb-4">Упаковка</th>
-                          <th className="pb-4">Цена (50-200 кг)</th>
-                          <th className="pb-4">Цена (200+ кг)</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-50">
-                        {products.filter(p => p.category === cat).map((item, j) => (
-                          <tr key={j} className="text-sm">
-                            <td className="py-4 font-bold text-slate-800">{item.name}</td>
-                            <td className="py-4 text-slate-500">{item.weight}</td>
-                            <td className="py-4 text-slate-900 font-medium">{item.price}₽/кг</td>
-                            <td className="py-4 text-sky-600 font-bold">{item.price200 || item.price}₽/кг</td>
+          {products.length > 0 ? (
+            <Accordion type="multiple" defaultValue={categories.slice(0, 1)} className="space-y-4">
+              {categories.map((cat, i) => (
+                <AccordionItem key={i} value={cat} className="bg-white border border-slate-100 rounded-2xl px-6 shadow-sm overflow-hidden">
+                  <AccordionTrigger className="hover:no-underline py-6">
+                    <span className="text-xl font-bold text-slate-900">{cat}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-6">
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left min-w-[600px]">
+                        <thead>
+                          <tr className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-50">
+                            <th className="pb-4">Наименование</th>
+                            <th className="pb-4">Упаковка</th>
+                            <th className="pb-4">Цена (50-200 кг)</th>
+                            <th className="pb-4">Цена (200+ кг)</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <Button variant="ghost" className="mt-4 text-sky-600 font-bold hover:bg-sky-50">
-                    Ещё позиции в категории
-                    <ChevronRight className="w-4 h-4 ml-1" />
-                  </Button>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+                        </thead>
+                        <tbody className="divide-y divide-slate-50">
+                          {products.filter(p => p.category === cat).map((item, j) => (
+                            <tr key={j} className="text-sm">
+                              <td className="py-4 font-bold text-slate-800">{item.name}</td>
+                              <td className="py-4 text-slate-500">{item.weight}</td>
+                              <td className="py-4 text-slate-900 font-medium">{item.price}₽/кг</td>
+                              <td className="py-4 text-sky-600 font-bold">{item.price200 || item.price}₽/кг</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <Button variant="ghost" className="mt-4 text-sky-600 font-bold hover:bg-sky-50">
+                      Ещё позиции в категории
+                      <ChevronRight className="w-4 h-4 ml-1" />
+                    </Button>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          ) : !loading && (
+            <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200 text-slate-400">
+              <Package className="w-12 h-12 mx-auto mb-4 opacity-20" />
+              <p>Ассортимент временно недоступен</p>
+            </div>
+          )}
 
           {loading && (
             <div className="text-center py-10 text-slate-400 animate-pulse">Загрузка ассортимента...</div>

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 const YANDEX_MAPS_URL = "https://yandex.ru/maps/org/kaliningradskaya_ryba/1234567890" // Placeholder
 
@@ -82,11 +83,14 @@ export function Testimonials() {
                     <Card className="h-full border-slate-100 shadow-sm transition-all group-hover:shadow-xl group-hover:-translate-y-1 rounded-3xl">
                       <CardContent className="p-6">
                         <div className="flex items-center gap-4 mb-4">
-                          <img
-                            src={review.avatar}
-                            alt={review.name}
-                            className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
-                          />
+                          <div className="relative w-12 h-12 shrink-0">
+                            <Image
+                              src={review.avatar}
+                              alt={review.name}
+                              fill
+                              className="rounded-full object-cover border-2 border-white shadow-sm"
+                            />
+                          </div>
                           <div>
                             <div className="font-bold text-slate-900 text-sm">
                               {review.name}, {review.location}

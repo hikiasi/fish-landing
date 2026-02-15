@@ -4,12 +4,15 @@ import { motion } from "framer-motion"
 import { Home, Building2, Ship, Thermometer, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-interface HeroSplitterProps {
-  onSelectRetail: () => void
-  onSelectB2B: () => void
-}
+export function HeroSplitter() {
+  const scrollToRetail = () => {
+    document.getElementById('retail-section')?.scrollIntoView({ behavior: 'smooth' })
+  }
 
-export function HeroSplitter({ onSelectRetail, onSelectB2B }: HeroSplitterProps) {
+  const scrollToB2B = () => {
+    document.getElementById('b2b-section')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center bg-slate-50 overflow-hidden px-4 pt-28 pb-12">
       {/* Background Animation */}
@@ -89,7 +92,11 @@ export function HeroSplitter({ onSelectRetail, onSelectB2B }: HeroSplitterProps)
             transition={{ duration: 0.5, delay: 0.6 }}
             whileHover={{ scale: 1.02 }}
             className="group relative bg-white rounded-2xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center transition-all cursor-pointer"
-            onClick={onSelectRetail}
+            onClick={scrollToRetail}
+            role="button"
+            tabIndex={0}
+            aria-label="Перейти к разделу для себя и семьи"
+            onKeyDown={(e) => e.key === 'Enter' && scrollToRetail()}
           >
             <div className="w-16 h-16 bg-sky-100 rounded-2xl flex items-center justify-center text-sky-600 mb-6 group-hover:bg-sky-600 group-hover:text-white transition-colors">
               <Home className="w-8 h-8" />
@@ -98,7 +105,7 @@ export function HeroSplitter({ onSelectRetail, onSelectB2B }: HeroSplitterProps)
             <p className="text-slate-500 mb-8 leading-relaxed">
               От 1 кг • Доставка на дом • Готовые наборы
             </p>
-            <Button size="lg" className="w-full bg-sky-600 hover:bg-sky-700 text-lg py-6">
+            <Button size="lg" className="w-full bg-sky-600 hover:bg-sky-700 text-lg py-6 pointer-events-none">
               Выбрать рыбу
             </Button>
           </motion.div>
@@ -110,7 +117,11 @@ export function HeroSplitter({ onSelectRetail, onSelectB2B }: HeroSplitterProps)
             transition={{ duration: 0.5, delay: 0.7 }}
             whileHover={{ scale: 1.02 }}
             className="group relative bg-white rounded-2xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center transition-all cursor-pointer"
-            onClick={onSelectB2B}
+            onClick={scrollToB2B}
+            role="button"
+            tabIndex={0}
+            aria-label="Перейти к разделу для бизнеса"
+            onKeyDown={(e) => e.key === 'Enter' && scrollToB2B()}
           >
             <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center text-orange-600 mb-6 group-hover:bg-orange-600 group-hover:text-white transition-colors">
               <Building2 className="w-8 h-8" />
@@ -119,7 +130,7 @@ export function HeroSplitter({ onSelectRetail, onSelectB2B }: HeroSplitterProps)
             <p className="text-slate-500 mb-8 leading-relaxed">
               От 50 кг • Оптовые цены • Договор поставки
             </p>
-            <Button size="lg" className="w-full bg-orange-600 hover:bg-orange-700 text-lg py-6 border-none">
+            <Button size="lg" className="w-full bg-orange-600 hover:bg-orange-700 text-lg py-6 border-none pointer-events-none">
               Получить прайс
             </Button>
           </motion.div>

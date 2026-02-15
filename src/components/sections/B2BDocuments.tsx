@@ -58,7 +58,10 @@ export function B2BDocuments() {
               <p className="text-xs text-slate-500 leading-relaxed mb-6">
                 {doc.desc}
               </p>
-              <button className="mt-auto flex items-center gap-2 text-[10px] font-bold text-sky-600 uppercase tracking-widest hover:underline">
+              <button
+                className="mt-auto flex items-center gap-2 text-[10px] font-bold text-sky-600 uppercase tracking-widest hover:underline"
+                aria-label={`Скачать пример ${doc.title}`}
+              >
                 <Download className="w-3 h-3" />
                 Пример PDF
               </button>

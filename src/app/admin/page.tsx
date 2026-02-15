@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Trash2, Plus, LogOut, Package, ShoppingCart, Building2, Upload, Pencil } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
+import Image from "next/image"
 import {
   Tabs,
   TabsContent,
@@ -308,8 +309,8 @@ export default function AdminDashboard() {
                           </div>
                         </div>
                         {formData.image && (
-                          <div className="mt-2 w-20 h-20 rounded-lg overflow-hidden border border-slate-100">
-                            <img src={formData.image} className="w-full h-full object-cover" />
+                          <div className="mt-2 w-20 h-20 rounded-lg overflow-hidden border border-slate-100 relative">
+                            <Image src={formData.image} alt="Preview" fill className="object-cover" />
                           </div>
                         )}
                       </div>
@@ -351,7 +352,9 @@ export default function AdminDashboard() {
                     <div className="space-y-4">
                       {products.map((p) => (
                         <div key={p.id} className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 group">
-                          <img src={p.image} className="w-16 h-16 rounded-lg object-cover" />
+                          <div className="w-16 h-16 rounded-lg overflow-hidden relative shrink-0">
+                            <Image src={p.image} alt={p.name} fill className="object-cover" />
+                          </div>
                           <div className="flex-grow">
                             <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">{p.category}</div>
                             <h4 className="font-bold text-slate-900">{p.name}</h4>
@@ -483,7 +486,9 @@ export default function AdminDashboard() {
                     <div className="space-y-4">
                       {b2bProducts.map((p) => (
                         <div key={p.id} className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 group">
-                          <img src={p.image} className="w-16 h-16 rounded-lg object-cover" />
+                          <div className="w-16 h-16 rounded-lg overflow-hidden relative shrink-0">
+                            <Image src={p.image} alt={p.name} fill className="object-cover" />
+                          </div>
                           <div className="flex-grow">
                             <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">{p.category}</div>
                             <h4 className="font-bold text-slate-900">{p.name}</h4>
@@ -698,8 +703,8 @@ export default function AdminDashboard() {
                   </div>
                 </div>
                 {editingProduct.image && (
-                  <div className="mt-2 w-20 h-20 rounded-lg overflow-hidden border border-slate-100">
-                    <img src={editingProduct.image} className="w-full h-full object-cover" />
+                  <div className="mt-2 w-20 h-20 rounded-lg overflow-hidden border border-slate-100 relative">
+                    <Image src={editingProduct.image} alt="Preview" fill className="object-cover" />
                   </div>
                 )}
               </div>
