@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <head>
-        <link rel="preconnect" href="https://www.transparenttextures.com" />
+        <link rel="preconnect" href="https://www.transparenttextures.com" crossOrigin="" />
       </head>
       <body
         className={`${inter.variable} ${manrope.variable} font-sans antialiased bg-slate-50 text-slate-900`}
