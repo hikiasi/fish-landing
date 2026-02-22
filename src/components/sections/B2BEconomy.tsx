@@ -43,19 +43,25 @@ export function B2BEconomy() {
                 {[
                   { label: "Схема", dist: "Импорт → Опт → Вы", ours: "Импорт → Вы", highlight: true },
                   { label: "Стейк сёмги", dist: "2100₽/кг", ours: "1640₽/кг", highlight: true },
-                  { label: "Креветки 16/20", dist: "1800₽/кг", ours: "1190₽/кг", highlight: true },
+                  { label: "Креветки 16/20", dist: "1800₽/кг", ours: "1020₽/кг", highlight: true },
                   { label: "Частота", dist: "1 раз в неделю", ours: "3 раза в неделю" },
                   { label: "Замена брака", dist: "3-5 дней", ours: "За 2 часа" },
-                  { label: "Мин. заказ", dist: "200 кг", ours: "50 кг" },
+                  { label: "Мин. заказ", dist: "50 кг", ours: "10 кг" },
                   { label: "Оплата", dist: "100% предоплата", ours: "Отсрочка 14 дней" },
                 ].map((row, i) => (
                   <tr key={i} className="hover:bg-slate-50/50 transition-colors">
-                    <td className="p-5 text-sm font-medium text-slate-600">{row.label}</td>
-                    <td className="p-5 text-sm text-slate-400 flex items-center gap-2">
-                      <X className="w-3 h-3 text-red-300" /> {row.dist}
+                    <td className="p-5 text-sm font-medium text-slate-600 whitespace-nowrap">{row.label}</td>
+                    <td className="p-5 text-sm text-slate-400">
+                      <div className="flex items-center gap-2">
+                        <X className="w-3 h-3 text-red-300 shrink-0" />
+                        <span>{row.dist}</span>
+                      </div>
                     </td>
-                    <td className={`p-5 text-sm font-bold ${row.highlight ? 'text-sky-600' : 'text-slate-900'} flex items-center gap-2`}>
-                      <Check className="w-4 h-4 text-sky-500" /> {row.ours}
+                    <td className={`p-5 text-sm font-bold ${row.highlight ? 'text-sky-600' : 'text-slate-900'}`}>
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-sky-500 shrink-0" />
+                        <span>{row.ours}</span>
+                      </div>
                     </td>
                   </tr>
                 ))}

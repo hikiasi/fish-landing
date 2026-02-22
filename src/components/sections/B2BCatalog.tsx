@@ -47,7 +47,7 @@ export function B2BCatalog() {
           className="text-center mb-16"
         >
           <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4">
-            Оптовый ассортимент • Цены от 50 кг
+            Оптовый ассортимент • Цены от 10 кг
           </h2>
           <p className="text-slate-500">
             Полный прайс на 127 позиций — в PDF после запроса
@@ -108,8 +108,8 @@ export function B2BCatalog() {
         {/* Special Conditions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16">
           {[
-            { icon: Package, title: "Мин. заказ: 50 кг", sub: "Разные позиции в заказе" },
-            { icon: Truck, title: "Бесплатная доставка", sub: "При заказе от 100 кг" },
+            { icon: Package, title: "Мин. заказ: 10 кг", sub: "Разные позиции в заказе" },
+            { icon: Truck, title: "Бесплатная доставка", sub: "При заказе от 50 кг" },
             { icon: CreditCard, title: "Отсрочка платежа", sub: "7-14 дней с первого заказа" },
             { icon: Clock, title: "Любая упаковка", sub: "Вакуум или коробки" },
           ].map((cond, i) => (
