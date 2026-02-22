@@ -1,0 +1,12 @@
+---
+version: null
+meta:
+  environment: docker
+  toolchain:
+    name: docker
+    version: latest
+build: {}
+run:
+  persistenceMount: /data
+  containerPort: 3000
+serviceType: compute
