@@ -22,7 +22,7 @@ const DOCS = [
   {
     icon: Building,
     title: "Наши реквизиты и лицензии",
-    desc: "ООО «Рыбный завод» • ИНН, ОГРН • Выписка из ЕГРЮЛ"
+    desc: "ИП Иргашева М.Н. • ИНН, ОГРНИП • Выписка из ЕГРИП"
   }
 ]
 
@@ -58,13 +58,13 @@ export function B2BDocuments() {
               <p className="text-xs text-slate-500 leading-relaxed mb-6">
                 {doc.desc}
               </p>
-              <button
+              {/* <button
                 className="mt-auto flex items-center gap-2 text-[10px] font-bold text-sky-600 uppercase tracking-widest hover:underline"
                 aria-label={`Скачать пример ${doc.title}`}
               >
                 <Download className="w-3 h-3" />
                 Пример PDF
-              </button>
+              </button> */}
             </motion.div>
           ))}
         </div>
