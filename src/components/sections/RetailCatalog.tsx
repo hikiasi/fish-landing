@@ -21,6 +21,30 @@ const CATEGORIES = [
   "Готовые наборы",
 ]
 
+function ExpandableDescription({ text }: { text: string }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isLong = text.length > 80;
+
+  return (
+    <div className="text-sm text-slate-500 mb-4">
+      <div className={cn(!isExpanded && isLong && "line-clamp-2")}>
+        {text}
+      </div>
+      {isLong && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsExpanded(!isExpanded);
+          }}
+          className="text-sky-500 text-xs font-bold hover:underline mt-1"
+        >
+          {isExpanded ? "Свернуть" : "Читать далее"}
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function RetailCatalog() {
   const [activeCategory, setActiveCategory] = useState("Все")
   const [products, setProducts] = useState<Product[]>([])
@@ -149,9 +173,8 @@ export function RetailCatalog() {
                       <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight">
                         {product.name}
                       </h3>
-                      <div className="text-sm text-slate-500 mb-4 line-clamp-2">
-                        {product.description}
-                      </div>
+
+                      <ExpandableDescription text={product.description} />
 
                       <div className="flex items-center gap-4 mb-4">
                         <div className="flex items-center gap-1 text-[10px] text-slate-400 font-medium">
@@ -161,7 +184,7 @@ export function RetailCatalog() {
                           <Box className="w-3 h-3 text-sky-400" /> Вакуум
                         </div>
                         <div className="flex items-center gap-1 text-[10px] text-slate-400 font-medium">
-                          <Timer className="w-3 h-3 text-sky-400" /> 2 часа
+                          <Timer className="w-3 h-3 text-sky-400" /> Импорт
                         </div>
                       </div>
 

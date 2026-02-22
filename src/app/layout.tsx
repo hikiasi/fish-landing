@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
+import { CookieBanner } from "@/components/layout/CookieBanner";
 import Script from "next/script";
 
 const inter = Inter({
@@ -35,6 +36,7 @@ export default function RootLayout({
       >
         <CartProvider>
           {children}
+          <CookieBanner />
         </CartProvider>
         <Script id="yandex-metrika" strategy="afterInteractive">
           {`
