@@ -89,10 +89,10 @@ export function GuaranteesDelivery() {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                { icon: Truck, title: "Бесплатно от 2000₽", sub: "До 2000₽ — 150₽" },
+                { icon: Truck, title: "Бесплатно от 1 коробки", sub: "Доставка по городу" },
                 { icon: Clock, title: "Сегодня", sub: "До 14:00 | Завтра после 14:00" },
                 { icon: Snowflake, title: "В термосумках", sub: "С аккумуляторами холода -25°C" },
-                { icon: Store, title: "Самовывоз -10%", sub: "ул. Портовая, 28" },
+                { icon: Store, title: "Самовывоз", sub: "Правая набережная 2" },
               ].map((item, i) => (
                 <div key={i} className="p-5 rounded-2xl border border-slate-100 bg-white shadow-sm">
                   <item.icon className="w-6 h-6 text-sky-500 mb-3" />
@@ -102,19 +102,24 @@ export function GuaranteesDelivery() {
               ))}
             </div>
 
-            {/* Map Placeholder */}
-            <div className="relative aspect-video bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 group">
+            {/* Map Link */}
+            <a
+              href="https://yandex.ru/maps/-/CPaTuZIi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block relative aspect-video bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 group"
+            >
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-100 group-hover:bg-slate-50 transition-colors">
                 <MapPin className="w-10 h-10 text-sky-400 mb-2 animate-bounce" />
-                <div className="text-slate-400 font-medium">Интерактивная карта зон доставки</div>
-                <div className="text-xs text-slate-300">Яндекс.Карты API</div>
+                <div className="text-slate-900 font-bold">Мы на карте</div>
+                <div className="text-sm text-slate-500">Калининград, Правая набережная 2</div>
               </div>
               <div className="absolute bottom-4 left-4 right-4">
-                <Button className="w-full bg-white text-slate-900 hover:bg-slate-50 border border-slate-200 shadow-sm font-bold">
-                  Проверить мой адрес
+                <Button className="w-full bg-white text-slate-900 hover:bg-slate-50 border border-slate-200 shadow-sm font-bold pointer-events-none">
+                  Открыть в Яндекс.Картах
                 </Button>
               </div>
-            </div>
+            </a>
 
             <Button size="lg" className="w-full bg-sky-600 hover:bg-sky-700 py-7 text-lg shadow-xl shadow-sky-100 rounded-2xl">
               Оформить заказ с доставкой

@@ -16,7 +16,7 @@ export function Footer() {
               <span className="font-bold text-xl text-slate-900">Калининградская рыба</span>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed">
-              Калининградский рыбоперерабатывающий завод. Прямые поставки свежемороженой продукции с 2018 года.
+              Прямые поставки свежемороженой рыбы и морепродуктов высокого качества. Работаем с 2018 года.
             </p>
             <div className="flex gap-4">
               <a href="https://vk.com/fishkaliningrad" target="_blank" className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-sky-600 hover:text-white transition-all">
@@ -50,17 +50,17 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-sky-500 mt-1" />
                 <div>
-                  <a href="tel:+74012000000" className="text-sm font-bold text-slate-900 hover:text-sky-600">+7 (4012) XX-XX-XX</a>
+                  <a href="tel:+79114864797" className="text-sm font-bold text-slate-900 hover:text-sky-600">+7 (911) 486-47-97</a>
                   <div className="text-[10px] text-slate-400 uppercase">Ежедневно 8:00 - 20:00</div>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-sky-500 mt-1" />
-                <div className="text-sm text-slate-500">г. Калининград, ул. Портовая, 28</div>
+                <div className="text-sm text-slate-500">г. Калининград, Правая набережная 2</div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-sky-500 mt-1" />
-                <a href="mailto:info@fishkaliningrad.ru" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">info@fishkaliningrad.ru</a>
+                <a href="mailto:timlistroy@inbox.ru" className="text-sm text-slate-500 hover:text-sky-600 transition-colors">timlistroy@inbox.ru</a>
               </li>
             </ul>
           </div>
@@ -69,9 +69,9 @@ export function Footer() {
           <div>
             <h4 className="font-bold text-slate-900 mb-6 uppercase tracking-widest text-xs">Информация</h4>
             <div className="text-[10px] text-slate-400 space-y-2 mb-6 uppercase tracking-tighter">
-              <div>ООО «Рыбный завод»</div>
-              <div>ИНН: ХХХХХХХХХХХХ</div>
-              <div>ОГРН: ХХХХХХХХХХХХХХ</div>
+              <div>ИП Иргашева М.Н.</div>
+              <div>ИНН: 390400499460</div>
+              <div>ОГРНИП: 324390000018143</div>
             </div>
             <ul className="space-y-4">
               {["Политика конфиденциальности", "Пользовательское соглашение", "Договор оферты"].map((item, i) => (

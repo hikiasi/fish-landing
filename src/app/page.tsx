@@ -41,8 +41,8 @@ export default function Home() {
         <Suspense fallback={<div>Загрузка...</div>}>
           <RetailCatalog />
         </Suspense>
-        <WhyUs />
-        <ProcessTimeline />
+        {/* <WhyUs /> */}
+        {/* <ProcessTimeline /> */}
         <Suspense fallback={<div>Загрузка...</div>}>
           <Testimonials />
         </Suspense>

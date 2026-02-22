@@ -24,7 +24,7 @@ export function B2BEconomy() {
             Сколько вы переплачиваете посредникам?
           </h2>
           <p className="text-slate-500 max-w-2xl mx-auto">
-            Сравните условия работы с типичным дистрибьютором и прямой контракт с нашим заводом
+            Сравните условия работы с типичным дистрибьютором и прямой импорт от нас
           </p>
         </motion.div>
 
@@ -36,13 +36,13 @@ export function B2BEconomy() {
                 <tr className="bg-slate-50">
                   <th className="p-6 text-sm font-bold text-slate-400 uppercase tracking-wider">Условие</th>
                   <th className="p-6 text-sm font-bold text-slate-400 uppercase tracking-wider">Дистрибьютор</th>
-                  <th className="p-6 text-sm font-bold text-sky-600 uppercase tracking-wider">Наш завод</th>
+                  <th className="p-6 text-sm font-bold text-sky-600 uppercase tracking-wider">Прямой импорт</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
                 {[
-                  { label: "Схема", dist: "Завод → Опт → Вы", ours: "Завод → Вы", highlight: true },
-                  { label: "Стейк сёмги", dist: "1200₽/кг", ours: "690₽/кг", highlight: true },
+                  { label: "Схема", dist: "Импорт → Опт → Вы", ours: "Импорт → Вы", highlight: true },
+                  { label: "Стейк сёмги", dist: "2100₽/кг", ours: "1640₽/кг", highlight: true },
                   { label: "Креветки 16/20", dist: "1800₽/кг", ours: "1190₽/кг", highlight: true },
                   { label: "Частота", dist: "1 раз в неделю", ours: "3 раза в неделю" },
                   { label: "Замена брака", dist: "3-5 дней", ours: "За 2 часа" },

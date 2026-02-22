@@ -44,10 +44,10 @@ export function HeroSplitter() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-center text-slate-900 mb-4 leading-tight"
+          className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-center text-slate-900 mb-4 leading-tight uppercase"
         >
-          СВЕЖЕМОРОЖЕНАЯ РЫБА <br />
-          <span className="text-sky-600">ИЗ КАЛИНИНГРАДА</span>
+          СВЕЖЕМОРОЖЕННАЯ РЫБА <br />
+          <span className="text-sky-600">И МОРЕПРОДУКТЫ</span>
         </motion.h1>
 
         <motion.p
@@ -56,7 +56,7 @@ export function HeroSplitter() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-xl md:text-2xl text-slate-600 mb-12 font-medium"
         >
-          Завод → Ваш стол
+          Прямые поставки → Ваш стол
         </motion.p>
 
         {/* Choice Blocks */}

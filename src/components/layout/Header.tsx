@@ -87,14 +87,14 @@ export function Header() {
         {/* Right Actions */}
         <div className="flex items-center gap-4">
           <a 
-            href="tel:+74012000000" 
+            href="tel:+79114864797"
             className={cn(
               "hidden md:flex items-center gap-2 text-sm font-bold hover:text-sky-600 transition-colors",
               isScrolled ? "text-slate-900" : "text-slate-900"
             )}
           >
             <Phone className="w-4 h-4 text-sky-500" />
-            +7 (4012) XX-XX-XX
+            +7 (911) 486-47-97
           </a>
           
           <div className="relative">
@@ -165,9 +165,9 @@ export function Header() {
               </button>
             ))}
             <div className="h-px bg-slate-100 my-2" />
-            <a href="tel:+74012000000" className="flex items-center gap-3 py-3 px-4 font-bold text-sky-600">
+            <a href="tel:+79114864797" className="flex items-center gap-3 py-3 px-4 font-bold text-sky-600">
               <Phone className="w-5 h-5" />
-              +7 (4012) XX-XX-XX
+              +7 (911) 486-47-97
             </a>
           </motion.div>
         )}
