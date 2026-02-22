@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Home, Building2, Ship, Thermometer, Shield } from "lucide-react"
+import { Home, Building2, Ship, Thermometer, Shield, Box } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function HeroSplitter() {
