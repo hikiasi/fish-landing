@@ -102,24 +102,23 @@ export function GuaranteesDelivery() {
               ))}
             </div>
 
-            {/* Map Link */}
-            <a
-              href="https://yandex.ru/maps/-/CPaTuZIi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block relative aspect-video bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 group"
-            >
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-100 group-hover:bg-slate-50 transition-colors">
-                <MapPin className="w-10 h-10 text-sky-400 mb-2 animate-bounce" />
-                <div className="text-slate-900 font-bold">Мы на карте</div>
-                <div className="text-sm text-slate-500">Калининград, Правая набережная 2</div>
+            {/* Map Widget */}
+            <div className="relative aspect-video rounded-3xl overflow-hidden border border-slate-100 shadow-lg bg-slate-100">
+              <iframe
+                src="https://yandex.ru/map-widget/v1/?ll=20.486256%2C54.706173&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1NjE4MTQ5NhJC0KDQvtGB0YHQuNGPLCDQmtCw0LvQuNC90LjQvdCz0YDQsNC0LCDQn9GA0LDQstCw0Y8g0L3QsNCx0LXRgNC10LbQvdCw0Y8sIDIiCg2z08JCFQfUX0I%2C&z=16"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                allowFullScreen={true}
+                className="relative z-10"
+              ></iframe>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="animate-pulse flex flex-col items-center gap-2">
+                  <MapPin className="w-8 h-8 text-sky-400" />
+                  <span className="text-xs text-slate-400 font-medium">Загрузка карты...</span>
+                </div>
               </div>
-              <div className="absolute bottom-4 left-4 right-4">
-                <Button className="w-full bg-white text-slate-900 hover:bg-slate-50 border border-slate-200 shadow-sm font-bold pointer-events-none">
-                  Открыть в Яндекс.Картах
-                </Button>
-              </div>
-            </a>
+            </div>
 
             <Button size="lg" className="w-full bg-sky-600 hover:bg-sky-700 py-7 text-lg shadow-xl shadow-sky-100 rounded-2xl">
               Оформить заказ с доставкой
