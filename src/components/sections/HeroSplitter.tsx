@@ -31,11 +31,13 @@ export function HeroSplitter() {
           className="flex flex-col items-center mb-8"
         >
           <div className="flex items-center gap-2 text-2xl font-bold text-sky-600 mb-2">
-            <Ship className="w-8 h-8" />
+            <div className="w-10 h-10 bg-sky-600 rounded-xl flex items-center justify-center text-white">
+              <Ship className="w-6 h-6" />
+            </div>
             <span>Калининградская рыба</span>
           </div>
           <div className="text-sm uppercase tracking-widest text-slate-500 font-medium">
-            Прямые поставки
+            Прямой импорт
           </div>
         </motion.div>
 
@@ -104,7 +106,7 @@ export function HeroSplitter() {
             </div>
             <h2 className="text-2xl font-bold text-slate-900 mb-2">Для бизнеса</h2>
             <p className="text-slate-500 mb-8 leading-relaxed">
-              От 50 кг • Оптовые цены • Договор поставки
+              От 10 кг • Оптовые цены • Договор поставки
             </p>
             <Button size="lg" className="w-full bg-orange-600 hover:bg-orange-700 text-lg py-6 border-none pointer-events-none">
               Получить прайс
@@ -120,16 +122,16 @@ export function HeroSplitter() {
           className="flex flex-wrap justify-center gap-8 md:gap-12"
         >
           <div className="flex items-center gap-2 text-slate-500 text-sm font-medium">
-            <Ship className="w-5 h-5 text-sky-500" />
-            <span>Собственный флот</span>
+            <Shield className="w-5 h-5 text-sky-500" />
+            <span>Контроль качества</span>
           </div>
           <div className="flex items-center gap-2 text-slate-500 text-sm font-medium">
             <Thermometer className="w-5 h-5 text-sky-500" />
             <span>-30°C шоковая заморозка</span>
           </div>
           <div className="flex items-center gap-2 text-slate-500 text-sm font-medium">
-            <Shield className="w-5 h-5 text-sky-500" />
-            <span>2 часа от вылова до камеры</span>
+            <Box className="w-5 h-5 text-sky-500" />
+            <span>Вакуумная упаковка</span>
           </div>
         </motion.div>
       </div>

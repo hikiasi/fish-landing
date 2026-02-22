@@ -130,13 +130,13 @@ export function B2BCTA() {
               </Button>
 
               <div className="mt-8 pt-8 border-t border-slate-200 space-y-4">
-                <a href="tel:+74012000000" className="flex items-center gap-3 text-slate-600 font-bold hover:text-sky-600 transition-colors">
+                <a href="tel:+79114864797" className="flex items-center gap-3 text-slate-600 font-bold hover:text-sky-600 transition-colors">
                   <Phone className="w-5 h-5 text-sky-500" />
-                  +7 (4012) XX-XX-XX
+                  +7 (911) 486-47-97
                 </a>
-                <a href="mailto:opt@fishkaliningrad.ru" className="flex items-center gap-3 text-slate-600 font-bold hover:text-sky-600 transition-colors">
+                <a href="mailto:timlistroy@inbox.ru" className="flex items-center gap-3 text-slate-600 font-bold hover:text-sky-600 transition-colors">
                   <Mail className="w-5 h-5 text-sky-500" />
-                  opt@fishkaliningrad.ru
+                  timlistroy@inbox.ru
                 </a>
               </div>
             </form>
