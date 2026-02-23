@@ -35,27 +35,31 @@ export function B2BEconomy() {
               <thead>
                 <tr className="bg-slate-50">
                   <th className="p-6 text-sm font-bold text-slate-400 uppercase tracking-wider">Продукция</th>
-                  <th className="p-6 text-sm font-bold text-sky-600 uppercase tracking-wider">Наш опт</th>
                   <th className="p-6 text-sm font-bold text-slate-400 uppercase tracking-wider">Магазин (розница)</th>
+                  <th className="p-6 text-sm font-bold text-sky-600 uppercase tracking-wider">Наш опт</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
                 {[
-                  { label: "Лосось стейк", opt: "1640₽/кг", retail: "2100₽/кг", highlight: true },
-                  { label: "Филе форели", opt: "1750₽/кг", retail: "2200₽/кг", highlight: true },
-                  { label: "Лангустины L2", opt: "1020₽/кг", retail: "1400₽/кг", highlight: true },
-                  { label: "Креветки 80/100", opt: "870₽/кг", retail: "1200₽/кг", highlight: true },
-                  { label: "Мидии мясо", opt: "490₽/кг", retail: "750₽/кг", highlight: true },
-                  { label: "Доставка", opt: "Бесплатно от 1 кор.", retail: "Платная" },
-                  { label: "Документы", opt: "Полный пакет Меркурий", retail: "Чеки" },
+                  { label: "Лосось стейк", retail: "2100₽/кг", opt: "1640₽/кг", highlight: true },
+                  { label: "Филе форели", retail: "2200₽/кг", opt: "1750₽/кг", highlight: true },
+                  { label: "Лангустины L2", retail: "1400₽/кг", opt: "1020₽/кг", highlight: true },
+                  { label: "Креветки 80/100", retail: "1200₽/кг", opt: "870₽/кг", highlight: true },
+                  { label: "Мидии мясо", retail: "750₽/кг", opt: "490₽/кг", highlight: true },
+                  { label: "Доставка", retail: "Платная", opt: "Бесплатно от 1 кор." },
+                  { label: "Документы", retail: "Чеки", opt: "Полный пакет Меркурий" },
                 ].map((row, i) => (
                   <tr key={i} className="hover:bg-slate-50/50 transition-colors">
                     <td className="p-5 text-sm font-medium text-slate-600">{row.label}</td>
-                    <td className={`p-5 text-sm font-bold ${row.highlight ? 'text-sky-600' : 'text-slate-900'} flex items-center gap-2`}>
-                      <Check className="w-4 h-4 text-sky-500" /> {row.opt}
+                    <td className="p-5 text-sm text-slate-400">
+                      <div className="flex items-center gap-2">
+                        <X className="w-3 h-3 text-red-300" /> {row.retail}
+                      </div>
                     </td>
-                    <td className="p-5 text-sm text-slate-400 flex items-center gap-2">
-                      <X className="w-3 h-3 text-red-300" /> {row.retail}
+                    <td className="p-5 text-sm font-bold">
+                      <div className={`flex items-center gap-2 ${row.highlight ? 'text-sky-600' : 'text-slate-900'}`}>
+                        <Check className="w-4 h-4 text-sky-500" /> {row.opt}
+                      </div>
                     </td>
                   </tr>
                 ))}
