@@ -85,14 +85,14 @@ export function GuaranteesDelivery() {
 
           {/* Right: Delivery */}
           <div className="space-y-8">
-            <h3 className="text-2xl font-bold text-slate-900 mb-6">Доставка в холоде по Калининграду</h3>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6">Доставка и самовывоз</h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                { icon: Truck, title: "Бесплатно от 1 коробки", sub: "Доставка по городу" },
-                { icon: Clock, title: "Сегодня", sub: "До 14:00 | Завтра после 14:00" },
-                { icon: Snowflake, title: "В термосумках", sub: "С аккумуляторами холода -25°C" },
-                { icon: Store, title: "Самовывоз", sub: "Правая набережная 2" },
+                { icon: Truck, title: "Бесплатно от 1 кор.", sub: "Доставка по Калининграду" },
+                { icon: Clock, title: "График поставок", sub: "3 раза в неделю" },
+                { icon: Snowflake, title: "Соблюдение режима", sub: "Хранение и перевозка при -25°C" },
+                { icon: Store, title: "Правая набережная 2", sub: "Самовывоз от 1 коробки" },
               ].map((item, i) => (
                 <div key={i} className="p-5 rounded-2xl border border-slate-100 bg-white shadow-sm">
                   <item.icon className="w-6 h-6 text-sky-500 mb-3" />
@@ -105,7 +105,7 @@ export function GuaranteesDelivery() {
             {/* Map Widget */}
             <div className="relative aspect-video rounded-3xl overflow-hidden border border-slate-100 shadow-lg bg-slate-100">
               <iframe
-                src="https://yandex.ru/map-widget/v1/?ll=20.486256%2C54.706173&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1NjE4MTQ5NhJC0KDQvtGB0YHQuNGPLCDQmtCw0LvQuNC90LjQvdCz0YDQsNC0LCDQn9GA0LDQstCw0Y8g0L3QsNCx0LXRgNC10LbQvdCw0Y8sIDIiCg2z08JCFQfUX0I%2C&z=16"
+                src="https://yandex.ru/map-widget/v1/org/kaliningradryba_sklady/1058977656/?from=mapframe&ll=20.487685%2C54.706642&z=14"
                 width="100%"
                 height="100%"
                 frameBorder="0"
@@ -120,9 +120,11 @@ export function GuaranteesDelivery() {
               </div>
             </div>
 
+            {/*
             <Button size="lg" className="w-full bg-sky-600 hover:bg-sky-700 py-7 text-lg shadow-xl shadow-sky-100 rounded-2xl">
               Оформить заказ с доставкой
             </Button>
+            */}
           </div>
         </div>
       </div>

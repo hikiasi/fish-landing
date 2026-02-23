@@ -16,7 +16,7 @@ export function Footer() {
               <span className="font-bold text-xl text-slate-900">Калининградская рыба</span>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed">
-              Прямые поставки свежемороженой рыбы и морепродуктов высокого качества. Работаем с 2018 года.
+              Поставки свежемороженой рыбы и морепродуктов высокого качества в Калининграде и области.
             </p>
             <div className="flex gap-4">
               <a href="https://vk.com/fishkaliningrad" target="_blank" className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-sky-600 hover:text-white transition-all">
@@ -85,7 +85,7 @@ export function Footer() {
 
         <div className="pt-8 border-t border-slate-50 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-xs text-slate-400">
-            © 2018-{new Date().getFullYear()} Калининградская рыба. Все права защищены.
+            © {new Date().getFullYear()} Калининградская рыба. Все права защищены.
           </div>
           <div className="flex items-center gap-4 text-[10px] text-slate-300 font-bold uppercase tracking-widest">
             Нам доверяют более 5000 клиентов

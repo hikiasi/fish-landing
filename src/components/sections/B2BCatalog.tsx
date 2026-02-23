@@ -47,10 +47,10 @@ export function B2BCatalog() {
           className="text-center mb-16"
         >
           <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4">
-            Оптовый ассортимент • Цены от 10 кг
+            Оптовый ассортимент • Цены от 1 кор.
           </h2>
           <p className="text-slate-500">
-            Полный прайс на 127 позиций — в PDF после запроса
+            Актуальный прайс — в PDF после запроса
           </p>
         </motion.div>
 
@@ -69,8 +69,8 @@ export function B2BCatalog() {
                           <tr className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-50">
                             <th className="pb-4">Наименование</th>
                             <th className="pb-4">Упаковка</th>
-                            <th className="pb-4">Цена (50-200 кг)</th>
-                            <th className="pb-4">Цена (200+ кг)</th>
+                            <th className="pb-4">Цена (опт)</th>
+                            <th className="pb-4">Цена (от 200 кг)</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-50">
@@ -108,8 +108,8 @@ export function B2BCatalog() {
         {/* Special Conditions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16">
           {[
-            { icon: Package, title: "Мин. заказ: 10 кг", sub: "Разные позиции в заказе" },
-            { icon: Truck, title: "Бесплатная доставка", sub: "При заказе от 50 кг" },
+            { icon: Package, title: "Мин. заказ: 1 кор.", sub: "Для бесплатной доставки" },
+            { icon: Truck, title: "Доставка 0₽", sub: "По Калининграду" },
             { icon: CreditCard, title: "Отсрочка платежа", sub: "7-14 дней с первого заказа" },
             { icon: Clock, title: "Любая упаковка", sub: "Вакуум или коробки" },
           ].map((cond, i) => (
@@ -129,10 +129,10 @@ export function B2BCatalog() {
             size="lg" 
             className="bg-sky-600 hover:bg-sky-700 h-12 sm:h-14 px-10 text-lg shadow-xl shadow-sky-100 rounded-2xl"
           >
-            Запросить полный прайс + образцы
+            Запросить актуальный прайс
           </Button>
           <p className="mt-4 text-xs text-slate-400 font-medium uppercase tracking-widest">
-            Привезем 5 кг рыбы на пробу бесплатно
+            Получите индивидуальное коммерческое предложение
           </p>
         </div>
       </div>

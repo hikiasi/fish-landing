@@ -62,12 +62,12 @@ export function B2BHero() {
                 Стабильные поставки рыбы и морепродуктов для вашего бизнеса
               </h2>
               <p className="text-xl text-slate-500 mb-12 leading-relaxed">
-                Прямые поставки от импортера в Калининграде • Лучшие цены • Отсрочка до 14 дней
+                Надежные поставки рыбы в Калининграде • Лучшие цены • Отсрочка до 14 дней
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
                 {[
-                  { icon: TrendingDown, title: "Цена на 25-40% ниже", desc: "Минус посредники" },
+                  { icon: TrendingDown, title: "Цены ниже конкурентов", desc: "Выгодные условия" },
                   { icon: CalendarCheck, title: "Поставки 3 раза в неделю", desc: "Свежесть по графику" },
                   { icon: FileText, title: "Полный пакет документов", desc: "ВЕТСД, Меркурий" },
                 ].map((item, i) => (

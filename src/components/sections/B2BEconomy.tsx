@@ -7,12 +7,12 @@ import { ArrowRight, Check, X } from "lucide-react"
 export function B2BEconomy() {
   const [volume, setVolume] = useState(300)
 
-  const savingsPerKg = 150 // average savings per kg when buying direct
+  const savingsPerKg = 150 // average savings per kg
   const monthlySavings = volume * savingsPerKg
   const yearlySavings = monthlySavings * 12
 
   return (
-    <section className="py-12 md:py-24 bg-white">
+    <section className="py-12 md:py-24 bg-white" id="economy-section">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -24,7 +24,7 @@ export function B2BEconomy() {
             Сколько вы переплачиваете посредникам?
           </h2>
           <p className="text-slate-500 max-w-2xl mx-auto">
-            Сравните условия работы с типичным дистрибьютором и прямой импорт от нас
+            Сравните условия работы с розничными магазинами и наши оптовые цены
           </p>
         </motion.div>
 
@@ -34,34 +34,28 @@ export function B2BEconomy() {
             <table className="w-full text-left border-collapse min-w-[500px]">
               <thead>
                 <tr className="bg-slate-50">
-                  <th className="p-6 text-sm font-bold text-slate-400 uppercase tracking-wider">Условие</th>
-                  <th className="p-6 text-sm font-bold text-slate-400 uppercase tracking-wider">Дистрибьютор</th>
-                  <th className="p-6 text-sm font-bold text-sky-600 uppercase tracking-wider">Прямой импорт</th>
+                  <th className="p-6 text-sm font-bold text-slate-400 uppercase tracking-wider">Продукция</th>
+                  <th className="p-6 text-sm font-bold text-slate-400 uppercase tracking-wider">Магазин (розница)</th>
+                  <th className="p-6 text-sm font-bold text-sky-600 uppercase tracking-wider">Наш опт</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
                 {[
-                  { label: "Схема", dist: "Импорт → Опт → Вы", ours: "Импорт → Вы", highlight: true },
-                  { label: "Стейк сёмги", dist: "2100₽/кг", ours: "1640₽/кг", highlight: true },
-                  { label: "Креветки 16/20", dist: "1800₽/кг", ours: "1020₽/кг", highlight: true },
-                  { label: "Частота", dist: "1 раз в неделю", ours: "3 раза в неделю" },
-                  { label: "Замена брака", dist: "3-5 дней", ours: "За 2 часа" },
-                  { label: "Мин. заказ", dist: "50 кг", ours: "10 кг" },
-                  { label: "Оплата", dist: "100% предоплата", ours: "Отсрочка 14 дней" },
+                  { label: "Лосось стейк", dist: "2100₽/кг", ours: "1640₽/кг", highlight: true },
+                  { label: "Филе форели", dist: "2200₽/кг", ours: "1750₽/кг", highlight: true },
+                  { label: "Лангустины L2", dist: "1400₽/кг", ours: "1020₽/кг", highlight: true },
+                  { label: "Креветки 80/100", dist: "1200₽/кг", ours: "870₽/кг", highlight: true },
+                  { label: "Мидии мясо", dist: "750₽/кг", ours: "490₽/кг", highlight: true },
+                  { label: "Доставка", dist: "Платная", ours: "Бесплатно от 1 кор." },
+                  { label: "Документы", dist: "Чеки", ours: "Полный пакет Меркурий" },
                 ].map((row, i) => (
                   <tr key={i} className="hover:bg-slate-50/50 transition-colors">
-                    <td className="p-5 text-sm font-medium text-slate-600 whitespace-nowrap">{row.label}</td>
-                    <td className="p-5 text-sm text-slate-400">
-                      <div className="flex items-center gap-2">
-                        <X className="w-3 h-3 text-red-300 shrink-0" />
-                        <span>{row.dist}</span>
-                      </div>
+                    <td className="p-5 text-sm font-medium text-slate-600">{row.label}</td>
+                    <td className="p-5 text-sm text-slate-400 flex items-center gap-2">
+                      <X className="w-3 h-3 text-red-300" /> {row.dist}
                     </td>
-                    <td className={`p-5 text-sm font-bold ${row.highlight ? 'text-sky-600' : 'text-slate-900'}`}>
-                      <div className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-sky-500 shrink-0" />
-                        <span>{row.ours}</span>
-                      </div>
+                    <td className={`p-5 text-sm font-bold ${row.highlight ? 'text-sky-600' : 'text-slate-900'} flex items-center gap-2`}>
+                      <Check className="w-4 h-4 text-sky-500" /> {row.ours}
                     </td>
                   </tr>
                 ))}
@@ -80,36 +74,39 @@ export function B2BEconomy() {
               </div>
               <input 
                 type="range" 
-                min="50" 
+                min="10"
                 max="2000" 
-                step="50"
+                step="10"
                 value={volume}
                 onChange={(e) => setVolume(parseInt(e.target.value))}
                 className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500"
               />
               <div className="flex justify-between text-[10px] text-slate-600 uppercase tracking-widest mt-4">
-                <span>50 кг</span>
+                <span>10 кг</span>
                 <span>2000 кг</span>
               </div>
             </div>
 
             <div className="space-y-6 mb-10">
               <div className="p-6 bg-white/5 rounded-2xl border border-white/5">
-                <div className="text-slate-400 text-xs uppercase tracking-widest mb-1">Ежемесячная выгода:</div>
+                <div className="text-slate-400 text-xs uppercase tracking-widest mb-1">Ваша экономия в месяц:</div>
                 <div className="text-3xl font-bold text-white tabular-nums">
                   {monthlySavings.toLocaleString()} ₽
                 </div>
               </div>
               <div className="p-6 bg-sky-500/10 rounded-2xl border border-sky-500/20">
-                <div className="text-sky-400 text-xs uppercase tracking-widest mb-1">Годовая экономия:</div>
+                <div className="text-sky-400 text-xs uppercase tracking-widest mb-1">Годовая выгода:</div>
                 <div className="text-4xl font-extrabold text-sky-400 tabular-nums">
                   {yearlySavings.toLocaleString()} ₽
                 </div>
               </div>
             </div>
 
-            <button className="w-full h-12 sm:h-14 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
-              Рассчитать для моего меню
+            <button
+              onClick={() => document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' })}
+              className="w-full h-12 sm:h-14 bg-white text-slate-900 rounded-xl font-bold hover:bg-slate-100 transition-all flex items-center justify-center gap-2"
+            >
+              Перейти в каталог
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

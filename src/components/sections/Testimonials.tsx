@@ -18,34 +18,34 @@ const YANDEX_MAPS_URL = "https://yandex.ru/maps/org/kaliningradskaya_ryba/123456
 const REVIEWS = [
   {
     name: "Марина",
-    location: "Сельма",
+    location: "Владелец магазина",
     rating: 5,
     date: "2 недели назад",
-    text: "Заказала стейки палтуса и креветки. Палтус оказался без единой косточки, сочный невероятно. Креветки крупнее, чем в Виктории за те же деньги. Теперь только у вас!",
+    text: "Работаем с ребятами уже несколько месяцев. Продукция всегда отличного качества, никакой глазури. Покупатели в восторге от аргентинских креветок и чилийского лосося.",
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop",
   },
   {
     name: "Александр",
-    location: "Центр",
+    location: "Шеф-повар ресторана",
     rating: 5,
     date: "1 месяц назад",
-    text: "Сёмга отличная, жирная, как и обещали. Доставка быстрая, привезли через 4 часа после заказа. Вакуумная упаковка качественная, удобно хранить.",
+    text: "Для нас критически важно качество и соблюдение сроков. Поставки 3 раза в неделю позволяют всегда иметь свежий продукт. Стейки палтуса и сибас — топ!",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop",
   },
   {
     name: "Елена",
-    location: "Гурьевск",
+    location: "Кафе-кондитерская",
     rating: 5,
     date: "3 недели назад",
-    text: "Креветки просто бомба! Огромные, льда вообще нет. Доставка вовремя, рыба плотная и свежая. Буду заказывать еще!",
+    text: "Берем рыбу для ланчей и завтраков. Всегда чистый вес, без льда. Очень удобно, что есть полный пакет документов Меркурий.",
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop",
   },
   {
     name: "Игорь",
-    location: "Чкаловск",
+    location: "Закупщик Horeca",
     rating: 5,
     date: "5 дней назад",
-    text: "Попробовал набор Семейный ужин. Очень выгодно получается. Треска шикарная, после разморозки не разваливается, плотная. Рекомендую!",
+    text: "Лучшие цены в городе на креветки Ваннамей и Лангустины. Доставка быстрая, водители вежливые. Рекомендую как надежного партнера.",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&auto=format&fit=crop",
   },
 ]
@@ -61,7 +61,7 @@ export function Testimonials() {
           className="text-center mb-16"
         >
           <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4">
-            Что говорят калининградцы о нашей рыбе
+            Что говорят партнеры о нашей рыбе
           </h2>
           <p className="text-slate-500 font-medium">
             127 отзывов • Средняя оценка 4.8/5
@@ -93,8 +93,9 @@ export function Testimonials() {
                           </div>
                           <div>
                             <div className="font-bold text-slate-900 text-sm">
-                              {review.name}, {review.location}
+                              {review.name}
                             </div>
+                            <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">{review.location}</div>
                             <div className="flex text-orange-400">
                               {[...Array(5)].map((_, i) => (
                                 <Star
@@ -118,7 +119,7 @@ export function Testimonials() {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-1.5 text-emerald-600 text-[10px] font-bold uppercase tracking-wider">
                             <BadgeCheck className="w-4 h-4" />
-                            Проверенная покупка
+                            Проверенный отзыв
                           </div>
                           <ExternalLink className="w-3 h-3 text-slate-300 group-hover:text-sky-500 transition-colors" />
                         </div>
