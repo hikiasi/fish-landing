@@ -37,7 +37,7 @@ export function HeroSplitter() {
             <span>Калининградская рыба</span>
           </div>
           <div className="text-sm uppercase tracking-widest text-slate-500 font-medium">
-            Прямой импорт
+            Оптовые поставки
           </div>
         </motion.div>
 
@@ -48,7 +48,7 @@ export function HeroSplitter() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-center text-slate-900 mb-4 leading-tight uppercase"
         >
-          СВЕЖЕМОРОЖЕННАЯ РЫБА <br />
+          СВЕЖЕМОРОЖЕНАЯ РЫБА <br />
           <span className="text-sky-600">И МОРЕПРОДУКТЫ</span>
         </motion.h1>
 
@@ -62,32 +62,7 @@ export function HeroSplitter() {
         </motion.p>
 
         {/* Choice Blocks */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mb-12">
-          {/* Retail Block */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            whileHover={{ scale: 1.02 }}
-            className="group relative bg-white rounded-2xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center transition-all cursor-pointer"
-            onClick={scrollToRetail}
-            role="button"
-            tabIndex={0}
-            aria-label="Перейти к разделу для себя и семьи"
-            onKeyDown={(e) => e.key === 'Enter' && scrollToRetail()}
-          >
-            <div className="w-16 h-16 bg-sky-100 rounded-2xl flex items-center justify-center text-sky-600 mb-6 group-hover:bg-sky-600 group-hover:text-white transition-colors">
-              <Home className="w-8 h-8" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">Для себя и семьи</h2>
-            <p className="text-slate-500 mb-8 leading-relaxed">
-              От 1 кг • Доставка на дом • Готовые наборы
-            </p>
-            <Button size="lg" className="w-full bg-sky-600 hover:bg-sky-700 text-lg py-6 pointer-events-none">
-              Выбрать рыбу
-            </Button>
-          </motion.div>
-
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-6 w-full max-w-xl mb-12">
           {/* Business Block */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -106,12 +81,39 @@ export function HeroSplitter() {
             </div>
             <h2 className="text-2xl font-bold text-slate-900 mb-2">Для бизнеса</h2>
             <p className="text-slate-500 mb-8 leading-relaxed">
-              От 10 кг • Оптовые цены • Договор поставки
+              От 1 коробки • Цены ниже конкурентов • Договор поставки
             </p>
             <Button size="lg" className="w-full bg-orange-600 hover:bg-orange-700 text-lg py-6 border-none pointer-events-none">
               Получить прайс
             </Button>
           </motion.div>
+
+          {/* Retail Block - Hidden for now */}
+          {/*
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            whileHover={{ scale: 1.02 }}
+            className="group relative bg-white rounded-2xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center transition-all cursor-pointer"
+            onClick={scrollToRetail}
+            role="button"
+            tabIndex={0}
+            aria-label="Перейти к разделу для себя и семьи"
+            onKeyDown={(e) => e.key === 'Enter' && scrollToRetail()}
+          >
+            <div className="w-16 h-16 bg-sky-100 rounded-2xl flex items-center justify-center text-sky-600 mb-6 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+              <Home className="w-8 h-8" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">Для себя и семьи</h2>
+            <p className="text-slate-500 mb-8 leading-relaxed">
+              От 3 кг • Доставка на дом • Готовые наборы
+            </p>
+            <Button size="lg" className="w-full bg-sky-600 hover:bg-sky-700 text-lg py-6 pointer-events-none">
+              Выбрать рыбу
+            </Button>
+          </motion.div>
+          */}
         </div>
 
         {/* Mini USPs */}

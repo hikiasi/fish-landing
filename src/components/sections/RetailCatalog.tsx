@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ShoppingCart, Snowflake, Box, Timer, ChevronDown, Frown } from "lucide-react"
+import { ShoppingCart, Snowflake, Box, Timer, ChevronDown, Frown, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -92,7 +92,7 @@ export function RetailCatalog() {
           className="text-center mb-12"
         >
           <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4">
-            Рыба и морепродукты с доставкой в Калининграде
+            Каталог продукции
           </h2>
           <div className="flex flex-wrap justify-center gap-2 mt-8">
             {CATEGORIES.map((category) => (
@@ -184,7 +184,7 @@ export function RetailCatalog() {
                           <Box className="w-3 h-3 text-sky-400" /> Вакуум
                         </div>
                         <div className="flex items-center gap-1 text-[10px] text-slate-400 font-medium">
-                          <Timer className="w-3 h-3 text-sky-400" /> Импорт
+                          <CheckCircle2 className="w-3 h-3 text-sky-400" /> В наличии
                         </div>
                       </div>
 

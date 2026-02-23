@@ -3,8 +3,6 @@ import dynamic from "next/dynamic"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { HeroSplitter } from "@/components/sections/HeroSplitter"
-import { WhyUs } from "@/components/sections/WhyUs"
-import { ProcessTimeline } from "@/components/sections/ProcessTimeline"
 import { GuaranteesDelivery } from "@/components/sections/GuaranteesDelivery"
 import { RetailCTA } from "@/components/sections/RetailCTA"
 import { B2BHero } from "@/components/sections/B2BHero"
@@ -36,37 +34,42 @@ export default function Home() {
       
       <HeroSplitter />
       
-      {/* Retail sections */}
-      <div id="retail-section">
-        <Suspense fallback={<div>Загрузка...</div>}>
-          <RetailCatalog />
-        </Suspense>
-        {/* <WhyUs /> */}
-        {/* <ProcessTimeline /> */}
-        <Suspense fallback={<div>Загрузка...</div>}>
-          <Testimonials />
-        </Suspense>
-        <GuaranteesDelivery />
-        <Suspense fallback={<div>Загрузка...</div>}>
-          <FAQ />
-        </Suspense>
-        <RetailCTA />
-      </div>
-
-      {/* B2B sections */}
+      {/* B2B Section - Main focus now */}
       <div id="b2b-section">
         <B2BHero />
+
         <Suspense fallback={<div>Загрузка...</div>}>
           <B2BEconomy />
         </Suspense>
+
+        <Suspense fallback={<div>Загрузка...</div>}>
+          <RetailCatalog />
+        </Suspense>
+
         <Suspense fallback={<div>Загрузка...</div>}>
           <B2BCatalog />
         </Suspense>
+
         <B2BProcess />
+
         <Suspense fallback={<div>Загрузка...</div>}>
           <B2BCases />
         </Suspense>
+
         <B2BDocuments />
+
+        <GuaranteesDelivery />
+
+        <Suspense fallback={<div>Загрузка...</div>}>
+          <Testimonials />
+        </Suspense>
+
+        <Suspense fallback={<div>Загрузка...</div>}>
+          <FAQ />
+        </Suspense>
+
+        <RetailCTA />
+
         <B2BCTA />
       </div>
 

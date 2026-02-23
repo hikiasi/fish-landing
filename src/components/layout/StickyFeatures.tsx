@@ -158,11 +158,6 @@ export function StickyFeatures() {
                     <div className="text-slate-400 text-xs uppercase tracking-widest mb-1">Итого к оплате:</div>
                     <div className="text-3xl font-extrabold text-slate-900">{totalPrice.toLocaleString()} ₽</div>
                   </div>
-                  {totalPrice < 2000 && (
-                    <div className="text-[10px] text-orange-500 font-bold uppercase text-right">
-                      До бесплатной доставки <br /> ещё {(2000 - totalPrice)} ₽
-                    </div>
-                  )}
                 </div>
                 <Button
                   className="w-full h-12 md:h-14 bg-sky-600 hover:bg-sky-700 text-lg font-bold rounded-2xl shadow-xl shadow-sky-100 transition-all"

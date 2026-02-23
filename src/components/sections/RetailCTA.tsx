@@ -34,10 +34,10 @@ export function RetailCTA() {
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, type: "RETAIL", comment: "Заявка на скидку 15% на первый заказ" })
+        body: JSON.stringify({ ...data, type: "B2B", comment: "Заявка на спецпредложение для первого оптового заказа" })
       })
       if (res.ok) {
-        alert("Заявка отправлена! Ваша скидка забронирована.")
+        alert("Заявка отправлена! Мы свяжемся с вами для обсуждения спецпредложения.")
         reset()
       }
     } catch (err) {
@@ -60,10 +60,10 @@ export function RetailCTA() {
 
           <div className="relative z-10">
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-6">
-              Закажите сейчас — получите <span className="text-orange-400">скидку 15%</span> на первый заказ
+              Закажите пробную партию — получите <span className="text-orange-400">спецусловия</span> на первый заказ
             </h2>
             <p className="text-sky-50 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-medium opacity-90">
-              Только для новых клиентов • Промокод: <span className="bg-white/20 px-3 py-1 rounded-lg">ПЕРВЫЙ15</span>
+              Только для новых бизнес-партнеров • Бесплатная доставка от 1 коробки
             </p>
 
             <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl mx-auto">
@@ -94,7 +94,7 @@ export function RetailCTA() {
                   className="h-14 md:h-16 px-10 bg-orange-500 hover:bg-orange-600 text-white rounded-2xl text-lg font-bold shadow-xl shadow-orange-900/20 whitespace-nowrap"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Отправка..." : "Получить скидку 15%"}
+                  {isSubmitting ? "Отправка..." : "Получить спецусловия"}
                 </Button>
               </div>
 
@@ -114,13 +114,13 @@ export function RetailCTA() {
 
                 <div className="flex flex-wrap justify-center gap-8 mt-4 text-[10px] font-bold uppercase tracking-widest text-sky-100">
                   <div className="flex items-center gap-2">
-                    <Truck className="w-4 h-4" /> Доставим сегодня
+                    <Truck className="w-4 h-4" /> Доставка от 1 коробки
                   </div>
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4" /> Вернём деньги за 5 минут
+                    <ShieldCheck className="w-4 h-4" /> Полный пакет документов
                   </div>
                   <div className="flex items-center gap-2">
-                    <RefreshCw className="w-4 h-4" /> Без предоплаты
+                    <RefreshCw className="w-4 h-4" /> Оплата при получении
                   </div>
                 </div>
               </div>
