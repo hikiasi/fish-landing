@@ -92,7 +92,7 @@ export function GuaranteesDelivery() {
                 { icon: Truck, title: "Бесплатно от 1 кор.", sub: "Доставка по Калининграду" },
                 { icon: Clock, title: "График поставок", sub: "3 раза в неделю" },
                 { icon: Snowflake, title: "Соблюдение режима", sub: "Хранение и перевозка при -25°C" },
-                { icon: Store, title: "Правая набережная 2", sub: "Самовывоз от 1 коробки" },
+                { icon: Store, title: "Самовывоз по предварительному звонку", sub: "Правая Набережная, 2" },
               ].map((item, i) => (
                 <div key={i} className="p-5 rounded-2xl border border-slate-100 bg-white shadow-sm">
                   <item.icon className="w-6 h-6 text-sky-500 mb-3" />
