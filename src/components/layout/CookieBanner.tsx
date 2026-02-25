@@ -44,7 +44,7 @@ export function CookieBanner() {
 
             <p className="text-sm leading-relaxed text-slate-300 mb-4">
               Сайт использует файлы cookie и сервис Яндекс.Метрика. Данные не передаются третьим лицам. Подробнее в{' '}
-              <a href="/privacy" className="text-blue-400 hover:underline">политике конфиденциальности</a>.
+              <a href="/legal/cookies" className="text-blue-400 hover:underline">политике использования cookie</a>.
               Продолжая пользоваться сайтом, вы соглашаетесь с этим.
             </p>
 

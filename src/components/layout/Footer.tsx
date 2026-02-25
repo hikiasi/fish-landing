@@ -73,12 +73,19 @@ export function Footer() {
               <div>ИНН: 390400499460</div>
               <div>ОГРНИП: 324390000018143</div>
             </div>
-            <ul className="space-y-4">
-              {["Политика конфиденциальности", "Пользовательское соглашение", "Договор оферты"].map((item, i) => (
-                <li key={i}>
-                  <a href="#" className="text-xs text-slate-400 hover:text-sky-600 transition-colors">{item}</a>
-                </li>
-              ))}
+            <ul className="space-y-3">
+              <li>
+                <a href="/legal/privacy" className="text-[10px] text-slate-400 hover:text-sky-600 transition-colors">Политика конфиденциальности</a>
+              </li>
+              <li>
+                <a href="/legal/offer" className="text-[10px] text-slate-400 hover:text-sky-600 transition-colors">Публичная оферта</a>
+              </li>
+              <li>
+                <a href="/legal/consent" className="text-[10px] text-slate-400 hover:text-sky-600 transition-colors">Согласие на обработку данных</a>
+              </li>
+              <li>
+                <a href="/legal/cookies" className="text-[10px] text-slate-400 hover:text-sky-600 transition-colors">Использование файлов cookie</a>
+              </li>
             </ul>
           </div>
         </div>

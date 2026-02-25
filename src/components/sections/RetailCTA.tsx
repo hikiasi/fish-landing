@@ -107,7 +107,7 @@ export function RetailCTA() {
                     className="mt-1 border-white/50 data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500"
                   />
                   <label htmlFor="cta-agree" className="text-[10px] text-sky-100 leading-tight text-left">
-                    Согласен с <a href="#" className="underline">политикой конфиденциальности</a> и даю согласие на <a href="#" className="underline">обработку персональных данных</a>
+                    Согласен с <a href="/legal/privacy" className="underline hover:text-white">политикой конфиденциальности</a> и даю согласие на <a href="/legal/consent" className="underline hover:text-white">обработку персональных данных</a>
                   </label>
                 </div>
                 {errors.agree && <p className="text-orange-300 text-[10px]">{errors.agree.message}</p>}

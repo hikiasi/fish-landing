@@ -136,7 +136,7 @@ export function CheckoutModal({ isOpen, onClose, type }: CheckoutModalProps) {
                 className="mt-1"
               />
               <label htmlFor="checkout-agree" className="text-[10px] text-slate-400 leading-tight">
-                Согласен с <a href="#" className="underline font-medium">политикой конфиденциальности</a> и даю согласие на <a href="#" className="underline font-medium">обработку персональных данных</a>
+                Согласен с <a href="/legal/privacy" className="underline font-medium hover:text-sky-600">политикой конфиденциальности</a> и даю согласие на <a href="/legal/consent" className="underline font-medium hover:text-sky-600">обработку персональных данных</a>
               </label>
             </div>
             {errors.agree && <p className="text-red-500 text-[10px]">{errors.agree.message}</p>}
