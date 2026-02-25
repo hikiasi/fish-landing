@@ -3,12 +3,6 @@ import dynamic from "next/dynamic"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { HeroSplitter } from "@/components/sections/HeroSplitter"
-import { GuaranteesDelivery } from "@/components/sections/GuaranteesDelivery"
-import { RetailCTA } from "@/components/sections/RetailCTA"
-import { B2BHero } from "@/components/sections/B2BHero"
-import { B2BProcess } from "@/components/sections/B2BProcess"
-import { B2BDocuments } from "@/components/sections/B2BDocuments"
-import { B2BCTA } from "@/components/sections/B2BCTA"
 
 // Dynamic imports for heavy or interactive components below the fold
 const RetailCatalog = dynamic(() => import("@/components/sections/RetailCatalog").then(mod => mod.RetailCatalog), {
@@ -27,6 +21,18 @@ const B2BCases = dynamic(() => import("@/components/sections/B2BCases").then(mod
 
 const StickyFeatures = dynamic(() => import("@/components/layout/StickyFeatures").then(mod => mod.StickyFeatures))
 
+const B2BHero = dynamic(() => import("@/components/sections/B2BHero").then(mod => mod.B2BHero))
+
+const B2BProcess = dynamic(() => import("@/components/sections/B2BProcess").then(mod => mod.B2BProcess))
+
+const B2BDocuments = dynamic(() => import("@/components/sections/B2BDocuments").then(mod => mod.B2BDocuments))
+
+const GuaranteesDelivery = dynamic(() => import("@/components/sections/GuaranteesDelivery").then(mod => mod.GuaranteesDelivery))
+
+const RetailCTA = dynamic(() => import("@/components/sections/RetailCTA").then(mod => mod.RetailCTA))
+
+const B2BCTA = dynamic(() => import("@/components/sections/B2BCTA").then(mod => mod.B2BCTA))
+
 export default function Home() {
   return (
     <main className="min-h-screen">
@@ -36,7 +42,9 @@ export default function Home() {
       
       {/* B2B Section - Main focus now */}
       <div id="b2b-section">
-        <B2BHero />
+        <Suspense fallback={<div>Загрузка...</div>}>
+          <B2BHero />
+        </Suspense>
 
         <Suspense fallback={<div>Загрузка...</div>}>
           <B2BEconomy />
@@ -50,15 +58,21 @@ export default function Home() {
           <B2BCatalog />
         </Suspense>
 
-        <B2BProcess />
+        <Suspense fallback={<div>Загрузка...</div>}>
+          <B2BProcess />
+        </Suspense>
 
         <Suspense fallback={<div>Загрузка...</div>}>
           <B2BCases />
         </Suspense>
 
-        <B2BDocuments />
+        <Suspense fallback={<div>Загрузка...</div>}>
+          <B2BDocuments />
+        </Suspense>
 
-        <GuaranteesDelivery />
+        <Suspense fallback={<div>Загрузка...</div>}>
+          <GuaranteesDelivery />
+        </Suspense>
 
         <Suspense fallback={<div>Загрузка...</div>}>
           <Testimonials />
@@ -68,9 +82,13 @@ export default function Home() {
           <FAQ />
         </Suspense>
 
-        <RetailCTA />
+        <Suspense fallback={<div>Загрузка...</div>}>
+          <RetailCTA />
+        </Suspense>
 
-        <B2BCTA />
+        <Suspense fallback={<div>Загрузка...</div>}>
+          <B2BCTA />
+        </Suspense>
       </div>
 
       <Footer />

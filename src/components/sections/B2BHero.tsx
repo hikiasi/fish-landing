@@ -108,11 +108,11 @@ export function B2BHero() {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Input placeholder="Название компании" {...register("company")} className="h-12 md:h-14 rounded-2xl border-white bg-white shadow-sm" />
+                    <Input placeholder="Название компании" {...register("company")} className="h-12 md:h-14 rounded-2xl border-white bg-white shadow-sm" aria-label="Название компании" />
                     {errors.company && <p className="text-red-500 text-xs mt-1">{errors.company.message}</p>}
                   </div>
                   <div>
-                    <Input placeholder="Как к вам обращаться?" {...register("name")} className="h-12 md:h-14 rounded-2xl border-white bg-white shadow-sm" />
+                    <Input placeholder="Как к вам обращаться?" {...register("name")} className="h-12 md:h-14 rounded-2xl border-white bg-white shadow-sm" aria-label="Ваше имя" />
                     {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
                   </div>
                 </div>
@@ -126,11 +126,12 @@ export function B2BHero() {
                           type="tel"
                       placeholder="+7 (___) ___-__-__"
                       className="h-12 md:h-14 rounded-2xl border-white bg-white shadow-sm"
+                      aria-label="Номер телефона"
                         />
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
                   </div>
                   <div>
-                    <Input placeholder="Email" {...register("email")} className="h-12 md:h-14 rounded-2xl border-white bg-white shadow-sm" />
+                    <Input placeholder="Email" {...register("email")} className="h-12 md:h-14 rounded-2xl border-white bg-white shadow-sm" aria-label="Электронная почта" />
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
                   </div>
                 </div>

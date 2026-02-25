@@ -82,10 +82,10 @@ export function B2BCTA() {
           <div className="lg:w-2/5 p-6 md:p-12 bg-slate-50">
             <h3 className="text-2xl font-bold text-slate-900 mb-8">Заявка на сотрудничество</h3>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <Input placeholder="Компания / ресторан" {...register("company")} className="h-12 md:h-14 rounded-2xl border-slate-200 bg-white" />
+              <Input placeholder="Компания / ресторан" {...register("company")} className="h-12 md:h-14 rounded-2xl border-slate-200 bg-white" aria-label="Компания или ресторан" />
               {errors.company && <p className="text-red-500 text-xs mt-1">{errors.company.message}</p>}
 
-              <Input placeholder="Контактное лицо" {...register("name")} className="h-12 md:h-14 rounded-2xl border-slate-200 bg-white" />
+              <Input placeholder="Контактное лицо" {...register("name")} className="h-12 md:h-14 rounded-2xl border-slate-200 bg-white" aria-label="Контактное лицо" />
               {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
 
               <PatternFormat
@@ -96,10 +96,11 @@ export function B2BCTA() {
                 type="tel"
                 placeholder="+7 (___) ___-__-__"
                 className="h-12 md:h-14 rounded-2xl border-slate-200 bg-white"
+                aria-label="Номер телефона"
               />
               {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
 
-              <Input placeholder="Email" {...register("email")} className="h-12 md:h-14 rounded-2xl border-slate-200 bg-white" />
+              <Input placeholder="Email" {...register("email")} className="h-12 md:h-14 rounded-2xl border-slate-200 bg-white" aria-label="Электронная почта" />
               {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
 
               <label htmlFor="cta-interest" className="sr-only">Цель обращения</label>

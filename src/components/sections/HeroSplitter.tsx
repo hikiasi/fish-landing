@@ -19,15 +19,12 @@ export function HeroSplitter() {
       <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
         <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-sky-300 rounded-full blur-[120px] opacity-20 animate-pulse" />
         <div className="absolute -bottom-[20%] -right-[10%] w-[70%] h-[70%] bg-orange-300 rounded-full blur-[120px] opacity-15 animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 grayscale" />
+        <div className="absolute inset-0 bg-[url('/patterns/cubes.png')] opacity-20 grayscale" />
       </div>
 
       <div className="relative z-20 w-full max-w-6xl mx-auto flex flex-col items-center">
         {/* Logo and Tagline */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div
           className="flex flex-col items-center mb-8"
         >
           <div className="flex items-center gap-2 text-2xl font-bold text-sky-600 mb-2">
@@ -39,27 +36,21 @@ export function HeroSplitter() {
           <div className="text-sm uppercase tracking-widest text-slate-500 font-medium">
             Оптовые поставки
           </div>
-        </motion.div>
+        </div>
 
         {/* Main Heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <h1
           className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-center text-slate-900 mb-4 leading-tight uppercase"
         >
           СВЕЖЕМОРОЖЕНАЯ РЫБА <br />
           <span className="text-sky-600">И МОРЕПРОДУКТЫ</span>
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+        <p
           className="text-xl md:text-2xl text-slate-600 mb-12 font-medium"
         >
           Прямые поставки → Ваш стол
-        </motion.p>
+        </p>
 
         {/* Choice Blocks */}
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6 w-full max-w-xl mb-12">
@@ -117,10 +108,7 @@ export function HeroSplitter() {
         </div>
 
         {/* Mini USPs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
+        <div
           className="flex flex-wrap justify-center gap-8 md:gap-12"
         >
           <div className="flex items-center gap-2 text-slate-500 text-sm font-medium">
@@ -135,7 +123,7 @@ export function HeroSplitter() {
             <Box className="w-5 h-5 text-sky-500" />
             <span>Вакуумная упаковка</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

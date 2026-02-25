@@ -29,7 +29,6 @@ export default function RootLayout({
     <html lang="ru">
       <head>
         <meta name="yandex-verification" content="3cd204cc54a0710d" />
-        <link rel="preconnect" href="https://www.transparenttextures.com" crossOrigin="anonymous" />
       </head>
       <body
         className={`${inter.variable} ${manrope.variable} font-sans antialiased bg-slate-50 text-slate-900`}
