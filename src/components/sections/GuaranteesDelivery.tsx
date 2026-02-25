@@ -111,6 +111,7 @@ export function GuaranteesDelivery() {
                 frameBorder="0"
                 allowFullScreen={true}
                 className="relative z-10"
+                title="Расположение склада Океаника на Яндекс.Картах"
               ></iframe>
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="animate-pulse flex flex-col items-center gap-2">

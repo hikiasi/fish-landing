@@ -38,6 +38,7 @@ export function CookieBanner() {
             <button
               onClick={() => setIsVisible(false)}
               className="absolute top-0 right-0 text-slate-400 hover:text-white transition-colors"
+              aria-label="Закрыть уведомление о куки"
             >
               <X className="w-5 h-5" />
             </button>

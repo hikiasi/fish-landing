@@ -102,7 +102,9 @@ export function B2BCTA() {
               <Input placeholder="Email" {...register("email")} className="h-12 md:h-14 rounded-2xl border-slate-200 bg-white" />
               {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
 
+              <label htmlFor="cta-interest" className="sr-only">Цель обращения</label>
               <select
+                id="cta-interest"
                 {...register("interest")}
                 className="w-full h-14 rounded-2xl border border-slate-200 bg-white px-4 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20"
               >

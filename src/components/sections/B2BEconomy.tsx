@@ -73,10 +73,11 @@ export function B2BEconomy() {
             
             <div className="mb-12">
               <div className="flex justify-between items-center mb-6">
-                <span className="text-slate-400 text-sm">Ваша средняя закупка в месяц:</span>
+                <label htmlFor="volume-range" className="text-slate-400 text-sm">Ваша средняя закупка в месяц:</label>
                 <span className="text-2xl font-bold text-sky-400">{volume} кг</span>
               </div>
               <input 
+                id="volume-range"
                 type="range" 
                 min="10"
                 max="2000" 
@@ -84,6 +85,7 @@ export function B2BEconomy() {
                 value={volume}
                 onChange={(e) => setVolume(parseInt(e.target.value))}
                 className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500"
+                aria-label="Объем закупки в килограммах"
               />
               <div className="flex justify-between text-[10px] text-slate-600 uppercase tracking-widest mt-4">
                 <span>10 кг</span>
