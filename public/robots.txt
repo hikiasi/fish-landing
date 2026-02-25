@@ -4,4 +4,4 @@ Disallow: /api/
 Disallow: /bin/
 Disallow: /search/
 
-Sitemap: https://fish-landing.vercel.app/sitemap.xml
+Sitemap: https://oceanica39.ru/sitemap.xml

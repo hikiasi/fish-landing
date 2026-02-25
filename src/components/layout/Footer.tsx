@@ -13,7 +13,7 @@ export function Footer() {
               <div className="w-10 h-10 bg-sky-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-sky-100">
                 <Ship className="w-6 h-6" />
               </div>
-              <span className="font-bold text-xl text-slate-900">Калининградская рыба</span>
+              <span className="font-bold text-xl text-slate-900">Океаника</span>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed">
               Поставки свежемороженой рыбы и морепродуктов высокого качества в Калининграде и области.
@@ -85,7 +85,7 @@ export function Footer() {
 
         <div className="pt-8 border-t border-slate-50 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-xs text-slate-400">
-            © {new Date().getFullYear()} Калининградская рыба. Все права защищены.
+            © {new Date().getFullYear()} Океаника. Все права защищены.
           </div>
           <div className="flex items-center gap-4 text-[10px] text-slate-300 font-bold uppercase tracking-widest">
             Нам доверяют более 5000 клиентов

@@ -1,4 +1,4 @@
-# 🐟 Калининградская рыба: Платформа для продажи рыбы
+# 🐟 Океаника: Платформа для продажи рыбы
 
 ![Hero](https://i.imgur.com/your-hero-image.png) <!-- Replace with an actual screenshot -->
 

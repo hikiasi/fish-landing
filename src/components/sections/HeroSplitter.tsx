@@ -34,7 +34,7 @@ export function HeroSplitter() {
             <div className="w-10 h-10 bg-sky-600 rounded-xl flex items-center justify-center text-white">
               <Ship className="w-6 h-6" />
             </div>
-            <span>Калининградская рыба</span>
+            <span>Океаника</span>
           </div>
           <div className="text-sm uppercase tracking-widest text-slate-500 font-medium">
             Оптовые поставки

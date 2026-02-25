@@ -13,7 +13,7 @@ const B2B_CASES = [
     result: "Снижение фудкоста • Стабильное качество • Рост заказов темпуры",
     quote: "Креветки пришли не варёные, как раньше, — сырые, крупные. Темпура получается хрустящей, не резиновой.",
     author: "Шеф-повар Акира",
-    image: "https://images.unsplash.com/photo-1577106263724-2c8e03bfe9cf?q=80&w=400&auto=format&fit=crop"
+    image: "/uploads/case-tokyo.jpg"
   },
   {
     type: "Сеть продуктовых магазинов",
@@ -23,7 +23,7 @@ const B2B_CASES = [
     result: "Списания снизились до 3% • Маржа выросла с 22% до 31%",
     quote: "Покупатели стали спрашивать: откуда такая рыба? Свежесть действительно на высоте.",
     author: "Управляющий Иван П.",
-    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=400&auto=format&fit=crop"
+    image: "/uploads/case-semya.jpg"
   }
 ]
 

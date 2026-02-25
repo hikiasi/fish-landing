@@ -64,7 +64,7 @@ export function Header() {
             <Ship className="w-6 h-6" />
           </div>
           <div className={cn("hidden sm:block font-bold transition-colors", isScrolled ? "text-slate-900" : "text-sky-900")}>
-            Калининградская рыба
+            Океаника
           </div>
         </div>
 

@@ -22,7 +22,7 @@ const REVIEWS = [
     rating: 5,
     date: "2 недели назад",
     text: "Работаем с ребятами уже несколько месяцев. Продукция всегда отличного качества, никакой глазури. Покупатели в восторге от аргентинских креветок и чилийского лосося.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop",
+    avatar: "/uploads/testimonial-marina.jpg",
   },
   {
     name: "Александр",
@@ -30,7 +30,7 @@ const REVIEWS = [
     rating: 5,
     date: "1 месяц назад",
     text: "Для нас критически важно качество и соблюдение сроков. Поставки 3 раза в неделю позволяют всегда иметь свежий продукт. Стейки палтуса и сибас — топ!",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop",
+    avatar: "/uploads/testimonial-alexander.jpg",
   },
   {
     name: "Елена",
@@ -38,7 +38,7 @@ const REVIEWS = [
     rating: 5,
     date: "3 недели назад",
     text: "Берем рыбу для ланчей и завтраков. Всегда чистый вес, без льда. Очень удобно, что есть полный пакет документов Меркурий.",
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop",
+    avatar: "/uploads/testimonial-elena.jpg",
   },
   {
     name: "Игорь",
@@ -46,7 +46,7 @@ const REVIEWS = [
     rating: 5,
     date: "5 дней назад",
     text: "Лучшие цены в городе на креветки Ваннамей и Лангустины. Доставка быстрая, водители вежливые. Рекомендую как надежного партнера.",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&auto=format&fit=crop",
+    avatar: "/uploads/testimonial-igor.jpg",
   },
 ]
 
