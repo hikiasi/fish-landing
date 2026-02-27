@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <head>
-        <meta name="yandex-verification" content="3cd204cc54a0710d" />
+        <meta name="yandex-verification" content="8fcd8e67616dddd3" />
       </head>
       <body
         className={`${inter.variable} ${manrope.variable} font-sans antialiased bg-slate-50 text-slate-900`}
@@ -44,9 +44,9 @@ export default function RootLayout({
               m[i].l=1*new Date();
               for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
               k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-            })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106838565', 'ym');
+            })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107041309', 'ym');
 
-            ym(106838565, 'init', {
+            ym(107041309, 'init', {
               ssr:true,
               clickmap:true,
               trackLinks:true,
@@ -57,7 +57,7 @@ export default function RootLayout({
           `}
         </Script>
         <noscript>
-          <div><img src="https://mc.yandex.ru/watch/106838565" style={{position:'absolute', left:'-9999px'}} alt="" /></div>
+          <div><img src="https://mc.yandex.ru/watch/107041309" style={{position:'absolute', left:'-9999px'}} alt="" /></div>
         </noscript>
       </body>
     </html>
