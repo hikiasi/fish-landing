@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  price       Float
+  oldPrice    Float?
+  weight      String
+  category    String
+  description String
+  image       String
+  isHit       Boolean  @default(false)
+  isNew       Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model B2BProduct {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  price       Float // This can be the base price or price for 50-200kg
+  price200    Float? // Price for 200kg+
+  oldPrice    Float?
+  weight      String // pack size
+  category    String
+  description String
+  image       String
+  isHit       Boolean  @default(false)
+  isNew       Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model User {
+  id       String @id @default(cuid())
+  username String @unique
+  password String
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  type      String   // 'RETAIL' or 'B2B'
+  name      String
+  phone     String
+  email     String?
+  address   String?
+  comment   String?
+  products  String?  // JSON string of products
+  total     Float?
+  status    String   @default("NEW")
+  createdAt DateTime @default(now())
+}
