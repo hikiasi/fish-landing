@@ -2,7 +2,7 @@ import LegalLayout from '@/components/layout/LegalLayout';
 
 export const metadata = {
   title: 'Политика использования файлов cookie | Океаника',
-  description: 'Информация об использовании файлов cookie на сайте oceanica39.ru',
+  description: 'Информация об использовании файлов cookie на сайте oceanica-39.ru',
 };
 
 export default function CookiesPage() {
@@ -17,7 +17,7 @@ export default function CookiesPage() {
 
       <section>
         <h2 className="text-xl font-bold mb-4 mt-8">2. Как мы используем cookie</h2>
-        <p>На сайте oceanica39.ru мы используем cookie для следующих целей:</p>
+        <p>На сайте oceanica-39.ru мы используем cookie для следующих целей:</p>
         <ul className="list-disc pl-6 space-y-2 mt-4">
           <li><strong>Технические cookie:</strong> необходимы для корректной работы сайта и его функций (например, работа корзины).</li>
           <li><strong>Аналитические cookie:</strong> помогают нам понять, как пользователи взаимодействуют с сайтом, какие страницы наиболее популярны. Мы используем для этого Яндекс.Метрику.</li>

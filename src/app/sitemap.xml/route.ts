@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const SITE_URL = 'https://oceanica39.ru/';
+const SITE_URL = 'https://oceanica-39.ru/';
 
 export async function GET() {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

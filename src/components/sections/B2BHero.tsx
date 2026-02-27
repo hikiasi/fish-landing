@@ -86,9 +86,9 @@ export function B2BHero() {
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 pt-6 border-t border-slate-100">
                 <div className="text-sm font-medium text-slate-400 uppercase tracking-widest">Нам доверяют:</div>
                 <div className="flex flex-wrap justify-center gap-4 sm:gap-8 grayscale opacity-40">
-                  <div className="font-black text-xl italic">HORECA</div>
-                  <div className="font-black text-xl italic">RETAIL</div>
-                  <div className="font-black text-xl italic">NETWORKS</div>
+                  <div className="font-black text-xl italic">ХОРЕКА</div>
+                  <div className="font-black text-xl italic">РОЗНИЦА</div>
+                  <div className="font-black text-xl italic">ОПТ</div>
                 </div>
               </div>
             </motion.div>
